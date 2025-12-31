@@ -1,6 +1,6 @@
 export default {
   api: {
-    root: import.meta.env.VITE_API_ROOT,
+    root: import.meta.env.VITE_API_ROOT || "",
     unreachableErrorMessage:
       import.meta.env.VITE_API_UNREACHABLE_ERROR_MESSAGE ?? "Unable to communicate with server"
   },

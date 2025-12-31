@@ -31,8 +31,8 @@ const Bank: React.FC<IBankProps> = ({
 
       <div className="mb-4">
         <ValuePlayerForm
-          label="Give Money To Player"
-          submitText="Send"
+          label="Dar Dinero al Jugador"
+          submitText="Enviar"
           players={players}
           onSubmit={(value: number, playerId: string) =>
             proposeTransaction("bank", playerId, value)
@@ -63,8 +63,8 @@ const Bank: React.FC<IBankProps> = ({
 
       <div className="mb-4">
         <ValuePlayerForm
-          label="Take Money From Player"
-          submitText="Take"
+          label="Tomar Dinero del Jugador"
+          submitText="Tomar"
           players={players}
           onSubmit={(value: number, playerId: string) =>
             proposeTransaction(playerId, "bank", value)
@@ -76,3 +76,4 @@ const Bank: React.FC<IBankProps> = ({
 };
 
 export default Bank;
+

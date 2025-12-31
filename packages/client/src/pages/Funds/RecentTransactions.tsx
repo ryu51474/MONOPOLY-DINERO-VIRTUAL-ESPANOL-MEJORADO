@@ -26,7 +26,7 @@ const RecentTransactions: React.FC<IRecentTransactionsProps> = ({ events, player
       return bankName;
     } else {
       const player = players.find((p) => p.playerId === entity);
-      return player?.name ?? "[Deleted User]";
+      return player?.name ?? "[Usuario Eliminado]";
     }
   };
 
@@ -82,7 +82,8 @@ const SecondsSinceLabel = ({ transactionTime }: SecondsSinceLabelProps) => {
     };
   }, [intervalRef]);
 
-  return <span className="text-muted">({seconds}s ago)</span>;
+  return <span className="text-muted">({seconds}s atrás)</span>;
 };
 
 export default RecentTransactions;
+

@@ -12,7 +12,7 @@ const MessageModal: React.FC<IMessageModalProps> = ({
   title,
   body,
   onClose,
-  closeButtonText = "Ok"
+  closeButtonText = "Aceptar"
 }) => {
   return (
     <Modal show={true} onHide={onClose} size="lg" centered className="send-money-modal">

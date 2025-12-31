@@ -29,31 +29,31 @@ const Navigation: React.FC<INavigationProps> = ({ inGame, isBanker }) => {
     {
       path: routePaths.funds,
       active: inGame,
-      title: "Funds",
+      title: "Fondos",
       icon: FundsIcon
     },
     {
       path: routePaths.history,
       active: inGame,
-      title: "History",
+      title: "Historial",
       icon: ListIcon
     },
     {
       path: routePaths.bank,
       active: inGame && isBanker,
-      title: "Bank",
+      title: "Banco",
       icon: BankIcon
     },
     {
       path: routePaths.settings,
       active: inGame && isBanker,
-      title: "Settings",
+      title: "Configuración",
       icon: SettingsIcon
     },
     {
       path: routePaths.help,
       active: true,
-      title: "Help",
+      title: "Ayuda",
       icon: HelpIcon
     }
   ];
@@ -105,3 +105,4 @@ const Navigation: React.FC<INavigationProps> = ({ inGame, isBanker }) => {
 };
 
 export default Navigation;
+

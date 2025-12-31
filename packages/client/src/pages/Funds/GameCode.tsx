@@ -15,7 +15,7 @@ const GameCode: React.FC<IGameCodeProps> = ({ gameId, isBanker }) => {
 
   const gameIdClicked = () => {
     showMessage({
-      title: "Share game",
+      title: "Compartir juego",
       body: <ShareGameModalContent gameId={gameId} />,
       closeButtonText: null
     });
@@ -27,11 +27,14 @@ const GameCode: React.FC<IGameCodeProps> = ({ gameId, isBanker }) => {
       <h1 onClick={gameIdClicked}>{gameId}</h1>
       <div>
         <small className="text-muted">
-          Tap the code above to get a QR code or copy a link to help other players join
+          Toca el código de arriba para obtener un código QR o copiar un enlace para ayudar a otros
+          jugadores a unirse
         </small>
       </div>
       {isBanker && (
-        <small className="text-muted">You can hide this by closing the game in the settings</small>
+        <small className="text-muted">
+          Puedes ocultar esto cerrando el juego en la configuración
+        </small>
       )}
       <hr />
     </div>
@@ -56,21 +59,23 @@ const ShareGameModalContent = ({ gameId }: ShareGameModalContentProps) => {
 
   return (
     <>
-      <p className="text-center">Get others to scan the code below to join your game</p>
+      <p className="text-center">
+        Haz que otros escaneen el código de abajo para unirse a tu juego
+      </p>
       <div className="mt-4 text-center">
         <QRCode value={shareLink} />
       </div>
 
       <div className="mt-4">
         <Button block onClick={copyLink} ref={copyTooltipTarget}>
-          Copy link to send to others
+          Copiar enlace para enviar a otros
         </Button>
       </div>
 
       <Overlay target={copyTooltipTarget.current} show={clipboard.copied} placement="bottom">
         {(props) => (
           <Tooltip id="overlay-example" {...props}>
-            Copied to clipboard
+            Copiado al portapapeles
           </Tooltip>
         )}
       </Overlay>
@@ -79,3 +84,4 @@ const ShareGameModalContent = ({ gameId }: ShareGameModalContentProps) => {
 };
 
 export default GameCode;
+

@@ -12,6 +12,9 @@
     "moduleDetection": "force",
     "noEmit": true,
 
+    /* Node.js */
+    "types": ["node"],
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,

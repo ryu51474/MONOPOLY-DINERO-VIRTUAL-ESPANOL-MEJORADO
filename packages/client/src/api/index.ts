@@ -6,8 +6,13 @@ import {
 } from "@monopoly-money/server/build/api/dto";
 import config from "../config";
 
+// Helper to get API root - uses current browser IP if config.api.root is empty
+const getApiRoot = (): string => {
+  return config.api.root || `http://${window.location.hostname}${window.location.port ? `:${window.location.port}` : ""}`;
+};
+
 export const createGame = (name: string): Promise<IJoinGameResponse> => {
-  return fetch(`${config.api.root}/api/game`, {
+  return fetch(`${getApiRoot()}/api/game`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -26,7 +31,7 @@ export const joinGame = async (
   gameId: string,
   name: string
 ): Promise<IJoinGameResponse | "DoesNotExist" | "NotOpen"> => {
-  const response = await fetch(`${config.api.root}/api/game/${gameId}`, {
+  const response = await fetch(`${getApiRoot()}/api/game/${gameId}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -50,7 +55,7 @@ export const getGameStatus = async (
   userToken: string,
   abortController: AbortController | undefined
 ): Promise<IGameState | "DoesNotExist" | "Unauthorized"> => {
-  const response = await fetch(`${config.api.root}/api/game/${gameId}`, {
+  const response = await fetch(`${getApiRoot()}/api/game/${gameId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",

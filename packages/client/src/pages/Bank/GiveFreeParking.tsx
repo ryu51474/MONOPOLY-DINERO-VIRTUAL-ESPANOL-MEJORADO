@@ -28,7 +28,7 @@ const GiveFreeParking: React.FC<IGiveFreeParkingProps> = ({
   return (
     <>
       <label htmlFor="free-parking-player" className="mb-1">
-        Give Free Parking ({formatCurrency(freeParkingBalance)})
+        Dar Estacionamiento Libre ({formatCurrency(freeParkingBalance)})
       </label>
 
       <ButtonGroup className="mt-1 player-and-submit-group">
@@ -36,7 +36,7 @@ const GiveFreeParking: React.FC<IGiveFreeParkingProps> = ({
           as={ButtonGroup}
           variant="outline-secondary"
           id="free-parking-player"
-          title={selectedPlayer?.name ?? "Select Player"}
+          title={selectedPlayer?.name ?? "Seleccionar Jugador"}
         >
           {players.map((player) => (
             <Dropdown.Item key={player.playerId} onClick={() => setSelectedPlayer(player)}>
@@ -46,7 +46,7 @@ const GiveFreeParking: React.FC<IGiveFreeParkingProps> = ({
         </DropdownButton>
 
         <Button variant="outline-secondary" onClick={submit} disabled={!valid}>
-          Give
+          Dar
         </Button>
       </ButtonGroup>
     </>
@@ -54,3 +54,4 @@ const GiveFreeParking: React.FC<IGiveFreeParkingProps> = ({
 };
 
 export default GiveFreeParking;
+

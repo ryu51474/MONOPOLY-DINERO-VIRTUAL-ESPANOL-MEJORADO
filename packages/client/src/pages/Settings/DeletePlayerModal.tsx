@@ -21,14 +21,14 @@ const DeletePlayerModal: React.FC<IDeletePlayerModalProps> = ({
         onPointerLeaveCapture={undefined}
         placeholder={undefined}
       >
-        <Modal.Title>Remove Player</Modal.Title>
+        <Modal.Title>Eliminar Jugador</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Are you sure you want to remove {player.name}?</p>
+        <p>¿Estás seguro de que quieres eliminar a {player.name}?</p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="danger" onClick={onClose}>
-          Cancel
+          Cancelar
         </Button>
         <Button
           variant="success"
@@ -38,7 +38,7 @@ const DeletePlayerModal: React.FC<IDeletePlayerModalProps> = ({
             onClose();
           }}
         >
-          Remove
+          Eliminar
         </Button>
       </Modal.Footer>
     </Modal>
@@ -46,3 +46,4 @@ const DeletePlayerModal: React.FC<IDeletePlayerModalProps> = ({
 };
 
 export default DeletePlayerModal;
+

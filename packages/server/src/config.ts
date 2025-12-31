@@ -5,6 +5,6 @@ export default {
   },
   server: {
     allowed_origins: process.env.SERVER_ALLOWED_ORIGINS?.split(","),
-    port: process.env.PORT || 5000
+    port: process.env.PORT || 3000
   }
 };

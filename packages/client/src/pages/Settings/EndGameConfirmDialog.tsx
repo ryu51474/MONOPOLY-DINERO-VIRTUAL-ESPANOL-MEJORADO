@@ -19,15 +19,15 @@ const EndGameConfirmDialog: React.FC<IEndGameConfirmDialogProps> = ({
         onPointerLeaveCapture={undefined}
         placeholder={undefined}
       >
-        <Modal.Title>End Game</Modal.Title>
+        <Modal.Title>Terminar Juego</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <p>Are you sure you want to end the game?</p>
-        <p>This will kick everyone and you will not be able to re-join the game.</p>
+        <p>¿Estás seguro de que quieres terminar el juego?</p>
+        <p>Esto expulsará a todos y no podrás volver a unirte al juego.</p>
       </Modal.Body>
       <Modal.Footer>
         <Button variant="danger" onClick={onClose}>
-          Cancel
+          Cancelar
         </Button>
         <Button
           variant="success"
@@ -38,7 +38,7 @@ const EndGameConfirmDialog: React.FC<IEndGameConfirmDialogProps> = ({
             trackEndGame();
           }}
         >
-          End Game
+          Terminar Juego
         </Button>
       </Modal.Footer>
     </Modal>
@@ -46,3 +46,4 @@ const EndGameConfirmDialog: React.FC<IEndGameConfirmDialogProps> = ({
 };
 
 export default EndGameConfirmDialog;
+

@@ -24,7 +24,7 @@ const MetaTags: React.FC<IProps> = ({ route, children }) => {
     title,
     description: configPageMeta.description,
     charset: "utf-8",
-    lang: "en",
+    lang: "es",
     metas: [
       {
         name: "robots",

@@ -4,6 +4,168 @@ body {
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+/* Animación de entrada suave */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animación de pulse para elementos importantes */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+/* Animación de balance actualizado */
+@keyframes balanceFlash {
+  0% {
+    background-color: rgba(40, 167, 69, 0.2);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* Animación de conexión */
+@keyframes connectionPulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Animación de shake para errores */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+/* Clases de utilidad para animaciones */
+.fade-in-up {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+.balance-updated {
+  animation: balanceFlash 1s ease-out;
+}
+
+.connected {
+  animation: connectionPulse 2s infinite;
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Mejoras visuales para cards */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Botones más atractivos */
+.btn {
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+/* Inputs mejorados */
+.form-control {
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Navbar personalizado */
+.navbar {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar-brand, .navbar-nav .nav-link {
+  color: white !important;
+  font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+  opacity: 0.9;
+}
+
+/* Modal animations */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+  animation: fadeInUp 0.3s ease-out;
+}
+
+/* Table styling */
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Player card styling */
+.player-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.player-card:hover {
+  transform: scale(1.02);
+}
+
+.player-card:active {
+  transform: scale(0.98);
 }
 
 .remove-left-border-radius {

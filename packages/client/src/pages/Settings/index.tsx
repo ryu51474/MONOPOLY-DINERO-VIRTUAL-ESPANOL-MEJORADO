@@ -99,8 +99,8 @@ const Settings: React.FC<ISettingsProps> = ({
         <thead>
           <tr>
             <th></th>
-            <th>Name</th>
-            <th>Balance</th>
+            <th>Nombre</th>
+            <th>Saldo</th>
             <th></th>
           </tr>
         </thead>
@@ -116,27 +116,27 @@ const Settings: React.FC<ISettingsProps> = ({
                 <Button
                   variant="outline-secondary"
                   size="sm"
-                  title="Rename"
+                  title="Renombrar"
                   onClick={() => {
                     setActioningPlayer(player);
                     showNameChangeModal();
                   }}
                 >
-                  <span role="img" aria-label="Rename">
+                  <span role="img" aria-label="Renombrar">
                     ✏️
                   </span>
                 </Button>
                 <Button
                   variant="outline-danger"
                   size="sm"
-                  title="Remove"
+                  title="Eliminar"
                   className="ml-1"
                   onClick={() => {
                     setActioningPlayer(player);
                     showDeletePlayerModal();
                   }}
                 >
-                  <span role="img" aria-label="Remove">
+                  <span role="img" aria-label="Eliminar">
                     🗑️
                   </span>
                 </Button>
@@ -147,24 +147,24 @@ const Settings: React.FC<ISettingsProps> = ({
       </Table>
 
       <Button block variant="info" onClick={toggleFreeParking}>
-        {useFreeParking ? "Disable" : "Enable"} the Free Parking House Rule
+        {useFreeParking ? "Desactivar" : "Activar"} la Regla de Casa de Estacionamiento Libre
       </Button>
 
       <Button block variant="primary" onClick={toggleNewPlayersAllowed}>
-        {isGameOpen ? "Close" : "Open"} Game To New Players
+        {isGameOpen ? "Cerrar" : "Abrir"} Juego a Nuevos Jugadores
       </Button>
 
       <Button block variant="danger" onClick={() => showEndGameConfirmModal()}>
-        End Game
+        Terminar Juego
       </Button>
 
       <div className="mt-5 text-center">
         <div>
-          <small>Find this app helpful?</small>
+          <small>¿Te parece útil esta aplicación?</small>
         </div>
         <a href="https://www.buymeacoffee.com/brentvollebregt" target="_blank">
           <Button block variant="warning">
-            🍺 Buy a beer to say thanks 🍺
+            🍺 Compra una cerveza para dar las gracias 🍺
           </Button>
         </a>
       </div>
@@ -173,3 +173,4 @@ const Settings: React.FC<ISettingsProps> = ({
 };
 
 export default Settings;
+

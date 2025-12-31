@@ -12,7 +12,7 @@ interface IJoinProps {
 }
 
 const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
-  const title = newGame ? "Create Game" : "Join Game";
+  const title = newGame ? "Crear Juego" : "Unirse al Juego";
 
   const { storedGames } = useStoredGames(false);
   const [loading, setLoading] = useState(false);
@@ -32,7 +32,7 @@ const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
     } else if (newGame) {
       // Validity check
       if (name === "") {
-        setNameError("Please provide your name");
+        setNameError("Por favor proporciona tu nombre");
         return;
       }
       setNameError(null);
@@ -52,12 +52,12 @@ const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
     } else {
       // Validity check
       if (gameId === "") {
-        setGameError("Please provide the game Id");
+        setGameError("Por favor proporciona el ID del juego");
         return;
       }
       setGameError(null);
       if (name === "") {
-        setNameError("Please provide your name");
+        setNameError("Por favor proporciona tu nombre");
         return;
       }
       setNameError(null);
@@ -67,9 +67,9 @@ const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
       joinGame(gameId, name)
         .then((result) => {
           if (result === "DoesNotExist") {
-            setGameError("That game does not exist");
+            setGameError("Ese juego no existe");
           } else if (result === "NotOpen") {
-            setGameError("That game is not open. Ask the banker to open the game.");
+            setGameError("Ese juego no está abierto. Pide al banquero que abra el juego.");
           } else {
             onGameSetup(result.gameId, result.userToken, result.playerId);
             trackGameJoined();
@@ -89,7 +89,7 @@ const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
 
       {!newGame && (
         <Form.Group>
-          <Form.Label>Game Id</Form.Label>
+          <Form.Label>ID del Juego</Form.Label>
           <NumberFormat
             allowNegative={false}
             format="######"
@@ -106,13 +106,13 @@ const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
 
       {isAStoredGame ? (
         <p>
-          <em>You're already in this game - name is not required.</em>
+          <em>Ya estás en este juego - no se requiere nombre.</em>
         </p>
       ) : (
         <Form.Group>
-          <Form.Label>Your Name</Form.Label>
+          <Form.Label>Tu Nombre</Form.Label>
           <Form.Control
-            placeholder="Name"
+            placeholder="Nombre"
             value={name}
             className="text-center"
             onChange={(e) => setName(e.currentTarget.value)}
@@ -126,7 +126,7 @@ const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
       )}
 
       <Button block variant="primary" onClick={onSubmit} disabled={loading}>
-        {newGame ? "Create" : "Join"}
+        {newGame ? "Crear" : "Unirse"}
       </Button>
 
       {hasServerError && (
@@ -144,3 +144,4 @@ const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
 };
 
 export default Join;
+

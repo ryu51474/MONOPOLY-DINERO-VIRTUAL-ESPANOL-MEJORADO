@@ -2,8 +2,8 @@ import { IPageMeta } from "./components/MetaTags";
 
 export const siteUrl = "https://monopoly-money.nitratine.net";
 
-export const bankName = "🏦 Bank";
-export const freeParkingName = "🚗 Free Parking";
+export const bankName = "🏦 Banco";
+export const freeParkingName = "🚗 Estacionamiento Libre";
 
 export const routePaths = {
   home: "/",
@@ -20,37 +20,37 @@ export const pageMeta: Record<string, IPageMeta> = {
   [routePaths.home]: {
     titlePrefix: "",
     description:
-      "Monopoly Money helps you manage your finances in a game of monopoly from the browser.",
+      "Monopoly Money te ayuda a gestionar tus finanzas en una partida de Monopoly desde el navegador.",
     index: true
   },
   [routePaths.join]: {
-    titlePrefix: "Join Game",
-    description: "Join a Monopoly Money game",
+    titlePrefix: "Unirse al Juego",
+    description: "Únete a una partida de Monopoly Money",
     index: true
   },
   [routePaths.newGame]: {
-    titlePrefix: "New Game",
-    description: "Create a new Monopoly Money game",
+    titlePrefix: "Nuevo Juego",
+    description: "Crea una nueva partida de Monopoly Money",
     index: true
   },
   [routePaths.funds]: {
-    titlePrefix: "Manage Funds",
+    titlePrefix: "Gestionar Fondos",
     index: false
   },
   [routePaths.bank]: {
-    titlePrefix: "Bank",
+    titlePrefix: "Banco",
     index: false
   },
   [routePaths.history]: {
-    titlePrefix: "History",
+    titlePrefix: "Historial",
     index: false
   },
   [routePaths.settings]: {
-    titlePrefix: "Settings",
+    titlePrefix: "Configuración",
     index: false
   },
   [routePaths.help]: {
-    titlePrefix: "Help",
+    titlePrefix: "Ayuda",
     index: false
   }
 };

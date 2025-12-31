@@ -71,9 +71,9 @@ const getEventDetails = (
       const player = nextState.players.find((p) => p.playerId === event.playerId)!;
       return {
         ...defaults,
-        title: "Player Join",
+        title: "Unión de Jugador",
         actionedBy: null,
-        detail: `${player.name} joined`,
+        detail: `${player.name} se unió`,
         colour: "cyan"
       };
     }
@@ -83,9 +83,9 @@ const getEventDetails = (
       const actionedBy = previousState.players.find((p) => p.playerId === event.actionedBy)!;
       return {
         ...defaults,
-        title: "Player Banker Status Change",
+        title: "Cambio de Estado de Banquero",
         actionedBy: actionedBy.name,
-        detail: `${player.name} was made a banker`,
+        detail: `${player.name} se convirtió en banquero`,
         colour: "yellow"
       };
     }
@@ -106,7 +106,7 @@ const getEventDetails = (
       const actionedBy = previousState.players.find((p) => p.playerId === event.actionedBy)!;
       return {
         ...defaults,
-        title: `Transaction`,
+        title: `Transacción`,
         actionedBy: actionedBy.playerId === event.from ? null : actionedBy.name,
         detail: `${playerGiving} → ${playerReceiving} (${formatCurrency(event.amount)})`,
         colour: "green"
@@ -123,9 +123,9 @@ const getEventDetails = (
       const actionedBy = previousState.players.find((p) => p.playerId === event.actionedBy)!;
       return {
         ...defaults,
-        title: "Player Name Change",
+        title: "Cambio de Nombre",
         actionedBy: actionedBy.playerId === event.playerId ? null : actionedBy.name,
-        detail: `${playerNameBeforeRename} was renamed to ${playerNameAfterRename}`,
+        detail: `${playerNameBeforeRename} fue renombrado a ${playerNameAfterRename}`,
         colour: "orange"
       };
     }
@@ -135,9 +135,9 @@ const getEventDetails = (
       const actionedBy = previousState.players.find((p) => p.playerId === event.actionedBy)!;
       return {
         ...defaults,
-        title: "Player Removal",
+        title: "Eliminación de Jugador",
         actionedBy: actionedBy.playerId === event.playerId ? null : actionedBy.name,
-        detail: `${playerName} was removed from the game`,
+        detail: `${playerName} fue eliminado del juego`,
         colour: "red"
       };
     }
@@ -146,9 +146,9 @@ const getEventDetails = (
       const actionedBy = previousState.players.find((p) => p.playerId === event.actionedBy)!;
       return {
         ...defaults,
-        title: "Game Open State Change",
+        title: "Cambio de Estado del Juego",
         actionedBy: actionedBy.name,
-        detail: `The game is now ${event.open ? "open" : "closed"} to new players`,
+        detail: `El juego ahora está ${event.open ? "abierto" : "cerrado"} a nuevos jugadores`,
         colour: "blue"
       };
     }
@@ -157,10 +157,10 @@ const getEventDetails = (
       const actionedBy = previousState.players.find((p) => p.playerId === event.actionedBy)!;
       return {
         ...defaults,
-        title: "Use Free Parking State Change",
+        title: "Cambio de Estado de Estacionamiento Libre",
         actionedBy: actionedBy.name,
-        detail: `The Free Parking house rule is now ${
-          event.useFreeParking ? "enabled" : "disabled"
+        detail: `La regla de casa de Estacionamiento Libre ahora está ${
+          event.useFreeParking ? "activada" : "desactivada"
         }`,
         colour: "blue"
       };
@@ -181,3 +181,4 @@ const getEventDetails = (
 };
 
 export default History;
+

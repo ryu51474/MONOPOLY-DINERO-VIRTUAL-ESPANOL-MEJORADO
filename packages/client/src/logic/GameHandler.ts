@@ -50,7 +50,9 @@ class GameHandler {
     this.onDisplayMessage = onDisplayMessage;
 
     // Create websocket and assign onmessage
-    const webSocketAPIRoot = config.api.root.replace(/http?/g, "ws"); // I couldn't be bothered just making another config value
+    // If config.api.root is empty (when VITE_API_ROOT is not set), use the current browser IP and port
+    const apiRoot = config.api.root || `http://${window.location.hostname}${window.location.port ? `:${window.location.port}` : ""}`;
+    const webSocketAPIRoot = apiRoot.replace(/http?/g, "ws");
     this.webSocket = new WebSocket(`${webSocketAPIRoot}/api/events`);
 
     // Setup on message

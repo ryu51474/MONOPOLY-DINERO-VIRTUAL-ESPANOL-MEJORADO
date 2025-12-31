@@ -25,13 +25,13 @@ const SendMoneyModal: React.FC<ISendMoneyModalProps> = ({
 
   const submit = () => {
     if (amount === null) {
-      setSubmitError("Please provide an amount");
+      setSubmitError("Por favor proporciona una cantidad");
     } else if (amount <= 0) {
-      setSubmitError("You must provide sum larger than $0");
+      setSubmitError("Debes proporcionar una suma mayor a $0");
     } else if (!Number.isInteger(amount)) {
-      setSubmitError("The amount must be a whole number");
+      setSubmitError("La cantidad debe ser un número entero");
     } else if (amount > balance) {
-      setSubmitError(`You do not have enough money (${formatCurrency(balance)})`);
+      setSubmitError(`No tienes suficiente dinero (${formatCurrency(balance)})`);
     } else {
       proposeTransaction(
         playerId,
@@ -66,7 +66,7 @@ const SendMoneyModal: React.FC<ISendMoneyModalProps> = ({
         onPointerLeaveCapture={undefined}
         placeholder={undefined}
       >
-        <Modal.Title>Transfer Funds</Modal.Title>
+        <Modal.Title>Transferir Fondos</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p className="text-center">💵 → {getRecipientName()}</p>
@@ -74,7 +74,7 @@ const SendMoneyModal: React.FC<ISendMoneyModalProps> = ({
         <MonopolyAmountInput amount={amount} setAmount={setAmount} autoFocus={true} />
 
         <Button block variant="success" className="mt-1" onClick={submit}>
-          Send
+          Enviar
         </Button>
 
         <Form.Text style={{ color: "var(--danger)" }}>{submitError}</Form.Text>
@@ -84,3 +84,4 @@ const SendMoneyModal: React.FC<ISendMoneyModalProps> = ({
 };
 
 export default SendMoneyModal;
+
