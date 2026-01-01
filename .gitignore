@@ -1,5 +1,4 @@
 **/node_modules
-packages/client/build
 **/.env
 .eslintcache
 sitemap.xml
