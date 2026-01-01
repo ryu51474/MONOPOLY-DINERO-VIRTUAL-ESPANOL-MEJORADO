@@ -75,8 +75,12 @@ const SoundPreferencesModal: React.FC<ISoundPreferencesModalProps> = ({ show, on
 
   return (
     <Modal show={show} onHide={saveAndClose} centered size="lg">
-      <Modal.Header closeButton>
+      {/* @ts-expect-error - React Bootstrap type incompatibility with React 18 */}
+      <Modal.Header>
         <Modal.Title>🔊 Preferencias de Sonido</Modal.Title>
+        <button type="button" className="close" onClick={saveAndClose} aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </Modal.Header>
       <Modal.Body>
         <p className="text-muted mb-4">

@@ -81,7 +81,7 @@ La versión española utiliza una paleta de colores inspirada directamente en el
 
 ## 📋 Características
 
-- 🎮 **Multijugador** - Múltijas partidas simultáneas en el servidor
+- 🎮 **Multijugador** - Múltiples partidas simultáneas en el servidor
 - 📱 **Dispositivos propios** - Cada jugador usa su propio dispositivo
 - 💸 **Transferencias fáciles** - Envía dinero entre jugadores sin necesidad de contar efectivo
 - ⚡ **Tiempo real** - Los jugadores son notificados inmediatamente de los eventos
@@ -100,6 +100,7 @@ La versión española utiliza una paleta de colores inspirada directamente en el
 ## 🛠️ Configuración
 
 1. Clona el repositorio y entra en la carpeta del proyecto
+   (ej)`git clone https://github.com/ryu51474/MONOPOLY-DINERO-VIRTUAL-ESPANOL-MEJORADO.git`
 2. Instala las dependencias ejecutando `npm install`
 3. Configura las variables de entorno:
    - Configura las variables en la sesión actual, o

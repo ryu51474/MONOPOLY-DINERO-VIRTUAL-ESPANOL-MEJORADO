@@ -47,8 +47,12 @@ const AvatarSelector: React.FC<IAvatarSelectorProps> = ({
 
   return (
     <Modal show={show} onHide={onHide} centered className="avatar-modal">
-      <Modal.Header closeButton>
+      {/* @ts-expect-error - React Bootstrap type incompatibility with React 18 */}
+      <Modal.Header>
         <Modal.Title>🎨 Elige tu Avatar</Modal.Title>
+        <button type="button" className="close" onClick={onHide} aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </Modal.Header>
       <Modal.Body>
         <p className="text-center text-muted mb-3">

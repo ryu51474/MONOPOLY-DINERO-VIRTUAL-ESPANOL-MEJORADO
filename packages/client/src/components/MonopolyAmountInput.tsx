@@ -11,8 +11,28 @@ interface IMonopolyAmountInputProps {
   showQuickButtons?: boolean;
 }
 
-// Common Monopoly denominations for quick selection
-const QUICK_AMOUNTS = [50, 100, 200, 500, 1000, 2000];
+// Quick amount button with color styling
+interface QuickAmount {
+  value: number;
+  color: string;
+  textColor: string;
+}
+
+// Monopoly denominations with authentic bill colors
+// $1: Blanco tradicional, $5: Rosa, $10: Azul claro, $20: Verde claro
+// $50: Morado claro, $100: Beige, $500: Naranja dorado
+// $1000: Verde CLP (Ignacio Carrera Pinto), $1500: Lila CLP (Manuel Rodríguez)
+const QUICK_AMOUNTS: QuickAmount[] = [
+  { value: 1, color: '#ffffff', textColor: '#1e293b' },
+  { value: 5, color: '#ec4899', textColor: '#ffffff' },
+  { value: 10, color: '#60a5fa', textColor: '#ffffff' },
+  { value: 20, color: '#4ade80', textColor: '#1e293b' },
+  { value: 50, color: '#a78bfa', textColor: '#ffffff' },
+  { value: 100, color: '#fef3c7', textColor: '#1e293b' },
+  { value: 500, color: '#f59e0b', textColor: '#ffffff' },
+  { value: 1000, color: '#22c55e', textColor: '#ffffff' },
+  { value: 1500, color: '#8b5cf6', textColor: '#ffffff' }
+];
 
 const MonopolyAmountInput: React.FC<IMonopolyAmountInputProps> = ({
   amount,
@@ -57,7 +77,9 @@ const MonopolyAmountInput: React.FC<IMonopolyAmountInputProps> = ({
   };
 
   const setQuickAmount = (value: number) => {
-    setInputValue(`${value}`);
+    const currentValue = parseFloat(inputValue) || 0;
+    const newValue = currentValue + value;
+    setInputValue(`${newValue}`);
     playSound('click');
     
     // Refocus the number input
@@ -106,15 +128,24 @@ const MonopolyAmountInput: React.FC<IMonopolyAmountInputProps> = ({
       {showQuickButtons && (
         <div className="quick-amounts mt-2">
           <small className="text-muted d-block mb-1">Valores rápidos:</small>
-          <ButtonGroup size="sm" className="w-100">
-            {QUICK_AMOUNTS.map((value) => (
+          <ButtonGroup size="sm" className="w-100 flex-wrap">
+            {QUICK_AMOUNTS.map((item) => (
               <Button
-                key={value}
+                key={item.value}
                 variant="outline-monopoly"
                 className="quick-amount-btn"
-                onClick={() => setQuickAmount(value)}
+                style={{
+                  backgroundColor: item.color,
+                  color: item.textColor,
+                  borderColor: '#1e293b',
+                  borderWidth: '2px',
+                  borderStyle: 'solid',
+                  flex: '1 1 auto',
+                  minWidth: '60px'
+                }}
+                onClick={() => setQuickAmount(item.value)}
               >
-                ${value.toLocaleString()}
+                ${item.value.toLocaleString()}
               </Button>
             ))}
           </ButtonGroup>
