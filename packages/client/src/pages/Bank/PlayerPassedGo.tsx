@@ -12,6 +12,7 @@ import {
 } from "react-bootstrap";
 import { useModal } from "react-modal-hook";
 import NumberFormat, { NumberFormatValues } from "react-number-format";
+import { useSounds } from "../../components/SoundProvider";
 import { formatCurrency } from "../../utils";
 
 const passingGoRewardValueLocalStorageKey = "passingGoRewardValue";
@@ -29,6 +30,7 @@ const PlayerPassedGo: React.FC<IPlayerPassedGoProps> = ({ players, onSubmit }) =
     2000000
   );
   const [passingGoReward, setPassingGoReward] = useState<number>(storedPassingGoReward ?? 2000000);
+  const { playSound } = useSounds();
 
   const [updatePassingGoRewardModalValue, setUpdatePassingGoRewardModalValue] =
     useState<number>(passingGoReward);
@@ -86,11 +88,13 @@ const PlayerPassedGo: React.FC<IPlayerPassedGoProps> = ({ players, onSubmit }) =
 
   const submit = () => {
     if (selectedPlayer !== null) {
+      playSound('money');
       onSubmit(passingGoReward, selectedPlayer.playerId);
       setSelectedPlayer(null);
       setSubmitError(null);
     } else {
       setSubmitError("No hay jugador seleccionado");
+      playSound('error');
     }
   };
 

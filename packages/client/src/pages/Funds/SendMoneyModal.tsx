@@ -2,6 +2,7 @@ import { GameEntity, IGameStatePlayer } from "@monopoly-money/game-state";
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import MonopolyAmountInput from "../../components/MonopolyAmountInput";
+import { useSounds } from "../../components/SoundProvider";
 import { bankName, freeParkingName } from "../../constants";
 import { formatCurrency } from "../../utils";
 
@@ -22,17 +23,23 @@ const SendMoneyModal: React.FC<ISendMoneyModalProps> = ({
 }) => {
   const [amount, setAmount] = useState<number | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const { playSound } = useSounds();
 
   const submit = () => {
     if (amount === null) {
       setSubmitError("Por favor proporciona una cantidad");
+      playSound('error');
     } else if (amount <= 0) {
       setSubmitError("Debes proporcionar una suma mayor a $0");
+      playSound('error');
     } else if (!Number.isInteger(amount)) {
       setSubmitError("La cantidad debe ser un número entero");
+      playSound('error');
     } else if (amount > balance) {
       setSubmitError(`No tienes suficiente dinero (${formatCurrency(balance)})`);
+      playSound('error');
     } else {
+      playSound('transaction');
       proposeTransaction(
         playerId,
         recipient === "freeParking" || recipient === "bank" ? recipient : recipient.playerId,

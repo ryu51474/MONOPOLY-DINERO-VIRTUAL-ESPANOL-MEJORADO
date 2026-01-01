@@ -1,6 +1,7 @@
 import { IGameStatePlayer } from "@monopoly-money/game-state";
 import React, { useState } from "react";
 import { Button, ButtonGroup, Dropdown, DropdownButton } from "react-bootstrap";
+import { useSounds } from "../../components/SoundProvider";
 import { formatCurrency } from "../../utils";
 
 interface IGiveFreeParkingProps {
@@ -15,11 +16,13 @@ const GiveFreeParking: React.FC<IGiveFreeParkingProps> = ({
   onSubmit
 }) => {
   const [selectedPlayer, setSelectedPlayer] = useState<IGameStatePlayer | null>(null);
+  const { playSound } = useSounds();
 
   const valid = selectedPlayer !== null;
 
   const submit = () => {
     if (selectedPlayer !== null) {
+      playSound('money');
       onSubmit(selectedPlayer.playerId);
       setSelectedPlayer(null);
     }

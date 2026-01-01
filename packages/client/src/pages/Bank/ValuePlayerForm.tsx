@@ -2,6 +2,7 @@ import { IGameStatePlayer } from "@monopoly-money/game-state";
 import React, { useState } from "react";
 import { Button, ButtonGroup, Dropdown, DropdownButton, Form } from "react-bootstrap";
 import MonopolyAmountInput from "../../components/MonopolyAmountInput";
+import { useSounds } from "../../components/SoundProvider";
 
 interface IValuePlayerFormProps {
   label: string;
@@ -20,17 +21,23 @@ const ValuePlayerForm: React.FC<IValuePlayerFormProps> = ({
   const [amount, setAmount] = useState<number | null>(null);
   const [selectedPlayer, setSelectedPlayer] = useState<IGameStatePlayer | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const { playSound } = useSounds();
 
   const submit = () => {
     if (amount === null) {
       setSubmitError("Por favor proporciona una cantidad");
+      playSound('error');
     } else if (amount <= 0) {
       setSubmitError("Debes proporcionar una suma mayor a $0");
+      playSound('error');
     } else if (!Number.isInteger(amount)) {
       setSubmitError("La cantidad debe ser un número entero");
+      playSound('error');
     } else if (selectedPlayer === null) {
       setSubmitError("No hay jugador seleccionado");
+      playSound('error');
     } else {
+      playSound('money');
       onSubmit(amount, selectedPlayer.playerId);
       setAmount(null);
       setSelectedPlayer(null);
