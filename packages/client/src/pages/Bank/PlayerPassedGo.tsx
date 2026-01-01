@@ -41,12 +41,12 @@ const PlayerPassedGo: React.FC<IPlayerPassedGoProps> = ({ players, onSubmit }) =
           onPointerLeaveCapture={undefined}
           placeholder={undefined}
         >
-          <Modal.Title>Update Player Passing Go Reward</Modal.Title>
+          <Modal.Title>Actualizar Recompensa de Paso por GO</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <InputGroup>
             <InputGroup.Prepend>
-              <InputGroup.Text>Amount</InputGroup.Text>
+              <InputGroup.Text>Cantidad</InputGroup.Text>
             </InputGroup.Prepend>
             <NumberFormat
               allowNegative={false}
@@ -69,7 +69,7 @@ const PlayerPassedGo: React.FC<IPlayerPassedGoProps> = ({ players, onSubmit }) =
               }}
               className="remove-left-border-radius"
             >
-              Set
+              Establecer
             </Button>
           </InputGroup>
           <Form.Text style={{ color: "var(--danger)" }}>{submitError}</Form.Text>
@@ -90,14 +90,14 @@ const PlayerPassedGo: React.FC<IPlayerPassedGoProps> = ({ players, onSubmit }) =
       setSelectedPlayer(null);
       setSubmitError(null);
     } else {
-      setSubmitError("No player selected");
+      setSubmitError("No hay jugador seleccionado");
     }
   };
 
   return (
     <>
       <label htmlFor="player-passed-go" className="mb-1">
-        Player Passed Go ({formatCurrency(passingGoReward)})
+        Jugador Pasó GO ({formatCurrency(passingGoReward)})
       </label>
 
       <ButtonGroup className="mt-1 settings-and-player-and-submit-group">
@@ -109,7 +109,7 @@ const PlayerPassedGo: React.FC<IPlayerPassedGoProps> = ({ players, onSubmit }) =
           as={ButtonGroup}
           variant="outline-secondary"
           id="player-passed-go"
-          title={selectedPlayer?.name ?? "Select Player"}
+          title={selectedPlayer?.name ?? "Seleccionar Jugador"}
         >
           {players.map((player) => (
             <Dropdown.Item key={player.playerId} onClick={() => setSelectedPlayer(player)}>
@@ -119,7 +119,7 @@ const PlayerPassedGo: React.FC<IPlayerPassedGoProps> = ({ players, onSubmit }) =
         </DropdownButton>
 
         <Button variant="outline-secondary" onClick={submit}>
-          Give
+          Dar
         </Button>
       </ButtonGroup>
 

@@ -24,7 +24,7 @@ const InitialiseGame: React.FC<IInitialiseGameProps> = ({ players, proposeTransa
 
   return (
     <Button variant="primary" block onClick={showModal}>
-      Initialise Player Balances
+      Inicializar Saldos de Jugadores
     </Button>
   );
 };
@@ -40,9 +40,9 @@ const ValueModal: React.FC<IValueModalProps> = ({ submitAmount, onClose }) => {
 
   const submit = () => {
     if (amount === null) {
-      setSubmitError("Please provide an amount");
+      setSubmitError("Por favor proporciona una cantidad");
     } else if (amount <= 0) {
-      setSubmitError("You must provide sum larger than $0");
+      setSubmitError("Debes proporcionar una suma mayor a $0");
     } else {
       submitAmount(amount);
       close();
@@ -64,18 +64,18 @@ const ValueModal: React.FC<IValueModalProps> = ({ submitAmount, onClose }) => {
         onPointerLeaveCapture={undefined}
         placeholder={undefined}
       >
-        <Modal.Title>Initialise Balances</Modal.Title>
+        <Modal.Title>Inicializar Saldos</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
-          Once you give a player money or initialise balances, you can not initialise balances
-          again.
+          Una vez que le des dinero a un jugador o inicialices los saldos, no podrás inicializar los saldos
+          de nuevo.
         </p>
 
         <MonopolyAmountInput amount={amount} setAmount={setAmount} autoFocus={true} />
 
         <Button block variant="success" className="mt-1" onClick={submit}>
-          Initialise
+          Inicializar
         </Button>
 
         <Form.Text style={{ color: "var(--danger)" }}>{submitError}</Form.Text>

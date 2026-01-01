@@ -1,11 +1,95 @@
 .connected-state-dot {
-  height: 15px;
-  width: 15px;
-  border: 2px solid var(--gray);
+  height: 18px;
+  width: 18px;
   border-radius: 50%;
-
+  position: relative;
+  z-index: 10;
+  
+  background: #cbd5e1;
+  border: 3px solid white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
   &.connected {
-    background: var(--green);
+    background: radial-gradient(circle at 30% 30%, #86efac, var(--monopoly-green, #00a74a), #166534);
     border: none;
+    box-shadow: 
+      0 0 12px rgba(0, 167, 74, 0.6),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    animation: connectionPulse 2s ease-in-out infinite;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 6px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+    }
+  }
+
+  &.connecting {
+    background: radial-gradient(circle at 30% 30%, #fde047, var(--monopoly-yellow, #f5c211), #a16207);
+    border: none;
+    box-shadow: 
+      0 0 8px rgba(245, 194, 17, 0.5),
+      inset 0 -2px 4px rgba(0, 0, 0, 0.1),
+      inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    animation: connectionPulse 1s ease-in-out infinite;
+  }
+
+  @keyframes connectionPulse {
+    0%, 100% {
+      transform: scale(1);
+      box-shadow: 
+        0 0 12px rgba(0, 167, 74, 0.6);
+    }
+    50% {
+      transform: scale(1.1);
+      box-shadow: 
+        0 0 16px rgba(0, 167, 74, 0.8);
+    }
   }
 }
+
+.connected-state-dot-wrapper {
+  position: relative;
+  
+  &:hover .connected-state-dot-tooltip {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+}
+
+.connected-state-dot-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: var(--text-dark);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.75em;
+  font-weight: 500;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.2s ease;
+  z-index: 100;
+  pointer-events: none;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--text-dark);
+  }
+}
+
