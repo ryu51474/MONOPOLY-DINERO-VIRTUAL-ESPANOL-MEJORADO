@@ -1,11 +1,194 @@
 .bank {
+  h5, h4, h3 {
+    color: var(--text-dark);
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
   .player-and-submit-group {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    .form-control {
+      background: white;
+      border: 2px solid var(--monopoly-blue) !important;
+      font-weight: 500;
+    }
+
+    .btn {
+      white-space: nowrap;
+      font-size: 0.9em;
+    }
   }
 
   .settings-and-player-and-submit-group {
     display: grid;
     grid-template-columns: auto 1fr 1fr;
+    grid-gap: 0.5rem;
+    margin-bottom: 1rem;
+    align-items: center;
+
+    label {
+      font-weight: 600;
+      color: var(--text-dark);
+      white-space: nowrap;
+      padding-right: 0.5rem;
+    }
+
+    .form-control {
+      background: white;
+      border: 2px solid var(--monopoly-blue) !important;
+    }
+  }
+
+  .input-group {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+
+    .form-control {
+      border: none !important;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      font-size: 1.2em;
+      text-align: center;
+      background: white;
+      
+      &:focus {
+        box-shadow: none !important;
+      }
+    }
+
+    .input-group-prepend,
+    .input-group-append {
+      .btn {
+        border-radius: 0 !important;
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+    }
+  }
+
+  > div:not(:first-child) {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px dashed #e2e8f0;
+  }
+
+  .card {
+    background: linear-gradient(135deg, white 0%, var(--cream-light) 100%);
+    border: 2px solid var(--monopoly-rail) !important;
+    padding: 1rem;
+
+    .card-body {
+      padding: 0 !important;
+    }
+  }
+
+  label {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .alert {
+    border-radius: 12px;
+    border: none;
+    font-weight: 500;
+    
+    &.alert-info {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      color: var(--monopoly-blue);
+      border-left: 4px solid var(--monopoly-blue);
+    }
+
+    &.alert-warning {
+      background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+      color: #c2410c;
+      border-left: 4px solid var(--monopoly-orange);
+    }
+
+    &.alert-success {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      color: var(--monopoly-green);
+      border-left: 4px solid var(--monopoly-green);
+    }
+  }
+
+  .mb-4:nth-child(2) {
+    .card {
+      border-color: var(--monopoly-green) !important;
+      
+      &::before {
+        content: '✨ El Banco te da dinero';
+        display: block;
+        background: var(--monopoly-green);
+        color: white;
+        padding: 8px 16px;
+        margin: -1rem -1rem 1rem -1rem;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+  }
+
+  .mb-4:last-of-type {
+    .card {
+      border-color: var(--monopoly-red) !important;
+      
+      &::before {
+        content: '⚠️ El Banco toma dinero';
+        display: block;
+        background: var(--monopoly-red);
+        color: white;
+        padding: 8px 16px;
+        margin: -1rem -1rem 1rem -1rem;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
+  }
+
+  .card-title {
+    color: var(--monopoly-yellow);
+    font-weight: 700;
+  }
+
+  .mb-4:nth-of-type(3) {
+    .card {
+      border-color: var(--monopoly-orange) !important;
+      
+      &::before {
+        content: '🚗 Estacionamiento Libre - Repartir a Jugadores';
+        display: block;
+        background: var(--monopoly-orange);
+        color: white;
+        padding: 8px 16px;
+        margin: -1rem -1rem 1rem -1rem;
+        font-weight: 600;
+        text-align: center;
+      }
+    }
   }
 }
+
+@media (max-width: 575.98px) {
+  .bank {
+    .player-and-submit-group {
+      grid-template-columns: 1fr;
+    }
+
+    .settings-and-player-and-submit-group {
+      grid-template-columns: 1fr;
+      
+      label {
+        padding-right: 0;
+        margin-bottom: 0.5rem;
+      }
+    }
+  }
+}
+

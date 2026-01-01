@@ -1,10 +1,136 @@
 @import "~bootstrap/scss/bootstrap.scss";
 
 .navigation {
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .icon-button {
-    @media (max-width: map-get($grid-breakpoints, sm)) {
-      padding-left: ($spacer * 0.5) !important;
-      padding-right: ($spacer * 0.5) !important;
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px !important;
+    border-radius: 10px !important;
+    background: white !important;
+    border: 2px solid var(--gold-dark) !important;
+    transition: all 0.3s ease !important;
+    color: var(--text-dark) !important;
+
+    &:hover {
+      background: var(--gold-cream) !important;
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    svg {
+      fill: var(--text-dark);
+      transition: all 0.3s ease;
+    }
+
+    &.active {
+      background: var(--gold-cream) !important;
+      border-color: var(--gold-dark) !important;
+      box-shadow: 0 4px 12px rgba(202, 138, 4, 0.3);
+
+      svg {
+        fill: var(--gold-dark);
+      }
+
+      span {
+        color: var(--gold-dark) !important;
+        font-weight: 700;
+      }
     }
   }
+
+  .nav-link {
+    padding: 0 !important;
+    margin: 0 4px;
+  }
+
+  .nav {
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: var(--cream-light);
+      border-radius: 2px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: var(--gold-dark);
+      border-radius: 2px;
+      
+      &:hover {
+        background: var(--gold-dark);
+        opacity: 0.8;
+      }
+    }
+  }
+
+  @media (max-width: 575.98px) {
+    .icon-button {
+      padding-left: 12px !important;
+      padding-right: 12px !important;
+      min-width: 44px;
+      justify-content: center;
+
+      span {
+        display: none !important;
+      }
+
+      svg {
+        width: 28px !important;
+        height: 28px !important;
+      }
+    }
+  }
+
+  .notification-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--monopoly-red);
+    color: white;
+    font-size: 0.7em;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 10px;
+    border: 2px solid white;
+    animation: pulse 2s infinite;
+  }
 }
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.navbar-brand {
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
+  
+  img {
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover img {
+    transform: rotate(10deg) scale(1.1);
+  }
+}
+

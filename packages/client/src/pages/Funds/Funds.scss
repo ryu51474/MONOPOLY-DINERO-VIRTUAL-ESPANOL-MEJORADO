@@ -2,17 +2,181 @@
   .balance-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 0.25rem;
+    grid-gap: 0.5rem;
+    position: relative;
+  }
+
+  .card-body:only-child {
+    background: linear-gradient(135deg, var(--cream-bg) 0%, var(--cream-light) 100%) !important;
+    border: 2px solid var(--gold-dark);
+    border-radius: 16px !important;
+    font-weight: 700;
+    font-size: 1.2em;
+    color: var(--text-dark);
+    box-shadow: var(--shadow-soft);
+    
+    &::before {
+      content: '💰 ';
+    }
+
+    .money-text {
+      font-size: 1.3em;
+      color: var(--monopoly-green);
+    }
+  }
+
+  .player-card {
+    .card-body {
+      padding-top: 1.6rem !important;
+      padding-bottom: 1.6rem !important;
+      background: white;
+      
+      > div:first-child {
+        font-weight: 600;
+        color: var(--text-dark);
+        font-size: 1.1em;
+        margin-bottom: 0.5rem;
+      }
+
+      > div:last-child {
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        font-size: 1.4em;
+        color: var(--monopoly-green);
+      }
+    }
 
     .connected-state-dot {
-      position: absolute;
+      top: 8px !important;
+      right: 8px !important;
+      left: auto !important;
+    }
+  }
+
+  .player-card:last-child {
+    .card-body {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
+      
+      > div:last-child {
+        color: var(--monopoly-blue);
+      }
+    }
+  }
+
+  .player-card:first-of-type {
+    .card-body {
+      background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%) !important;
+      
+      > div:last-child {
+        color: var(--monopoly-orange);
+      }
+    }
+  }
+
+  .recent-transactions {
+    background: linear-gradient(135deg, var(--cream-bg) 0%, var(--cream-light) 100%);
+    border-radius: 12px;
+    padding: 12px;
+    color: var(--text-dark);
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    border: 2px solid var(--gold-dark);
+    box-shadow: var(--shadow-soft);
+
+    small {
+      padding: 6px 12px;
+      margin: 4px 0;
+      border-radius: 8px;
+      background: white;
+      display: block;
+      animation: fadeInUp 0.3s ease-out;
+      border: 1px solid #e2e8f0;
+      
+      &:hover {
+        background: var(--cream-light);
+      }
+
+      .text-muted {
+        color: var(--warning-yellow) !important;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .text-center {
+    h1 {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      font-size: 2.5em;
+      color: var(--gold-dark);
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--cream-bg) 0%, var(--cream-light) 100%);
+      border-radius: 12px;
+      border: 3px solid var(--gold-dark);
+      transition: all 0.3s ease;
+      letter-spacing: 4px;
+      box-shadow: var(--shadow-soft);
+
+      &:hover {
+        transform: scale(1.03);
+        background: linear-gradient(135deg, var(--gold-cream) 0%, var(--cream-bg) 100%);
+        box-shadow: var(--shadow-medium);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    small {
+      color: var(--text-medium) !important;
+      font-size: 0.85em;
+    }
+
+    hr {
+      border-color: var(--gold-dark);
+      opacity: 0.3;
+      margin-top: 1.5rem !important;
     }
   }
 }
 
-.player-card {
-  .card-body {
-    padding-top: 1.6rem !important;
-    padding-bottom: 1.6rem !important;
+@media (max-width: 575.98px) {
+  .funds {
+    .balance-grid {
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 0.25rem;
+    }
+
+    .text-center h1 {
+      font-size: 1.8em;
+      padding: 12px 20px;
+      letter-spacing: 2px;
+    }
+
+    .player-card .card-body {
+      padding-top: 1.2rem !important;
+      padding-bottom: 1.2rem !important;
+      
+      > div:last-child {
+        font-size: 1.1em;
+      }
+    }
   }
 }
+
+@keyframes transactionSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.funds .recent-transactions small.new {
+  animation: transactionSlideIn 0.3s ease-out;
+}
+

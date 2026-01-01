@@ -1,12 +1,56 @@
+/* ==========================================
+   MONOPOLY MONEY - ESTILOS CLÁSICOS
+   Colores claros del tablero Monopoly original
+   ========================================== */
+
+/* Variables CSS - Colores Monopoly Claros */
+:root {
+  --monopoly-green: #00a74a;
+  --monopoly-green-light: #4ade80;
+  --monopoly-red: #d22630;
+  --monopoly-red-light: #ef4444;
+  --monopoly-blue: #1c3f94;
+  --monopoly-blue-light: #3b82f6;
+  --monopoly-orange: #ef7f2d;
+  --monopoly-orange-light: #fb923c;
+  --monopoly-yellow: #f5c211;
+  --monopoly-yellow-light: #fde047;
+  --monopoly-brown: #7f3f35;
+  --monopoly-brown-light: #a16207;
+  --monopoly-rail: #6b4c8a;
+  --monopoly-rail-light: #8b5cf6;
+  --monopoly-utility: #5c8db8;
+  --monopoly-utility-light: #93c5fd;
+  --gold-cream: #fff8dc;
+  --gold-dark: #ca8a04;
+  --cream-bg: #fffbeb;
+  --cream-light: #fefce8;
+  --cream-dark: #fef3c7;
+  --text-dark: #1e293b;
+  --text-medium: #475569;
+  --success-green: #22c55e;
+  --error-red: #ef4444;
+  --warning-yellow: #eab308;
+  --info-blue: #3b82f6;
+  --shadow-soft: 0 4px 15px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+  font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Oxygen", "Ubuntu",
     "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(180deg, var(--cream-light) 0%, var(--cream-bg) 50%, var(--cream-dark) 100%);
   min-height: 100vh;
+  background-attachment: fixed;
+  color: var(--text-dark);
 }
+
+/* ==========================================
+   ANIMACIONES PRINCIPALES
+   ========================================== */
 
 /* Animación de entrada suave */
 @keyframes fadeInUp {
@@ -20,33 +64,40 @@ body {
   }
 }
 
-/* Animación de pulse para elementos importantes */
+/* Animación de pulse elegante */
 @keyframes pulse {
   0%, 100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
 }
 
 /* Animación de balance actualizado */
 @keyframes balanceFlash {
   0% {
-    background-color: rgba(40, 167, 69, 0.2);
+    background-color: rgba(34, 197, 94, 0.3);
+    transform: scale(1.02);
+  }
+  50% {
+    background-color: rgba(34, 197, 94, 0.1);
   }
   100% {
     background-color: transparent;
+    transform: scale(1);
   }
 }
 
-/* Animación de conexión */
+/* Animación de conexión - verde brillante */
 @keyframes connectionPulse {
   0%, 100% {
     opacity: 1;
+    box-shadow: 0 0 10px var(--monopoly-green);
   }
   50% {
-    opacity: 0.5;
+    opacity: 0.8;
+    box-shadow: 0 0 20px var(--monopoly-green);
   }
 }
 
@@ -57,116 +108,385 @@ body {
   20%, 40%, 60%, 80% { transform: translateX(5px); }
 }
 
-/* Clases de utilidad para animaciones */
+/* Animación de éxito - rebote */
+@keyframes successBounce {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-10px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(-5px); }
+}
+
+/* Animación de brillo en botones */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Animación de aparición de modal */
+@keyframes modalPopIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animación de loading spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Animación de hover en cards */
+@keyframes cardHover {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0); }
+}
+
+/* ==========================================
+   CLASES DE UTILIDAD
+   ========================================== */
+
 .fade-in-up {
-  animation: fadeInUp 0.5s ease-out;
+  animation: fadeInUp 0.4s ease-out;
 }
 
 .pulse {
-  animation: pulse 2s infinite;
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .balance-updated {
-  animation: balanceFlash 1s ease-out;
+  animation: balanceFlash 0.8s ease-out;
 }
 
 .connected {
-  animation: connectionPulse 2s infinite;
+  animation: connectionPulse 2s ease-in-out infinite;
 }
 
 .shake {
   animation: shake 0.5s ease-in-out;
 }
 
-/* Mejoras visuales para cards */
+.success-bounce {
+  animation: successBounce 0.5s ease-out;
+}
+
+.modal-pop-in {
+  animation: modalPopIn 0.3s ease-out;
+}
+
+/* ==========================================
+   ESTILOS DE CARDS - MONOPOLY STYLE
+   ========================================== */
+
 .card {
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  border: none;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  border: none !important;
+  border-radius: 16px !important;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  background: white;
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-medium);
 }
 
-/* Botones más atractivos */
+/* Cards especiales */
+.card-monopoly-green {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+  border: 2px solid var(--monopoly-green) !important;
+}
+
+.card-monopoly-red {
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+  border: 2px solid var(--monopoly-red) !important;
+}
+
+.card-monopoly-blue {
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 2px solid var(--monopoly-blue) !important;
+}
+
+.card-monopoly-gold {
+  background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+  border: 2px solid var(--gold-dark) !important;
+}
+
+/* ==========================================
+   BOTONES - ESTILO CLARO MONOPOLY
+   ========================================== */
+
 .btn {
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  font-weight: 500;
+  border-radius: 12px !important;
+  transition: all 0.3s ease !important;
+  font-weight: 600 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 24px !important;
+  border: 2px solid transparent !important;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border: none;
+  background: linear-gradient(135deg, var(--monopoly-blue) 0%, var(--monopoly-blue-light) 100%) !important;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+  background: linear-gradient(135deg, var(--monopoly-blue-light) 0%, var(--monopoly-blue) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
 }
 
-/* Inputs mejorados */
+.btn-success {
+  background: linear-gradient(135deg, var(--monopoly-green) 0%, var(--monopoly-green-light) 100%) !important;
+  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+.btn-success:hover {
+  background: linear-gradient(135deg, var(--monopoly-green-light) 0%, var(--monopoly-green) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--monopoly-red) 0%, var(--monopoly-red-light) 100%) !important;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+  background: linear-gradient(135deg, var(--monopoly-red-light) 0%, var(--monopoly-red) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4);
+}
+
+.btn-warning {
+  background: linear-gradient(135deg, var(--monopoly-yellow) 0%, var(--monopoly-yellow-light) 100%) !important;
+  color: var(--text-dark) !important;
+  box-shadow: 0 4px 12px rgba(234, 179, 8, 0.3);
+}
+
+.btn-warning:hover {
+  background: linear-gradient(135deg, var(--monopoly-yellow-light) 0%, var(--monopoly-yellow) 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(234, 179, 8, 0.4);
+}
+
+.btn:active {
+  transform: scale(0.97) !important;
+}
+
+/* ==========================================
+   INPUTS - ESTILO MEJORADO
+   ========================================== */
+
 .form-control {
-  border-radius: 8px;
-  border: 2px solid #e0e0e0;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 12px !important;
+  border: 2px solid #e2e8f0 !important;
+  transition: all 0.3s ease !important;
+  padding: 12px 16px !important;
+  font-size: 16px;
+  background: white;
 }
 
 .form-control:focus {
-  border-color: #667eea;
-  box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+  border-color: var(--monopoly-blue) !important;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15) !important;
+  transform: scale(1.01);
 }
 
-/* Navbar personalizado */
+.form-control:hover {
+  border-color: var(--monopoly-blue-light) !important;
+}
+
+/* Input con estilo monetario */
+.input-money {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  font-size: 1.2em;
+  letter-spacing: 1px;
+}
+
+/* ==========================================
+   NAVBAR - ESTILO MONOPOLY CLARO
+   ========================================== */
+
 .navbar {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(135deg, var(--cream-bg) 0%, var(--cream-light) 100%) !important;
+  box-shadow: var(--shadow-soft) !important;
+  padding: 12px 0 !important;
+  border-bottom: 3px solid var(--gold-dark);
 }
 
-.navbar-brand, .navbar-nav .nav-link {
-  color: white !important;
+.navbar-brand {
+  font-weight: 700 !important;
+  font-size: 1.3em !important;
+  color: var(--text-dark) !important;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.navbar-brand img {
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.navbar-nav .nav-link {
+  color: var(--text-dark) !important;
   font-weight: 500;
+  border-radius: 8px;
+  padding: 8px 16px !important;
+  margin: 0 4px;
+  transition: all 0.3s ease !important;
+  border: 2px solid transparent;
 }
 
 .navbar-nav .nav-link:hover {
-  opacity: 0.9;
+  background: rgba(202, 138, 4, 0.1);
+  border-color: var(--gold-dark);
+  transform: translateY(-2px);
 }
 
-/* Modal animations */
+.navbar-nav .nav-link.active {
+  background: var(--gold-cream);
+  border-color: var(--gold-dark);
+  color: var(--gold-dark) !important;
+}
+
+/* ==========================================
+   MODAL - ESTILO POP-UP
+   ========================================== */
+
 .modal-content {
-  border-radius: 12px;
-  border: none;
-  animation: fadeInUp 0.3s ease-out;
-}
-
-/* Table styling */
-.table {
-  border-radius: 8px;
+  border-radius: 20px !important;
+  border: none !important;
+  animation: modalPopIn 0.3s ease-out;
   overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
 }
 
-.table thead {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
+.modal-header {
+  background: linear-gradient(135deg, var(--gold-cream) 0%, var(--cream-bg) 100%);
+  color: var(--text-dark);
+  border-bottom: 3px solid var(--gold-dark) !important;
+  padding: 20px 24px !important;
 }
 
-/* Player card styling */
-.player-card {
-  cursor: pointer;
+.modal-header .close {
+  color: var(--text-dark);
+  text-shadow: none;
+  opacity: 0.6;
   transition: all 0.3s ease;
 }
 
+.modal-header .close:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.modal-body {
+  padding: 24px !important;
+  background: white;
+}
+
+.modal-footer {
+  border-top: 1px solid #e2e8f0 !important;
+  padding: 16px 24px !important;
+  background: var(--cream-light);
+}
+
+/* ==========================================
+   TABLE - ESTILO ELEGANTE
+   ========================================== */
+
+.table {
+  border-radius: 12px;
+  overflow: hidden;
+  background: white;
+  box-shadow: var(--shadow-soft);
+}
+
+.table thead {
+  background: linear-gradient(135deg, var(--gold-cream) 0%, var(--cream-bg) 100%) !important;
+  color: var(--text-dark);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--gold-dark);
+}
+
+.table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.table tbody tr:hover {
+  background: rgba(202, 138, 4, 0.08) !important;
+}
+
+.table tbody tr:nth-child(even) {
+  background: rgba(0, 0, 0, 0.02);
+}
+
+/* ==========================================
+   PLAYER CARD - ESTILO ESPECIAL
+   ========================================== */
+
+.player-card {
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  background: white;
+  box-shadow: var(--shadow-soft);
+}
+
 .player-card:hover {
-  transform: scale(1.02);
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: var(--shadow-medium);
 }
 
 .player-card:active {
-  transform: scale(0.98);
+  transform: scale(0.97);
 }
+
+/* Estados de jugador por balance */
+.player-card.rico {
+  border: 3px solid var(--monopoly-yellow);
+  background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
+}
+
+.player-card.pobre {
+  border: 3px solid var(--monopoly-red);
+  background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+}
+
+/* ==========================================
+   SPINNER - LOADING
+   ========================================== */
+
+.spinner-border {
+  animation: spin 1s linear infinite;
+  border-width: 3px !important;
+  border-color: var(--gold-dark);
+}
+
+/* ==========================================
+   UTILIDADES ADICIONALES
+   ========================================== */
 
 .remove-left-border-radius {
   border-bottom-left-radius: 0 !important;
@@ -177,3 +497,61 @@ body {
   border-bottom-right-radius: 0 !important;
   border-top-right-radius: 0 !important;
 }
+
+/* Texto de dinero destacado */
+.money-text {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: var(--monopoly-green);
+}
+
+/* Sombra de dinero */
+.shadow-money {
+  box-shadow: 0 8px 25px rgba(34, 197, 94, 0.25);
+}
+
+/* Badge de notification */
+.badge-monopoly {
+  background: linear-gradient(135deg, var(--monopoly-red) 0%, var(--monopoly-red-light) 100%);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75em;
+  font-weight: bold;
+  animation: pulse 2s infinite;
+}
+
+/* Tooltip personalizado */
+.tooltip {
+  font-size: 0.9em !important;
+}
+
+.tooltip-inner {
+  background: var(--text-dark) !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+}
+
+.bs-tooltip-top .arrow::before,
+.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+  border-top-color: var(--text-dark) !important;
+}
+
+/* Texto muted */
+.text-muted {
+  color: var(--text-medium) !important;
+}
+
+/* Fondo de página */
+.page-wrapper {
+  background: linear-gradient(180deg, var(--cream-light) 0%, var(--cream-bg) 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Mejoras de accesibilidad focus */
+*:focus-visible {
+  outline: 3px solid var(--gold-dark);
+  outline-offset: 2px;
+}
+
