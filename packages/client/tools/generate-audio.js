@@ -69,15 +69,15 @@ function generateTone(frequency, duration, sampleRate, type, volume, harmonic = 
 // Copy cha-ching sound for both money and transaction
 function generateChaChingSound() {
   if (fs.existsSync(sourceChaChingFile)) {
-    // Copy to money.wav
+    // Copy to money.wav (using the cash register sound directly)
     fs.copyFileSync(sourceChaChingFile, path.join(outputDir, "money.wav"));
-    console.log("Copied: money.wav (cha-ching from cash_register_kaching___sound_effect_hd.wav)");
+    console.log("Copied: money.wav (cash register cha-ching)");
     
     // Copy to transaction.wav (same sound for both sender and receiver)
     fs.copyFileSync(sourceChaChingFile, path.join(outputDir, "transaction.wav"));
-    console.log("Copied: transaction.wav (cha-ching from cash_register_kaching___sound_effect_hd.wav)");
+    console.log("Copied: transaction.wav (cash register cha-ching)");
   } else {
-    console.log("Warning: Source cha-ching file not found, using generated sound");
+    console.log("Warning: Source cha-ching file not found, using fallback generated sound");
     // Fallback to generated sound if file doesn't exist
     generateFallbackChaChingSound();
   }
