@@ -97,62 +97,30 @@ La versión española utiliza una paleta de colores inspirada directamente en el
 
 ---
 
-## 🚀 Cómo Clonar y Ejecutar
+## 🛠️ Configuración
 
-### Pasos para ejecutar el proyecto:
+1. Clona el repositorio y entra en la carpeta del proyecto
+2. Instala las dependencias ejecutando `npm install`
+3. Configura las variables de entorno:
+   - Configura las variables en la sesión actual, o
+   - Copia los archivos `.env.example` en los paquetes server y client:
+     - `cp packages/server/.env.example packages/server/.env`
+     - `cp packages/client/.env.example packages/client/.env`
+4. Ejecuta `npm start` para iniciar el servidor
 
-```bash
-# 1. Clona el repositorio
-git clone https://github.com/ryu51474/MONOPOLY-DINERO-VIRTUAL-ESPANOL-MEJORADO.git
+### 🧪 Configuración para Desarrollo
 
-# 2. Entra en la carpeta del proyecto
-cd MONOPOLY-DINERO-VIRTUAL-ESPANOL-MEJORADO
+Para activar hot-reloading en backend y frontend:
 
-# 3. Instala las dependencias
-npm install
+- Ejecuta el backend: `npm run server:dev`
+- Ejecuta el frontend: `npm run client:dev`
 
-# 4. Inicia el servidor
-npm start
-```
+> El archivo `launch.json` también permite conectar y depurar el servidor al ejecutar `npm run client:dev`.
 
-La aplicación estará disponible en `http://localhost:3000`
-
-### ⚙️ Configuración Opcional (Variables de Entorno)
-
-Si deseas configurar variables de entorno personalizadas, puedes crear archivos `.env` en las carpetas `packages/server/` y `packages/client/`:
-
-**packages/server/.env:**
-
-```env
-PORT=3000
-SERVER_ALLOWED_ORIGINS=http://localhost:3000,http://tu-ip:3000
-```
-
-**packages/client/.env:**
-
-```env
-VITE_API_ROOT=http://localhost:3000
-```
-
-> ⚠️ **Nota:** Estos archivos `.env` son opcionales. El proyecto funciona correctamente con los valores predeterminados.
-
-### 🧪 Desarrollo (Hot Reload)
-
-Para activar hot-reloading en backend y frontend simultáneamente:
-
-```bash
-npm run dev
-```
-
-O de forma separada:
-
-- Backend: `npm run server:dev`
-- Frontend: `npm run client:dev`
-
-### 📦 Comandos Útiles (npm workspaces)
+Este proyecto usa npm workspaces. Comandos útiles:
 
 - Añadir dependencia al cliente: `npm install DEP -w ./packages/client --save`
-- Detener servidores: `npm run stop`
+- Construir solo el cliente: `npm run build -w ./packages/client`
 
 ---
 

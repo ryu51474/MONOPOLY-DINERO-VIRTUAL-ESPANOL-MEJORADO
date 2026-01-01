@@ -21,10 +21,10 @@ router.post("/:gameId", (req, res) => {
     const { gameId } = req.params;
     const { name } = req.body;
     if (!gameStore_1.default.doesGameExist(gameId)) {
-        res.status(404).send("El juego no existe");
+        res.status(404).send("Game does not exist");
     }
     else if (!gameStore_1.default.getGame(gameId).isGameOpen()) {
-        res.status(403).send("El juego no está abierto");
+        res.status(403).send("Game is not open");
     }
     else {
         const game = gameStore_1.default.getGame(gameId);
@@ -39,13 +39,13 @@ router.get("/:gameId", (req, res) => {
     const { gameId } = req.params;
     const userToken = req.get("Authorization");
     if (userToken === undefined) {
-        res.status(401).send("Autorización no proporcionada");
+        res.status(401).send("Authorization not supplied");
     }
     else if (!gameStore_1.default.doesGameExist(gameId)) {
-        res.status(404).send("El juego no existe");
+        res.status(404).send("Game does not exist");
     }
     else if (!gameStore_1.default.getGame(gameId).isUserInGame(userToken)) {
-        res.status(401).send("No tienes permiso para realizar esta operación");
+        res.status(401).send("You are not permitted to make this operation");
     }
     else {
         const game = gameStore_1.default.getGame(gameId);
