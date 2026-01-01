@@ -106,8 +106,7 @@ La versión española utiliza una paleta de colores inspirada directamente en el
    - Copia los archivos `.env.example` en los paquetes server y client:
      - `cp packages/server/.env.example packages/server/.env`
      - `cp packages/client/.env.example packages/client/.env`
-4. Construye las dependencias con `npm run build`
-5. Ejecuta `npm start` para iniciar el servidor
+4. Ejecuta `npm start` para iniciar el servidor
 
 ### 🧪 Configuración para Desarrollo
 
