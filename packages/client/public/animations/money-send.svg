@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <linearGradient id="coinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd700"/>
+      <stop offset="50%" style="stop-color:#ffec8b"/>
+      <stop offset="100%" style="stop-color:#daa520"/>
+    </linearGradient>
+  </defs>
+  
+  <circle cx="100" cy="100" r="90" fill="#f0fdf4" stroke="#22c55e" stroke-width="3"/>
+  
+  <g class="coins-container">
+    <g class="coin coin-1">
+      <circle cx="60" cy="130" r="18" fill="url(#coinGradient)" filter="url(#glow)"/>
+      <text x="60" y="136" font-size="16" font-weight="bold" fill="#78350f" text-anchor="middle">$</text>
+    </g>
+    <g class="coin coin-2">
+      <circle cx="85" cy="110" r="15" fill="url(#coinGradient)" filter="url(#glow)"/>
+      <text x="85" y="115" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">$</text>
+    </g>
+    <g class="coin coin-3">
+      <circle cx="110" cy="125" r="16" fill="url(#coinGradient)" filter="url(#glow)"/>
+      <text x="110" y="131" font-size="14" font-weight="bold" fill="#78350f" text-anchor="middle">$</text>
+    </g>
+    <g class="coin coin-4">
+      <circle cx="140" cy="115" r="14" fill="url(#coinGradient)" filter="url(#glow)"/>
+      <text x="140" y="120" font-size="12" font-weight="bold" fill="#78350f" text-anchor="middle">$</text>
+    </g>
+  </g>
+  
+  <path d="M 70 70 L 130 70 L 115 55 M 130 70 L 115 85" stroke="#22c55e" stroke-width="6" fill="none" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+  
+  <g class="checkmark">
+    <circle cx="100" cy="100" r="25" fill="#22c55e" filter="url(#glow)"/>
+    <path d="M 88 100 L 96 108 L 112 92" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <text x="100" y="175" font-size="14" font-weight="bold" fill="#16a34a" text-anchor="middle" class="send-text">ENVIADO!</text>
+  
+  <style>
+    .coin-1 { animation: flyRight 1.5s ease-out infinite; }
+    .coin-2 { animation: flyRight 1.5s ease-out infinite; animation-delay: 0.2s; }
+    .coin-3 { animation: flyRight 1.5s ease-out infinite; animation-delay: 0.4s; }
+    .coin-4 { animation: flyRight 1.5s ease-out infinite; animation-delay: 0.6s; }
+    @keyframes flyRight {
+      0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+      20% { opacity: 1; transform: translate(10px, -5px) scale(1.1); }
+      50% { transform: translate(20px, -10px) scale(1); }
+      100% { opacity: 0; transform: translate(60px, -20px) scale(0.8); }
+    }
+    .checkmark { animation: checkBounce 0.6s ease-out; animation-delay: 0.3s; opacity: 0; }
+    @keyframes checkBounce {
+      0% { opacity: 0; transform: scale(0); }
+      50% { transform: scale(1.2); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+    .send-text { animation: textFadeIn 0.5s ease-out; animation-delay: 0.8s; opacity: 0; }
+    @keyframes textFadeIn { to { opacity: 1; } }
+  </style>
+</svg>
