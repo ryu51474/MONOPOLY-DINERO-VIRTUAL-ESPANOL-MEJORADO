@@ -33,8 +33,27 @@ Este proyecto está basado en el trabajo original de **nitratine** (Brady).
 | **Botones**               | Estándar             | ✅ Efecto 3D tipo ficha de Monopoly                               |
 | **Loading**               | Básico               | ✅ Spinner estilo ruleta de Monopoly                              |
 | **Scrollbar**             | Por defecto          | ✅ Personalizada con colores del Monopoly                         |
+| **Botones de montos**     | Valores básicos      | ✅ Colores auténticos de billetes Monopoly y CLP                  |
 
-### 🔊 Sistema de Sonidos (NUEVO)
+### 💰 Botones de Montos Rápidos con Colores de Billetes (NUEVO)
+
+La versión mejorada incluye botones de montos rápidos con colores auténticos inspirados en los billetes de Monopoly y pesos chilenos:
+
+| Valor | Billete                           | Color del Botón | Color del Texto |
+| ----- | --------------------------------- | --------------- | --------------- |
+| $1    | Blanco tradicional                | `#ffffff`       | `#1e293b`       |
+| $5    | Rosa                              | `#ec4899`       | `#ffffff`       |
+| $10   | Azul claro                        | `#60a5fa`       | `#ffffff`       |
+| $20   | Verde claro                       | `#4ade80`       | `#1e293b`       |
+| $50   | Morado claro                      | `#a78bfa`       | `#ffffff`       |
+| $100  | Beige                             | `#fef3c7`       | `#1e293b`       |
+| $500  | Naranja dorado                    | `#f59e0b`       | `#ffffff`       |
+| $1000 | Verde CLP (Ignacio Carrera Pinto) | `#22c55e`       | `#ffffff`       |
+| $1500 | Lila CLP (Manuel Rodríguez)       | `#8b5cf6`       | `#ffffff`       |
+
+**Mecánica de suma:** Los valores se suman al presionar múltiples botones. Por ejemplo, para ingresar $28: presiona $20 + $5 + $1 + $1 + $1.
+
+### 🔊 Sistema de Sonidos
 
 La versión mejorada incluye un sistema completo de efectos de sonido generados mediante Web Audio API:
 
