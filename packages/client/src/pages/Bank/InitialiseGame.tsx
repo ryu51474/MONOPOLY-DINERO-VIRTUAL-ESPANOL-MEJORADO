@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { useModal } from "react-modal-hook";
 import MonopolyAmountInput from "../../components/MonopolyAmountInput";
+import { useSounds } from "../../components/SoundProvider";
 import { trackInitialisedPlayerBalances } from "../../utils";
 
 interface IInitialiseGameProps {
@@ -37,13 +38,17 @@ interface IValueModalProps {
 const ValueModal: React.FC<IValueModalProps> = ({ submitAmount, onClose }) => {
   const [amount, setAmount] = useState<number | null>(null);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const { playSound } = useSounds();
 
   const submit = () => {
     if (amount === null) {
       setSubmitError("Por favor proporciona una cantidad");
+      playSound('error');
     } else if (amount <= 0) {
       setSubmitError("Debes proporcionar una suma mayor a $0");
+      playSound('error');
     } else {
+      playSound('bigTransaction');
       submitAmount(amount);
       close();
       trackInitialisedPlayerBalances(amount);
