@@ -152,6 +152,385 @@ body {
 }
 
 /* ==========================================
+   EFECTOS ADICIONALES - MONEDAS FLOTANDO
+   ========================================== */
+
+/* Money Float: Monedas flotando al recibir dinero */
+@keyframes moneyFloat {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(0deg) scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(-15px) rotate(10deg) scale(1.1);
+  }
+  40% {
+    transform: translateY(-25px) rotate(-5deg) scale(1);
+  }
+  60% {
+    transform: translateY(-35px) rotate(5deg) scale(0.95);
+  }
+  80% {
+    opacity: 1;
+    transform: translateY(-45px) rotate(-3deg) scale(0.9);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-60px) rotate(0deg) scale(0.8);
+  }
+}
+
+.money-float {
+  animation: moneyFloat 1.2s ease-out forwards;
+  pointer-events: none;
+}
+
+/* ==========================================
+   CARD BOUNCE - REBOTE DE TARJETAS
+   ========================================== */
+
+@keyframes cardBounce {
+  0% {
+    transform: scale(0.8) translateY(30px);
+    opacity: 0;
+  }
+  40% {
+    transform: scale(1.05) translateY(-10px);
+    opacity: 1;
+  }
+  60% {
+    transform: scale(0.95) translateY(5px);
+  }
+  80% {
+    transform: scale(1.02) translateY(-3px);
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.card-bounce {
+  animation: cardBounce 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* ==========================================
+   SHIMMER GOLD - BRILLO DORADO
+   ========================================== */
+
+@keyframes shimmerGold {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-gold {
+  background: linear-gradient(
+    90deg,
+    #fef3c7 0%,
+    #fde68a 25%,
+    #fbbf24 50%,
+    #fde68a 75%,
+    #fef3c7 100%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: shimmerGold 2s ease-in-out infinite;
+  color: #78350f !important;
+  border-color: #d97706 !important;
+}
+
+/* Shimmer Gold con texto oscuro */
+.shimmer-gold-dark {
+  background: linear-gradient(
+    90deg,
+    #fbbf24 0%,
+    #f59e0b 25%,
+    #d97706 50%,
+    #f59e0b 75%,
+    #fbbf24 100%
+  ) !important;
+  background-size: 200% 100% !important;
+  animation: shimmerGold 1.5s ease-in-out infinite;
+  color: white !important;
+  border-color: #92400e !important;
+}
+
+/* ==========================================
+   CARD POP 3D - EMERGENCIA 3D DE TARJETAS
+   ========================================== */
+
+@keyframes cardPop3D {
+  0% {
+    transform: perspective(1000px) rotateX(90deg) scale(0.8);
+    opacity: 0;
+    filter: blur(10px);
+  }
+  40% {
+    transform: perspective(1000px) rotateX(-10deg) scale(1.05);
+    opacity: 0.8;
+    filter: blur(0);
+  }
+  60% {
+    transform: perspective(1000px) rotateX(5deg) scale(0.98);
+    opacity: 1;
+  }
+  80% {
+    transform: perspective(1000px) rotateX(-2deg) scale(1.01);
+  }
+  100% {
+    transform: perspective(1000px) rotateX(0deg) scale(1);
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.card-pop-3d {
+  animation: cardPop3D 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* ==========================================
+   MONEY WAVE - ONDAS EN ICONOS DE DINERO
+   ========================================== */
+
+@keyframes moneyWave {
+  0% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  15% {
+    transform: scale(1.15);
+    filter: brightness(1.2) drop-shadow(0 0 8px rgba(34, 197, 94, 0.6));
+  }
+  30% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  45% {
+    transform: scale(1.08);
+    filter: brightness(1.1) drop-shadow(0 0 4px rgba(34, 197, 94, 0.4));
+  }
+  60% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+  75% {
+    transform: scale(1.04);
+    filter: brightness(1.05);
+  }
+  100% {
+    transform: scale(1);
+    filter: brightness(1);
+  }
+}
+
+.money-wave {
+  animation: moneyWave 0.8s ease-out;
+}
+
+/* Money Wave con icono de dinero */
+.money-wave-icon {
+  display: inline-block;
+  animation: moneyWave 0.8s ease-out;
+}
+
+/* ==========================================
+   ELASTIC BOUNCE - REBOTE ELÁSTICO
+   ========================================== */
+
+@keyframes elasticBounce {
+  0% {
+    transform: scale(1);
+  }
+  20% {
+    transform: scale(1.4);
+  }
+  40% {
+    transform: scale(0.8);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  65% {
+    transform: scale(0.9);
+  }
+  75% {
+    transform: scale(1.1);
+  }
+  85% {
+    transform: scale(0.95);
+  }
+  92% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.elastic-bounce {
+  animation: elasticBounce 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* Elastic Bounce rápido */
+.elastic-bounce-fast {
+  animation: elasticBounce 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+}
+
+/* ==========================================
+   EFECTO PULSE MEJORADO CON BRILLO
+   ========================================== */
+
+@keyframes pulseGlow {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(202, 138, 4, 0.4);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px 10px rgba(202, 138, 4, 0.2);
+  }
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGreen {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 25px 15px rgba(34, 197, 94, 0.15);
+  }
+}
+
+.pulse-green {
+  animation: pulseGreen 2s ease-in-out infinite;
+}
+
+/* ==========================================
+   FADE IN UP - VARIANTES
+   ========================================== */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.4s ease-out;
+}
+
+.fade-in-up-fast {
+  animation: fadeInUp 0.2s ease-out;
+}
+
+.fade-in-up-slow {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Fade In Up con delay */
+.fade-in-up-delay-1 { animation: fadeInUp 0.4s ease-out 0.1s both; }
+.fade-in-up-delay-2 { animation: fadeInUp 0.4s ease-out 0.2s both; }
+.fade-in-up-delay-3 { animation: fadeInUp 0.4s ease-out 0.3s both; }
+.fade-in-up-delay-4 { animation: fadeInUp 0.4s ease-out 0.4s both; }
+.fade-in-up-delay-5 { animation: fadeInUp 0.4s ease-out 0.5s both; }
+
+/* ==========================================
+   BALANCE FLASH - FLASH AL ACTUALIZAR SALDO
+   ========================================== */
+
+@keyframes balanceFlash {
+  0% {
+    background-color: rgba(34, 197, 94, 0.3);
+    transform: scale(1.02);
+  }
+  50% {
+    background-color: rgba(34, 197, 94, 0.1);
+  }
+  100% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+}
+
+.balance-flash {
+  animation: balanceFlash 0.8s ease-out;
+}
+
+.balance-flash-green {
+  animation: balanceFlash 0.8s ease-out;
+}
+
+@keyframes balanceFlashRed {
+  0% {
+    background-color: rgba(239, 68, 68, 0.3);
+    transform: scale(1.02);
+  }
+  50% {
+    background-color: rgba(239, 68, 68, 0.1);
+  }
+  100% {
+    background-color: transparent;
+    transform: scale(1);
+  }
+}
+
+.balance-flash-red {
+  animation: balanceFlashRed 0.8s ease-out;
+}
+
+/* ==========================================
+   SHAKE - PARA ERRORES
+   ========================================== */
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.shake {
+  animation: shake 0.5s ease-in-out;
+}
+
+/* Shake suave */
+@keyframes shakeGentle {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-3px); }
+  75% { transform: translateX(3px); }
+}
+
+.shake-gentle {
+  animation: shakeGentle 0.3s ease-in-out;
+}
+
+/* Shake intenso para errores graves */
+@keyframes shakeIntense {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+  20%, 40%, 60%, 80% { transform: translateX(8px); }
+}
+
+.shake-intense {
+  animation: shakeIntense 0.6s ease-in-out;
+}
+
+/* ==========================================
    CLASES DE UTILIDAD
    ========================================== */
 
