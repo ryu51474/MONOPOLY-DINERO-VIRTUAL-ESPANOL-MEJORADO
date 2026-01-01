@@ -8,7 +8,10 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-// WAV file header generator
+// Copy the cha-ching sound file from the Downloads folder (parent of project)
+const sourceChaChingFile = path.join(__dirname, "../../../../cash_register_kaching___sound_effect_hd.wav");
+
+// WAV file header generator (for generated sounds)
 function createWavHeader(dataLength, sampleRate, numChannels, bitsPerSample) {
   const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
   const blockAlign = numChannels * (bitsPerSample / 8);
@@ -32,7 +35,7 @@ function createWavHeader(dataLength, sampleRate, numChannels, bitsPerSample) {
 }
 
 // Generate audio samples for a tone
-function generateTone(frequency, duration, sampleRate, type, volume) {
+function generateTone(frequency, duration, sampleRate, type, volume, harmonic = 0) {
   const numSamples = Math.floor(sampleRate * duration);
   const samples = Buffer.alloc(numSamples * 2);
   
@@ -42,6 +45,10 @@ function generateTone(frequency, duration, sampleRate, type, volume) {
     
     if (type === 'sine') {
       sample = Math.sin(2 * Math.PI * frequency * t);
+      if (harmonic > 0) {
+        sample += harmonic * Math.sin(2 * Math.PI * frequency * 2 * t) * 0.3;
+        sample += harmonic * 0.5 * Math.sin(2 * Math.PI * frequency * 3 * t) * 0.15;
+      }
     } else if (type === 'square') {
       sample = Math.sin(2 * Math.PI * frequency * t) > 0 ? 1 : -1;
     } else if (type === 'sawtooth') {
@@ -50,11 +57,8 @@ function generateTone(frequency, duration, sampleRate, type, volume) {
       sample = 2 * Math.abs(2 * ((frequency * t) % 1) - 1) - 1;
     }
     
-    // Apply envelope (fade out)
     const envelope = Math.exp(-3 * (i / numSamples));
     const intSample = Math.floor(sample * volume * 32767 * envelope);
-    
-    // Clamp to 16-bit range
     const clampedSample = Math.max(-32768, Math.min(32767, intSample));
     samples.writeInt16LE(clampedSample, i * 2);
   }
@@ -62,36 +66,58 @@ function generateTone(frequency, duration, sampleRate, type, volume) {
   return samples;
 }
 
-// Generate cha-ching sound (cash register)
+// Copy cha-ching sound for both money and transaction
 function generateChaChingSound() {
+  if (fs.existsSync(sourceChaChingFile)) {
+    // Copy to money.wav
+    fs.copyFileSync(sourceChaChingFile, path.join(outputDir, "money.wav"));
+    console.log("Copied: money.wav (cha-ching from cash_register_kaching___sound_effect_hd.wav)");
+    
+    // Copy to transaction.wav (same sound for both sender and receiver)
+    fs.copyFileSync(sourceChaChingFile, path.join(outputDir, "transaction.wav"));
+    console.log("Copied: transaction.wav (cha-ching from cash_register_kaching___sound_effect_hd.wav)");
+  } else {
+    console.log("Warning: Source cha-ching file not found, using generated sound");
+    // Fallback to generated sound if file doesn't exist
+    generateFallbackChaChingSound();
+  }
+}
+
+// Fallback generated cha-ching sound
+function generateFallbackChaChingSound() {
   const sampleRate = 44100;
   const samples = [];
   
-  // Cha-ching classic cash register sound
   const tones = [
-    // Opening "cha"
-    { freq: 1200, dur: 0.08, type: 'sine', vol: 0.4 },
-    { freq: 1400, dur: 0.06, type: 'sine', vol: 0.35 },
-    // Transition
-    { freq: 1600, dur: 0.04, type: 'sine', vol: 0.3 },
-    // "ching" - bell-like tone
-    { freq: 2500, dur: 0.15, type: 'sine', vol: 0.5 },
-    { freq: 3000, dur: 0.10, type: 'sine', vol: 0.4 },
-    { freq: 3500, dur: 0.20, type: 'sine', vol: 0.35 },
+    { freq: 987, dur: 0.06, type: 'sine', vol: 0.35, harmonic: 1 },
+    { freq: 1247, dur: 0.04, type: 'sine', vol: 0.30, harmonic: 1 },
+    { freq: 1318, dur: 0.04, type: 'sine', vol: 0.25 },
+    { freq: 1568, dur: 0.04, type: 'sine', vol: 0.20 },
+    { freq: 0, dur: 0.03, type: 'sine', vol: 0 },
+    { freq: 2093, dur: 0.10, type: 'sine', vol: 0.50, harmonic: 1 },
+    { freq: 2637, dur: 0.08, type: 'sine', vol: 0.40, harmonic: 1 },
+    { freq: 3136, dur: 0.06, type: 'sine', vol: 0.35, harmonic: 1 },
+    { freq: 4186, dur: 0.15, type: 'sine', vol: 0.30, harmonic: 1 },
+    { freq: 2093, dur: 0.20, type: 'sine', vol: 0.25, harmonic: 1 },
   ];
   
-  let currentPos = 0;
-  
   tones.forEach((tone, idx) => {
-    const gap = idx === tones.length - 1 ? 0 : 0.02;
+    if (tone.freq === 0) {
+      const gapSamples = Math.floor(tone.dur * sampleRate);
+      for (let i = 0; i < gapSamples * 2; i++) {
+        samples.push(0, 0);
+      }
+      return;
+    }
+    
+    const gap = idx === tones.length - 1 ? 0 : 0.01;
     const gapSamples = Math.floor(gap * sampleRate);
     
-    // Add gap
-    for (let i = 0; i < gapSamples; i++) {
+    for (let i = 0; i < gapSamples * 2; i++) {
       samples.push(0, 0);
     }
     
-    const toneSamples = generateTone(tone.freq, tone.dur, sampleRate, tone.type, tone.vol);
+    const toneSamples = generateTone(tone.freq, tone.dur, sampleRate, tone.type, tone.vol, tone.harmonic);
     for (let i = 0; i < toneSamples.length; i++) {
       samples.push(toneSamples[i]);
     }
@@ -100,41 +126,8 @@ function generateChaChingSound() {
   const audioData = Buffer.from(samples);
   const wavHeader = createWavHeader(audioData.length, sampleRate, 1, 16);
   fs.writeFileSync(path.join(outputDir, "money.wav"), Buffer.concat([wavHeader, audioData]));
-  console.log("Generated: money.wav (cha-ching)");
-}
-
-// Generate transaction sound (casino style)
-function generateTransactionSound() {
-  const sampleRate = 44100;
-  const samples = [];
-  
-  // Casino confirmation melody
-  const tones = [
-    { freq: 523.25, dur: 0.12, type: 'sine', vol: 0.5 },
-    { freq: 659.25, dur: 0.12, type: 'sine', vol: 0.45 },
-    { freq: 783.99, dur: 0.18, type: 'sine', vol: 0.4 },
-    { freq: 1046.50, dur: 0.25, type: 'sine', vol: 0.35 },
-  ];
-  
-  tones.forEach((tone, idx) => {
-    const gap = idx === tones.length - 1 ? 0 : 0.08;
-    const gapSamples = Math.floor(gap * sampleRate);
-    
-    // Add gap
-    for (let i = 0; i < gapSamples; i++) {
-      samples.push(0, 0);
-    }
-    
-    const toneSamples = generateTone(tone.freq, tone.dur, sampleRate, tone.type, tone.vol);
-    for (let i = 0; i < toneSamples.length; i++) {
-      samples.push(toneSamples[i]);
-    }
-  });
-  
-  const audioData = Buffer.from(samples);
-  const wavHeader = createWavHeader(audioData.length, sampleRate, 1, 16);
   fs.writeFileSync(path.join(outputDir, "transaction.wav"), Buffer.concat([wavHeader, audioData]));
-  console.log("Generated: transaction.wav");
+  console.log("Generated fallback: money.wav and transaction.wav");
 }
 
 // Generate error sound
@@ -151,7 +144,7 @@ function generateErrorSound() {
     const gap = idx === tones.length - 1 ? 0 : 0.15;
     const gapSamples = Math.floor(gap * sampleRate);
     
-    for (let i = 0; i < gapSamples; i++) {
+    for (let i = 0; i < gapSamples * 2; i++) {
       samples.push(0, 0);
     }
     
@@ -173,23 +166,26 @@ function generateBigTransactionSound() {
   const samples = [];
   
   const tones = [
-    { freq: 1000, dur: 0.05, type: 'square', vol: 0.35 },
-    { freq: 1200, dur: 0.05, type: 'square', vol: 0.35 },
-    { freq: 1500, dur: 0.08, type: 'square', vol: 0.3 },
-    { freq: 2000, dur: 0.10, type: 'square', vol: 0.25 },
-    { freq: 1800, dur: 0.15, type: 'sine', vol: 0.3 },
-    { freq: 2200, dur: 0.20, type: 'sine', vol: 0.25 },
+    { freq: 523.25, dur: 0.08, type: 'triangle', vol: 0.4 },
+    { freq: 659.25, dur: 0.08, type: 'triangle', vol: 0.4 },
+    { freq: 783.99, dur: 0.08, type: 'triangle', vol: 0.35 },
+    { freq: 1046.50, dur: 0.12, type: 'triangle', vol: 0.35 },
+    { freq: 783.99, dur: 0.08, type: 'triangle', vol: 0.3 },
+    { freq: 1046.50, dur: 0.20, type: 'triangle', vol: 0.5 },
+    { freq: 2093, dur: 0.15, type: 'sine', vol: 0.45, harmonic: 1 },
+    { freq: 2637, dur: 0.12, type: 'sine', vol: 0.35, harmonic: 1 },
+    { freq: 3136, dur: 0.25, type: 'sine', vol: 0.30, harmonic: 1 },
   ];
   
   tones.forEach((tone, idx) => {
-    const gap = idx === tones.length - 1 ? 0 : 0.04;
+    const gap = idx === tones.length - 1 ? 0 : 0.05;
     const gapSamples = Math.floor(gap * sampleRate);
     
-    for (let i = 0; i < gapSamples; i++) {
+    for (let i = 0; i < gapSamples * 2; i++) {
       samples.push(0, 0);
     }
     
-    const toneSamples = generateTone(tone.freq, tone.dur, sampleRate, tone.type, tone.vol);
+    const toneSamples = generateTone(tone.freq, tone.dur, sampleRate, tone.type, tone.vol, tone.harmonic);
     for (let i = 0; i < toneSamples.length; i++) {
       samples.push(toneSamples[i]);
     }
@@ -215,7 +211,7 @@ function generateNotificationSound() {
     const gap = idx === tones.length - 1 ? 0 : 0.08;
     const gapSamples = Math.floor(gap * sampleRate);
     
-    for (let i = 0; i < gapSamples; i++) {
+    for (let i = 0; i < gapSamples * 2; i++) {
       samples.push(0, 0);
     }
     
@@ -263,7 +259,7 @@ function generateWinSound() {
     const gap = idx === tones.length - 1 ? 0 : 0.1;
     const gapSamples = Math.floor(gap * sampleRate);
     
-    for (let i = 0; i < gapSamples; i++) {
+    for (let i = 0; i < gapSamples * 2; i++) {
       samples.push(0, 0);
     }
     
@@ -288,7 +284,6 @@ function generateShuffleSound() {
     const gap = i * 0.035;
     const gapSamples = Math.floor(gap * sampleRate);
     
-    // Fill gap
     for (let j = samples.length / 2; j < gapSamples; j++) {
       samples.push(0, 0);
     }
@@ -324,7 +319,6 @@ function generateHoverSound() {
 // Generate all sounds
 console.log("Generating audio files...\n");
 generateChaChingSound();
-generateTransactionSound();
 generateErrorSound();
 generateBigTransactionSound();
 generateNotificationSound();
