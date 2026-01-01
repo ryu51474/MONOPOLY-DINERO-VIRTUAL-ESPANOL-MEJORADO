@@ -8,8 +8,8 @@ if (!fs.existsSync(outputDir)) {
   fs.mkdirSync(outputDir, { recursive: true });
 }
 
-// Copy the cha-ching sound file from the Downloads folder (parent of project)
-const sourceChaChingFile = path.join(__dirname, "../../../../cash_register_kaching___sound_effect_hd.wav");
+// Copy the cha-ching sound file from the public/sounds folder
+const sourceChaChingFile = path.join(__dirname, "../public/sounds/cash_register_kaching___sound_effect_hd.wav");
 
 // WAV file header generator (for generated sounds)
 function createWavHeader(dataLength, sampleRate, numChannels, bitsPerSample) {
