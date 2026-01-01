@@ -105,7 +105,7 @@ const Funds: React.FC<IFundsProps> = ({
       </div>
 
       <div className="mt-2">
-        <RecentTransactions events={events} players={players} />
+        <RecentTransactions events={events} players={players} currentPlayerId={playerId} />
       </div>
     </div>
   );

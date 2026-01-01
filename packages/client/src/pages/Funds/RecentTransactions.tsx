@@ -6,6 +6,7 @@ import {
 } from "@monopoly-money/game-state";
 import { DateTime } from "luxon";
 import React, { useEffect, useRef, useState } from "react";
+import { useSounds } from "../../components/SoundProvider";
 import { bankName, freeParkingName } from "../../constants";
 import { formatCurrency } from "../../utils";
 
@@ -14,10 +15,12 @@ const visibilityDurationMilliseconds = 40_000;
 interface IRecentTransactionsProps {
   events: GameEvent[];
   players: IGameStatePlayer[];
+  currentPlayerId?: string;
 }
 
-const RecentTransactions: React.FC<IRecentTransactionsProps> = ({ events, players }) => {
+const RecentTransactions: React.FC<IRecentTransactionsProps> = ({ events, players, currentPlayerId }) => {
   const [displayedTransactions, setDisplayedTransactions] = useState<ITransactionEvent[]>([]);
+  const { playSound } = useSounds();
 
   const getEntityName = (entity: GameEntity) => {
     if (entity === "freeParking") {
@@ -28,6 +31,12 @@ const RecentTransactions: React.FC<IRecentTransactionsProps> = ({ events, player
       const player = players.find((p) => p.playerId === entity);
       return player?.name ?? "[Usuario Eliminado]";
     }
+  };
+
+  // Check if entity is the current player
+  const isCurrentPlayer = (entity: GameEntity): boolean => {
+    if (currentPlayerId === undefined) return false;
+    return entity === currentPlayerId;
   };
 
   useEffect(() => {
@@ -41,6 +50,12 @@ const RecentTransactions: React.FC<IRecentTransactionsProps> = ({ events, player
           ...current.filter((t) => t.time !== transaction.time),
           transaction
         ]);
+        
+        // Play money sound if current player is the recipient
+        if (isCurrentPlayer(transaction.to)) {
+          playSound('money');
+        }
+        
         setTimeout(() => {
           setDisplayedTransactions((current) => current.filter((t) => t.time !== transaction.time));
         }, visibilityDurationMilliseconds);
