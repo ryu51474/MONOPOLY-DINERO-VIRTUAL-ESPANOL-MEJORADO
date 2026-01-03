@@ -40,7 +40,7 @@ const Home: React.FC<IHomeProps> = ({ onGameSetup }) => {
       </div>
 
       <div className="mt-4">
-        <h2>Tus Juegos Activos</h2>
+        <h2><span className="emoji-bounce">🎮</span> Tus Juegos Activos</h2>
         {storedGames.length > 0 ? (
           <div className="active-game-cards">
             {storedGames
@@ -77,7 +77,7 @@ const Home: React.FC<IHomeProps> = ({ onGameSetup }) => {
                         ))}
                       {status !== null && status.useFreeParking && (
                         <Badge variant="warning">
-                          Parada Libre: {formatCurrency(status.freeParkingBalance)}
+                          🚗 Parada Libre: {formatCurrency(status.freeParkingBalance)}
                         </Badge>
                       )}
                     </div>
@@ -102,7 +102,7 @@ const Home: React.FC<IHomeProps> = ({ onGameSetup }) => {
       <hr />
 
       <div>
-        <h2>¿Qué es Monopoly Money?</h2>
+        <h2><span className="emoji-bounce">💰</span> ¿Qué es Monopoly Money?</h2>
         <p>
           Monopoly Money es una aplicación web que te ayuda a llevar un control de tus finanzas en una partida de Monopoly
           (o cualquier juego que use moneda).
@@ -127,7 +127,7 @@ const Home: React.FC<IHomeProps> = ({ onGameSetup }) => {
       <hr />
 
       <div>
-        <h2>Hospedalo Tú Mismo</h2>
+        <h2><span className="emoji-bounce">🏠</span> Hospedalo Tú Mismo</h2>
         <p>Monopoly Money es código abierto, lo que significa que puedes hospedar tu propia instancia.</p>
         <p>
           <a href="https://github.com/brentvollebregt/monopoly-money">

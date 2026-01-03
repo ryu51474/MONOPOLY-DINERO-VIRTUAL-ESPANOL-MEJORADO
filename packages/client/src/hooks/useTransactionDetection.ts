@@ -1,6 +1,7 @@
 import { GameEvent, IGameStatePlayer, ITransactionEvent } from '@monopoly-money/game-state';
 import { useCallback, useEffect, useRef } from 'react';
 import { useTransactionNotifications } from '../components/TransactionNotification';
+import { bankName } from '../constants';
 
 // GameEntity types
 type GameEntity = 'bank' | 'freeParking' | string; // string is playerId
@@ -21,8 +22,8 @@ export const useTransactionDetection = ({
   const processedEventsRef = useRef<Set<string>>(new Set());
 
   const getPlayerInfo = useCallback((entity: GameEntity): { name: string; id?: string } | null => {
-    if (entity === 'bank') return { name: 'Banco' };
-    if (entity === 'freeParking') return { name: 'Parada Libre' };
+    if (entity === 'bank') return { name: bankName };
+    if (entity === 'freeParking') return { name: '🚗 Parada Libre' };
     
     const player = players.find(p => p.playerId === entity);
     return player ? { name: player.name, id: player.playerId } : null;

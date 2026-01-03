@@ -1645,3 +1645,10 @@ body {
   animation: emojiBounce 1s ease-in-out infinite;
 }
 
+/* Emoji bounce class for headings */
+.emoji-bounce {
+  display: inline-block;
+  animation: emojiBounce 2s ease-in-out infinite;
+  margin-right: 8px;
+}
+

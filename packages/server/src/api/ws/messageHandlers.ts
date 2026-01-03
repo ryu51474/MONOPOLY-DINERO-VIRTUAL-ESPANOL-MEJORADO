@@ -94,6 +94,11 @@ export const proposeEvent: MessageHandler = (ws, { gameId, userToken }, message)
           return; // Only a banker or the modified player can change their name
         }
         break;
+      case "playerAvatarChange":
+        if (playerId !== event.playerId) {
+          return; // Players can only update their own avatar
+        }
+        break;
       case "playerDelete":
         if (!isPlayerBanker && playerId !== event.playerId) {
           return; // Only a banker or the player themselves can remove a player from the game

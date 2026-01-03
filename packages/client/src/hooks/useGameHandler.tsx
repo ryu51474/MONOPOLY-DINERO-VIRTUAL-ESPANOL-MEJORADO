@@ -19,6 +19,7 @@ export interface IGameHandlerState extends IGameState {
   actions: {
     proposeTransaction: (from: GameEntity, to: GameEntity, amount: number) => void;
     proposePlayerNameChange: (playerId: string, name: string) => void;
+    proposePlayerAvatarChange: (playerId: string, avatar: string) => void;
     proposePlayerDelete: (playerId: string) => void;
     proposeGameOpenStateChange: (open: boolean) => void;
     proposeUseFreeParkingChange: (useFreeParking: boolean) => void;
@@ -50,7 +51,7 @@ const useGameHandler = (): {
               </li>
             ))}
             {gameState.useFreeParking && (
-              <li>Parada Libre: {formatCurrency(gameState.freeParkingBalance)}</li>
+              <li>🚗 Parada Libre: {formatCurrency(gameState.freeParkingBalance)}</li>
             )}
           </ul>
           <small>(Proporcionado en caso de que necesites recrear el juego)</small>
@@ -105,6 +106,7 @@ const useGameHandler = (): {
             actions: {
               proposeTransaction: gameHandler.proposeTransaction.bind(gameHandler),
               proposePlayerNameChange: gameHandler.proposePlayerNameChange.bind(gameHandler),
+              proposePlayerAvatarChange: gameHandler.proposePlayerAvatarChange.bind(gameHandler),
               proposePlayerDelete: gameHandler.proposePlayerDelete.bind(gameHandler),
               proposeGameOpenStateChange: gameHandler.proposeGameOpenStateChange.bind(gameHandler),
               proposeUseFreeParkingChange:

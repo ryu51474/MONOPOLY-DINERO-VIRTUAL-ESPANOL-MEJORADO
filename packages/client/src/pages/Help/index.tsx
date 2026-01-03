@@ -5,7 +5,7 @@ import "./Help.scss";
 const Help: React.FC = () => {
   return (
     <div className="help">
-      <h3 className="text-center">Ayuda de Monopoly Money</h3>
+      <h3 className="text-center"><span className="emoji-bounce">ℹ️</span> Ayuda de Monopoly Money</h3>
       <p className="lead mt-2 text-center">Una pequeña guía de Monopoly Money.</p>
 
       <ul>
@@ -20,10 +20,10 @@ const Help: React.FC = () => {
         </li>
       </ul>
 
-      <h4 id="pages">Páginas</h4>
+      <h4 id="pages"><span className="emoji-bounce">📑</span> Páginas</h4>
       <img src={PagesImage} alt="Títulos para cada página" className="mw-100" />
 
-      <h4 id="player-help">Ayuda para Jugadores</h4>
+      <h4 id="player-help"><span className="emoji-bounce">🎲</span> Ayuda para Jugadores</h4>
 
       <h5>Unirse a un Juego</h5>
       <p>
@@ -45,7 +45,7 @@ const Help: React.FC = () => {
         anteriormente en el juego. Ve a la página de historial para ver estos eventos.
       </p>
 
-      <h4 id="banker-help">Ayuda para Banqueros</h4>
+      <h4 id="banker-help"><span className="emoji-bounce">🏦</span> Ayuda para Banqueros</h4>
 
       <h5>Crear un Juego</h5>
       <p>

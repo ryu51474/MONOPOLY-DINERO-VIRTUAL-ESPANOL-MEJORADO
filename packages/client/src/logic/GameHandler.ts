@@ -5,6 +5,7 @@ import {
   GameEvent,
   IGameOpenStateChangeEvent,
   IGameState,
+  IPlayerAvatarChangeEvent,
   IPlayerDeleteEvent,
   IPlayerNameChangeEvent,
   ITransactionEvent,
@@ -131,6 +132,18 @@ class GameHandler {
       type: "playerNameChange",
       playerId,
       name
+    };
+    this.submitEvent(event);
+  }
+
+  // Change a player's avatar
+  public proposePlayerAvatarChange(playerId: string, avatar: string) {
+    const event: IPlayerAvatarChangeEvent = {
+      time: "", // Will be filled in by the server
+      actionedBy: "", // Will be filled in by the server
+      type: "playerAvatarChange",
+      playerId,
+      avatar
     };
     this.submitEvent(event);
   }

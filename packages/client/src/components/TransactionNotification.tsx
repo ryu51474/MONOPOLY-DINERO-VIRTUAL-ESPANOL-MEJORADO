@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { bankName, freeParkingName } from '../constants';
 import { getPlayerEmoji } from '../utils';
 import { useSounds } from './SoundProvider';
 import './TransactionNotification.scss';
@@ -123,7 +124,15 @@ const TransactionNotification: React.FC = () => {
                 <div className="notification-text send-text">
                   <span className="notification-amount">-${notification.amount.toLocaleString()}</span>
                   <span className="notification-message">enviado a</span>
-                  {notification.playerId && (
+                  {notification.playerName === freeParkingName ? (
+                    <span className="notification-player-emoji" role="img" aria-label="free-parking">
+                      🚗
+                    </span>
+                  ) : notification.playerName === bankName ? (
+                    <span className="notification-player-emoji" role="img" aria-label="bank">
+                      🏦
+                    </span>
+                  ) : notification.playerId && (
                     <span className="notification-player-emoji" role="img" aria-label="animal">
                       {getPlayerEmoji(notification.playerId)}
                     </span>
@@ -141,7 +150,15 @@ const TransactionNotification: React.FC = () => {
                 <div className="notification-text receive-text">
                   <span className="notification-amount">+${notification.amount.toLocaleString()}</span>
                   <span className="notification-message">de</span>
-                  {notification.playerId && (
+                  {notification.playerName === freeParkingName ? (
+                    <span className="notification-player-emoji" role="img" aria-label="free-parking">
+                      🚗
+                    </span>
+                  ) : notification.playerName === bankName ? (
+                    <span className="notification-player-emoji" role="img" aria-label="bank">
+                      🏦
+                    </span>
+                  ) : notification.playerId && (
                     <span className="notification-player-emoji" role="img" aria-label="animal">
                       {getPlayerEmoji(notification.playerId)}
                     </span>
