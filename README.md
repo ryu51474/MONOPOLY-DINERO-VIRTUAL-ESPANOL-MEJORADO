@@ -22,17 +22,18 @@ Este proyecto está basado en el trabajo original de **nitratine** (Brady).
 
 ## 🌟 Diferencias y Mejoras vs. Repositorio Original
 
-| Característica            | Original (nitratine) | Esta Versión Mejorada                                             |
-| ------------------------- | -------------------- | ----------------------------------------------------------------- |
-| **Idioma**                | Inglés               | ✅ Español completo                                               |
-| **Colores**               | Estándar, sobrios    | ✅ Colores vibrantes inspirados en el tablero clásico de Monopoly |
-| **Sonidos**               | ❌ No disponible     | ✅ Sistema completo de sonidos (Web Audio API)                    |
-| **Efectos visuales**      | Básicos              | ✅ Animaciones: pulse, fade-in, shake, monedas flotando, etc.     |
-| **Interfaz**              | Funcional            | ✅ Diseño 3D, bordes coloreados, gradientes                       |
-| **Tarjetas de jugadores** | Simples              | ✅ Efectos hover, animaciones de rebote, estilos tipo ficha       |
-| **Botones**               | Estándar             | ✅ Efecto 3D tipo ficha de Monopoly                               |
-| **Loading**               | Básico               | ✅ Spinner estilo ruleta de Monopoly                              |
-| **Scrollbar**             | Por defecto          | ✅ Personalizada con colores del Monopoly                         |
+| Característica            | Original (nitratine) | Esta Versión Mejorada                                                                |
+| ------------------------- | -------------------- | ------------------------------------------------------------------------------------ |
+| **Idioma**                | Inglés               | ✅ Español completo                                                                  |
+| **Colores**               | Estándar, sobrios    | ✅ Colores vibrantes inspirados en el tablero clásico de Monopoly                    |
+| **Sonidos**               | ❌ No disponible     | ✅ Sistema completo de sonidos (Web Audio API)                                       |
+| **Efectos visuales**      | Básicos              | ✅ Animaciones: pulse, fade-in, shake, monedas flotando, etc.                        |
+| **Interfaz**              | Funcional            | ✅ Diseño 3D, bordes coloreados, gradientes                                          |
+| **Tarjetas de jugadores** | Simples              | ✅ Efectos hover, animaciones de rebote, estilos tipo ficha, **colores según emoji** |
+| **Botones**               | Estándar             | ✅ Efecto 3D tipo ficha de Monopoly                                                  |
+| **Loading**               | Básico               | ✅ Spinner estilo ruleta de Monopoly                                                 |
+| **Scrollbar**             | Por defecto          | ✅ Personalizada con colores del Monopoly                                            |
+| **Selección de avatar**   | Manual por jugador   | ✅ **Automático por emoji** (cada jugador tiene emoji único según su ID)             |
 
 ### 🔊 Sistema de Sonidos (NUEVO)
 
@@ -63,6 +64,26 @@ La versión española utiliza una paleta de colores inspirada directamente en el
 | Amarillo Dorado | `#F1C40F` | Destacados, advertencias  |
 | Naranja         | `#E67E22` | Alertas                   |
 | Crema           | `#FFFEF7` | Fondos de tarjetas        |
+
+### 🐾 Tarjetas de Jugador con Colores de Emoji
+
+Cada jugador recibe automáticamente un emoji único basado en su ID de jugador (determinístico). La tarjeta del jugador muestra:
+
+- **Emoji del jugador** (🐶, 🐱, 🦊, 🐼, 🦁, etc.)
+- **Color de fondo** correspondiente al emoji (mapeo predefinido)
+
+**Ejemplos de colores por emoji:**
+
+| Emoji | Animal | Color                 |
+| ----- | ------ | --------------------- |
+| 🐶    | Perro  | #8B4513 (marrón)      |
+| 🐱    | Gato   | #FF6B6B (rojo)        |
+| 🦊    | Zorro  | #FF6B35 (naranja)     |
+| 🐼    | Panda  | #2C3E50 (azul oscuro) |
+| 🦁    | León   | #F39C12 (dorado)      |
+| 🐯    | Tigre  | #E74C3C (rojo oscuro) |
+
+Este sistema elimina la necesidad de selección manual de avatar, haciendo que cada jugador tenga una identificación visual única e intuitiva.
 
 ### ✨ Efectos Visuales y Animaciones
 
