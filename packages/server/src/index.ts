@@ -103,9 +103,9 @@ function printBanner(localIP: string) {
   const networkUrl = `http://${localIP}:${port}`;
   
   console.log("");
-  console.log(colors.fgCyan + colors.bright + "╔══════════════════════════════════════════════════════════════╗" + colors.reset);
+  console.log(colors.fgCyan + colors.bright + "╔═══════════════════════════════════════════════════════╗" + colors.reset);
   console.log(colors.fgCyan + colors.bright + "║" + colors.reset + "   🎲 MONOPOLY DINERO VIRTUAL ESPAÑOL 🎲   " + colors.fgCyan + colors.bright + "║" + colors.reset);
-  console.log(colors.fgCyan + colors.bright + "╚══════════════════════════════════════════════════════════════╝" + colors.reset);
+  console.log(colors.fgCyan + colors.bright + "╚═══════════════════════════════════════════════════════╝" + colors.reset);
   console.log("");
   console.log(colors.fgGreen + "✅ Servidor iniciado correctamente" + colors.reset);
   console.log("");
