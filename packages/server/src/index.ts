@@ -4,6 +4,7 @@ dotenv.config(); // Setup .env
 import express from "express";
 import * as http from "http";
 import path from "path";
+import qrcodeTerminal from "qrcode-terminal";
 import { GameRoutes, gameSubRoute, RestoreRoutes, restoreSubRoute, setupWebsocketAPI } from "./api";
 import config from "./config";
 
@@ -95,28 +96,31 @@ function getLocalIP(): string {
 
 const port = Number(config.server.port) || 3000;
 
-// Imprimir banner de inicio
+// Imprimir banner de inicio con QR code
 function printBanner(localIP: string) {
   console.clear();
+  const localUrl = `http://localhost:${port}`;
+  const networkUrl = `http://${localIP}:${port}`;
+  
   console.log("");
-  console.log(colors.fgCyan + colors.bright + "╔════════════════════════════════════════════════════════════════╗" + colors.reset);
-  console.log(colors.fgCyan + colors.bright + "║" + colors.reset + "                    🎲 MONOPOLY MONEY 🎲                   " + colors.fgCyan + colors.bright + "║" + colors.reset);
-  console.log(colors.fgCyan + colors.bright + "╚════════════════════════════════════════════════════════════════╝" + colors.reset);
+  console.log(colors.fgCyan + colors.bright + "╔════════════════════════════════════════════════════════════╗" + colors.reset);
+  console.log(colors.fgCyan + colors.bright + "║" + colors.reset + "         MONOPOLY MONEY - Servidor Iniciado         " + colors.fgCyan + colors.bright + "║" + colors.reset);
+  console.log(colors.fgCyan + colors.bright + "╚════════════════════════════════════════════════════════════╝" + colors.reset);
   console.log("");
-  console.log(colors.fgGreen + "✅ Servidor iniciado correctamente" + colors.reset);
+  console.log(colors.fgGreen + "Servidor iniciado correctamente" + colors.reset);
   console.log("");
-  console.log(colors.bright + "📍 ACCESOS DISPONIBLES:" + colors.reset);
-  console.log(colors.dim + "   ────────────────────────────────────────────────" + colors.reset);
-  console.log("   " + colors.fgGreen + "🌐" + colors.reset + " Local:    " + colors.fgYellow + colors.bright + "http://localhost:" + port + colors.reset + " " + colors.dim + "(Ctrl+Click para abrir)" + colors.reset);
-  console.log("   " + colors.fgBlue + "📱" + colors.reset + " Red:      " + colors.fgYellow + colors.bright + "http://" + localIP + ":" + port + colors.reset);
-  console.log(colors.dim + "   ────────────────────────────────────────────────" + colors.reset);
+  
+  console.log("  " + colors.fgGreen + "LOCAL" + colors.reset + "  →  " + colors.fgYellow + localUrl + colors.reset);
+  console.log("  " + colors.fgBlue + "RED" + colors.reset + "     →  " + colors.fgYellow + networkUrl + colors.reset);
   console.log("");
-  console.log(colors.fgMagenta + "💡" + colors.reset + " Para acceder desde otro dispositivo, usa la IP de red");
-  console.log("   y asegúrate de estar en la misma red WiFi");
+  console.log(colors.fgRed + "Ctrl+C para detener" + colors.reset);
   console.log("");
-  console.log(colors.fgRed + "🛑" + colors.reset + " Presiona " + colors.bright + "Ctrl+C" + colors.reset + " para detener el servidor");
-  console.log("");
-  console.log(colors.dim + "   Puerto del servidor: " + port + " | WebSocket: ws://" + localIP + ":" + port + "/api/events" + colors.reset);
+  
+  // QR code al final (versión pequeña)
+  console.log(colors.fgMagenta + "CÓDIGO QR:" + colors.reset);
+  qrcodeTerminal.generate(networkUrl, { small: true }, (qr: string) => {
+    console.log(qr);
+  });
   console.log("");
 }
 
@@ -124,3 +128,15 @@ server.listen(port, "0.0.0.0", () => {
   const localIP = getLocalIP();
   printBanner(localIP);
 });
+
+export default {
+  client: {
+    relative_build_directory: "./client",
+    routes: ["/join", "/new-game", "/funds", "/bank", "/history", "/settings"]
+  },
+  server: {
+    allowed_origins: process.env.SERVER_ALLOWED_ORIGINS?.split(","),
+    port: process.env.PORT || 3000
+  }
+};
+
