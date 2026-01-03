@@ -281,6 +281,7 @@ function generateShuffleSound() {
   const samples = [];
   
   // Simple seeded random number generator for deterministic output
+  // Using a FIXED seed to ensure the same audio is generated every time
   let seed = 12345;
   const seededRandom = () => {
     seed = (seed * 1103515245 + 12345) & 0x7fffffff;
@@ -300,7 +301,7 @@ function generateShuffleSound() {
       currentSampleOffset++;
     }
     
-    // Use seeded random for deterministic output
+    // Use seeded random for deterministic output - same seed produces same audio
     const toneSamples = generateTone(250 + seededRandom() * 150, 0.025, sampleRate, 'triangle', 0.2);
     for (let j = 0; j < toneSamples.length; j++) {
       samples.push(toneSamples[j]);
@@ -311,7 +312,7 @@ function generateShuffleSound() {
   const audioData = Buffer.from(samples);
   const wavHeader = createWavHeader(audioData.length, sampleRate, 1, 16);
   fs.writeFileSync(path.join(outputDir, "shuffle.wav"), Buffer.concat([wavHeader, audioData]));
-  console.log("Generated: shuffle.wav");
+  console.log("Generated: shuffle.wav (deterministic)");
 }
 
 // Generate hover sound
