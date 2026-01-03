@@ -139,8 +139,8 @@ const App: React.FC = () => {
       game !== null
         ? () => wrapRoute(routePaths.history, <History events={game.events} />)
         : () => <NotFound />,
-    [routePaths.settings]:
-      game !== null && game.isBanker
+[routePaths.settings]:
+      game !== null
         ? () =>
             wrapRoute(
               routePaths.settings,
@@ -148,6 +148,7 @@ const App: React.FC = () => {
                 isGameOpen={game.open}
                 useFreeParking={game.useFreeParking}
                 players={game.players}
+                playerId={game.playerId}
                 proposePlayerNameChange={game.actions.proposePlayerNameChange}
                 proposePlayerDelete={game.actions.proposePlayerDelete}
                 proposeGameOpenStateChange={game.actions.proposeGameOpenStateChange}

@@ -20,7 +20,8 @@ export const calculateGameState = (events: GameEvent[], currentState: IGameState
               name: event.name,
               banker: false,
               balance: 0,
-              connected: false
+              connected: false,
+              avatar: undefined
             }
           ]
         };
@@ -39,6 +40,19 @@ export const calculateGameState = (events: GameEvent[], currentState: IGameState
               ? {
                   ...p,
                   name: event.name
+                }
+              : p
+          )
+        };
+
+      case "playerAvatarChange":
+        return {
+          ...state,
+          players: state.players.map((p) =>
+            p.playerId === event.playerId
+              ? {
+                  ...p,
+                  avatar: event.avatar
                 }
               : p
           )
@@ -140,6 +154,9 @@ export const calculateGameState = (events: GameEvent[], currentState: IGameState
             }
           ]
         };
+
+      default:
+        return state;
     }
   }, currentState);
 };

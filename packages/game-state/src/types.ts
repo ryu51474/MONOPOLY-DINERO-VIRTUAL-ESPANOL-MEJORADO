@@ -9,6 +9,7 @@ export interface IGameStatePlayer {
   banker: boolean;
   balance: number;
   connected: boolean;
+  avatar?: string;
 }
 
 export interface IGameState {
@@ -24,6 +25,7 @@ export type GameEvent =
   | IPlayerJoinEvent
   | IPlayerDeleteEvent
   | IPlayerNameChangeEvent
+  | IPlayerAvatarChangeEvent
   | IPlayerBankerStatusChangeEvent
   | ITransactionEvent
   | IGameOpenStateChangeEvent
@@ -50,6 +52,12 @@ export interface IPlayerNameChangeEvent extends IGameEvent {
   type: "playerNameChange";
   playerId: PlayerId;
   name: string;
+}
+
+export interface IPlayerAvatarChangeEvent extends IGameEvent {
+  type: "playerAvatarChange";
+  playerId: PlayerId;
+  avatar: string;
 }
 
 export interface IPlayerBankerStatusChangeEvent extends IGameEvent {

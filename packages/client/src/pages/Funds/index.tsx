@@ -1,10 +1,10 @@
 import { GameEntity, GameEvent, IGameStatePlayer } from "@monopoly-money/game-state";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Card } from "react-bootstrap";
 import { useModal } from "react-modal-hook";
 import { bankName, freeParkingName } from "../../constants";
 import useTransactionDetection from "../../hooks/useTransactionDetection";
-import { formatCurrency, getPlayerEmoji, sortPlayersByName } from "../../utils";
+import { formatCurrency, getUniquePlayerEmojis } from "../../utils";
 import "./Funds.scss";
 import GameCode from "./GameCode";
 import PlayerCard from "./PlayerCard";
@@ -67,6 +67,9 @@ const Funds: React.FC<IFundsProps> = ({
   const me = players.find((p) => p.playerId === playerId);
   const isBanker = me?.banker ?? false;
 
+  // Get unique emojis for all players to avoid duplicates
+  const playerEmojis = useMemo(() => getUniquePlayerEmojis(players), [players]);
+
   return (
     <div className="funds">
       {isGameOpen && <GameCode gameId={gameId} isBanker={isBanker} />}
@@ -76,7 +79,7 @@ const Funds: React.FC<IFundsProps> = ({
           <Card.Body className="p-3">
             <div className="me-indicator">
               <span className="player-emoji" role="img" aria-label="animal">
-                {getPlayerEmoji(me.playerId)}
+                {playerEmojis.get(me.playerId)}
               </span>
               <span>{me.name}</span>
             </div>
@@ -86,11 +89,12 @@ const Funds: React.FC<IFundsProps> = ({
       </Card>
 
       <div className="mb-1 balance-grid">
-        {sortPlayersByName(players.filter((p) => p.playerId !== playerId)).map((player) => (
+        {players.filter((p) => p.playerId !== playerId).map((player) => (
           <PlayerCard
             key={player.playerId}
             name={player.name}
             playerId={player.playerId}
+            emoji={playerEmojis.get(player.playerId)}
             connected={player.connected}
             balance={player.balance}
             onClick={() => setRecipient(player)}

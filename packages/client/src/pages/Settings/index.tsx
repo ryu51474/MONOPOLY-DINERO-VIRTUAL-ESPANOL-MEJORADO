@@ -20,6 +20,7 @@ interface ISettingsProps {
   isGameOpen: boolean;
   useFreeParking: boolean;
   players: IGameStatePlayer[];
+  playerId: string;
   proposePlayerNameChange: (playerId: string, name: string) => void;
   proposePlayerDelete: (playerId: string) => void;
   proposeGameOpenStateChange: (open: boolean) => void;
@@ -31,6 +32,7 @@ const Settings: React.FC<ISettingsProps> = ({
   isGameOpen,
   useFreeParking,
   players,
+  // playerId is used for authorization in parent component
   proposePlayerNameChange,
   proposePlayerDelete,
   proposeGameOpenStateChange,
@@ -111,7 +113,7 @@ const Settings: React.FC<ISettingsProps> = ({
                 <ConnectedStateDot connected={player.connected} />
               </td>
               <td>{player.name}</td>
-              <td>{formatCurrency(player.balance)}</td>
+<td>{formatCurrency(player.balance)}</td>
               <td>
                 <Button
                   variant="outline-secondary"
@@ -147,7 +149,7 @@ const Settings: React.FC<ISettingsProps> = ({
       </Table>
 
       <Button block variant="info" onClick={toggleFreeParking}>
-        {useFreeParking ? "Desactivar" : "Activar"} la Regla de Casa de Parada Libre
+        {useFreeParking ? "Desactivar" : "Activar"} la Regla de Casa de 🚗 Parada Libre
       </Button>
 
       <Button block variant="primary" onClick={toggleNewPlayersAllowed}>

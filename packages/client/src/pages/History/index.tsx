@@ -178,9 +178,9 @@ const getEventDetails = (
       const actionedByEmoji = getPlayerEmoji(actionedBy.playerId);
       return {
         ...defaults,
-        title: "Cambio de Estado de Parada Libre",
+        title: "Cambio de Estado de 🚗 Parada Libre",
         actionedBy: `<span class="event-player-emoji" role="img" aria-label="animal">${actionedByEmoji}</span> ${actionedBy.name}`,
-        detail: `La regla de casa de Parada Libre ahora está ${
+        detail: `La regla de casa de 🚗 Parada Libre ahora está ${
           event.useFreeParking ? "activada" : "desactivada"
         }`,
         colour: "blue"
@@ -197,6 +197,22 @@ const getEventDetails = (
       //   colour: "teal"
       // };
       return null;
+    }
+
+    case "playerAvatarChange": {
+      const player = nextState.players.find((p) => p.playerId === event.playerId)!;
+      const playerEmoji = getPlayerEmoji(player.playerId);
+      const actionedBy = previousState.players.find((p) => p.playerId === event.actionedBy)!;
+      const actionedByDisplay = actionedBy.playerId === event.playerId 
+        ? null 
+        : `<span class="event-player-emoji" role="img" aria-label="animal">${getPlayerEmoji(actionedBy.playerId)}</span> ${actionedBy.name}`;
+      return {
+        ...defaults,
+        title: "Cambio de Avatar",
+        actionedBy: actionedByDisplay,
+        detail: `${playerEmoji} ${player.name} cambió su avatar`,
+        colour: "orange"
+      };
     }
   }
 };

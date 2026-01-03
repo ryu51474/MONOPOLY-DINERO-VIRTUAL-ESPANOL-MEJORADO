@@ -14,10 +14,6 @@
     font-size: 1.2em;
     color: var(--text-dark);
     box-shadow: var(--shadow-soft);
-    
-    &::before {
-      content: '💰 ';
-    }
 
     .money-text {
       font-size: 1.3em;
