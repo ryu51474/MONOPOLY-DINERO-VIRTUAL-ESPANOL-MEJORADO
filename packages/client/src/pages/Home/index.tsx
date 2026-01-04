@@ -32,10 +32,10 @@ const Home: React.FC<IHomeProps> = ({ onGameSetup }) => {
 
       <div className="new-join-button-wrapper mt-4">
         <Button size="lg" onClick={newGame}>
-          Nuevo Juego
+          <span className="emoji-bounce">🎲</span> Nuevo Juego
         </Button>
         <Button size="lg" onClick={joinGame}>
-          Unirse al Juego
+          <span className="emoji-bounce">🚪</span> Unirse al Juego
         </Button>
       </div>
 

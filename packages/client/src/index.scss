@@ -1652,3 +1652,23 @@ body {
   margin-right: 8px;
 }
 
+/* Two-line title styling for Join page */
+.title-two-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.title-text {
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-width: 400px) {
+  .title-text {
+    white-space: normal;
+    line-height: 1.3;
+  }
+}
+

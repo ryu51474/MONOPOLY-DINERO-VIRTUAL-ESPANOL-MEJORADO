@@ -12,7 +12,17 @@ interface IJoinProps {
 }
 
 const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
-  const title = newGame ? "Crear Juego" : "Unirse al Juego";
+  const title = newGame ? (
+    <>
+      <span className="emoji-bounce">🎲</span> Crear Juego <span className="emoji-bounce">🎲</span>
+    </>
+  ) : (
+    <div className="title-two-line">
+      <span className="emoji-bounce">📲</span>
+      <span className="title-text">Unirse al<br />Juego</span>
+      <span className="emoji-bounce">📲</span>
+    </div>
+  );
 
   const { storedGames } = useStoredGames(false);
   const [loading, setLoading] = useState(false);
@@ -126,7 +136,15 @@ const Join: React.FC<IJoinProps> = ({ newGame, onGameSetup }) => {
       )}
 
       <Button block variant="primary" onClick={onSubmit} disabled={loading}>
-        {newGame ? "Crear" : "Unirse"}
+        {newGame ? (
+          <>
+            <span className="emoji-bounce">🎰</span> Crear
+          </>
+        ) : (
+          <>
+            <span className="emoji-bounce">🎫</span> Unirse
+          </>
+        )}
       </Button>
 
       {hasServerError && (
