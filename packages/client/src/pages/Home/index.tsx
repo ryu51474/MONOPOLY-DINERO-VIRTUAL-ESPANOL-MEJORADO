@@ -49,14 +49,14 @@ const Home: React.FC<IHomeProps> = ({ onGameSetup }) => {
                 <Card key={gameId} className="mb-1">
                   <Card.Body className="p-2">
                     <div className="text-left">
-                      Juego {gameId}
+                      <span className="emoji-bounce">🎲</span> <strong>Juego #{gameId}</strong>
                       <small style={{ float: "right" }}>
                         {DateTime.fromISO(time).toFormat("DD h:mm a")}
                       </small>
                     </div>
                     <div>
                       {status?.players
-                        .sort((p1, _) => (p1.playerId === playerId ? -1 : 0))
+                        .sort((p1) => (p1.playerId === playerId ? -1 : 0))
                         .map((player) => (
                           <Badge
                             key={player.playerId}
@@ -88,7 +88,7 @@ const Home: React.FC<IHomeProps> = ({ onGameSetup }) => {
                       onClick={() => onGameSetup(gameId, userToken, playerId)}
                       className="mt-2"
                     >
-                      Unirse al Juego
+                      Volver al juego
                     </Button>
                   </Card.Body>
                 </Card>
