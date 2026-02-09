@@ -23,6 +23,10 @@ export interface IGameHandlerState extends IGameState {
     proposePlayerDelete: (playerId: string) => void;
     proposeGameOpenStateChange: (open: boolean) => void;
     proposeUseFreeParkingChange: (useFreeParking: boolean) => void;
+    proposeUseAuctionsChange: (useAuctions: boolean) => void;
+    proposeAuctionStart: (propertyColor: string, propertyPrice: number) => void;
+    proposeAuctionBid: (bidderId: string, amount: number) => void;
+    proposeAuctionEnd: (cancelled: boolean) => void;
     proposeGameEnd: () => void;
   };
 }
@@ -111,6 +115,10 @@ const useGameHandler = (): {
               proposeGameOpenStateChange: gameHandler.proposeGameOpenStateChange.bind(gameHandler),
               proposeUseFreeParkingChange:
                 gameHandler.proposeUseFreeParkingChange.bind(gameHandler),
+              proposeUseAuctionsChange: gameHandler.proposeUseAuctionsChange.bind(gameHandler),
+              proposeAuctionStart: gameHandler.proposeAuctionStart.bind(gameHandler),
+              proposeAuctionBid: gameHandler.proposeAuctionBid.bind(gameHandler),
+              proposeAuctionEnd: gameHandler.proposeAuctionEnd.bind(gameHandler),
               proposeGameEnd: gameHandler.proposeGameEnd.bind(gameHandler)
             }
           }

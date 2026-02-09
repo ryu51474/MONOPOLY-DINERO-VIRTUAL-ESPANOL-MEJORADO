@@ -101,6 +101,13 @@ function printBanner(localIP: string) {
   console.clear();
   const localUrl = `http://localhost:${port}`;
   const networkUrl = `http://${localIP}:${port}`;
+
+  // Intentar abrir el navegador automáticamente si está habilitado
+  if (config.server.open_browser) {
+    const { exec } = require("child_process");
+    const openCommand = process.platform === "win32" ? "start" : process.platform === "darwin" ? "open" : "xdg-open";
+    exec(`${openCommand} ${networkUrl}`);
+  }
   
   console.log("");
   console.log(colors.fgCyan + colors.bright + "╔═══════════════════════════════════════════════════════╗" + colors.reset);
@@ -136,7 +143,8 @@ export default {
   },
   server: {
     allowed_origins: process.env.SERVER_ALLOWED_ORIGINS?.split(","),
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 3000,
+    open_browser: process.env.OPEN_BROWSER !== "false"
   }
 };
 

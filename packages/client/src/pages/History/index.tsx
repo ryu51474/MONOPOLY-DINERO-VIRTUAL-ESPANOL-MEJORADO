@@ -34,7 +34,10 @@ const History: React.FC<IHistoryProps> = ({ events }) => {
                 <small>{eventDetail.title}</small>
                 <small>
                   {eventDetail.actionedBy !== null && (
-                    <span className="mr-2">(✍️ {eventDetail.actionedBy})</span>
+                    <span
+                      className="mr-2"
+                      dangerouslySetInnerHTML={{ __html: `(✍️ ${eventDetail.actionedBy})` }}
+                    />
                   )}
                   {eventDetail.time}
                 </small>
@@ -212,6 +215,73 @@ const getEventDetails = (
         actionedBy: actionedByDisplay,
         detail: `${playerEmoji} ${player.name} cambió su avatar`,
         colour: "orange"
+      };
+    }
+
+    case "useAuctionsChange": {
+      const actionedBy = previousState.players.find((p) => p.playerId === event.actionedBy)!;
+      const actionedByEmoji = getPlayerEmoji(actionedBy.playerId);
+      return {
+        ...defaults,
+        title: "Cambio de Estado de 🔨 Subastas",
+        actionedBy: `<span class="event-player-emoji" role="img" aria-label="animal">${actionedByEmoji}</span> ${actionedBy.name}`,
+        detail: `La regla de casa de 🔨 Subastas ahora está ${
+          event.useAuctions ? "activada" : "desactivada"
+        }`,
+        colour: "blue"
+      };
+    }
+
+    case "auctionStart": {
+      const actionedBy = previousState.players.find((p) => p.playerId === event.actionedBy)!;
+      const actionedByEmoji = getPlayerEmoji(actionedBy.playerId);
+      return {
+        ...defaults,
+        title: "Subasta Iniciada 🔨",
+        actionedBy: `<span class="event-player-emoji" role="img" aria-label="animal">${actionedByEmoji}</span> ${actionedBy.name}`,
+        detail: `Subasta iniciada para propiedad ${event.propertyColor} con precio base de ${formatCurrency(
+          event.propertyPrice
+        )}`,
+        colour: "yellow"
+      };
+    }
+
+    case "auctionBid": {
+      const bidder = nextState.players.find((p) => p.playerId === event.bidderId)!;
+      const bidderEmoji = getPlayerEmoji(bidder.playerId);
+      return {
+        ...defaults,
+        title: "Puja en Subasta 💰",
+        actionedBy: null,
+        detail: `<span class="event-player-emoji" role="img" aria-label="animal">${bidderEmoji}</span> ${
+          bidder.name
+        } pujó ${formatCurrency(event.amount)}`,
+        colour: "green"
+      };
+    }
+
+    case "auctionEnd": {
+      if (event.cancelled) {
+        return {
+          ...defaults,
+          title: "Subasta Cancelada 🚫",
+          actionedBy: null,
+          detail: `La subasta fue cancelada`,
+          colour: "red"
+        };
+      }
+      const auction = previousState.activeAuction;
+      if (!auction || !auction.highestBidderId) return null;
+      const winner = nextState.players.find((p) => p.playerId === auction.highestBidderId)!;
+      const winnerEmoji = getPlayerEmoji(winner.playerId);
+      return {
+        ...defaults,
+        title: "Subasta Finalizada 🏆",
+        actionedBy: null,
+        detail: `<span class="event-player-emoji" role="img" aria-label="animal">${winnerEmoji}</span> ${
+          winner.name
+        } ganó la subasta por ${formatCurrency(auction.highestBid)}`,
+        colour: "cyan"
       };
     }
   }

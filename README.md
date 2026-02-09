@@ -1,102 +1,40 @@
 <div align="center">
-    <a href="https://monopoly-money.nitratine.net/"><img src="./packages/client/src/img/banner.png" alt="Monopoly Dinero Virtual Banner" style="background: white;"></a>
+    <a href="https://github.com/ryu51474/MONOPOLY-DINERO-VIRTUAL-ESPANOL-MEJORADO"><img src="./packages/client/src/img/banner.png" alt="Monopoly Dinero Virtual Banner" style="background: white;"></a>
 </div>
 
 <p align="center">Gestiona tus finanzas en una partida de Monopoly directamente desde tu navegador.</p>
-<p align="center">🎮 La experiencia definitiva del Monopoly virtual en español</p>
+<p align="center">🎮 La experiencia definitiva del Monopoly virtual en español mejorado</p>
 
 ---
 
-## 📌 Créditos y Agradecimientos
+## 📌 Créditos y Autoría
 
-Este proyecto está basado en el trabajo original de **nitratine** (Brady).
+Este proyecto es una versión **Español Mejorado** desarrollada y mantenida por **Daniel (ryu51474)**.
 
-**Repositorio Original:**
+Está basado en el excelente trabajo original de **nitratine (Brent Vollebregt)**.
 
-- GitHub: [https://github.com/nitratine/monopoly-money](https://github.com/nitratine/monopoly-money)
-- Sitio Web: [https://monopoly-money.nitratine.net/](https://monopoly-money.nitratine.net/)
-
-**Esta versión mejorada** es una adaptación con traducción completa al español, nuevas características estéticas, sistema de sonidos y mejoras de usabilidad.
+**Enlaces de Interés:**
+- **Esta Versión (Español Mejorado):** [https://github.com/ryu51474/MONOPOLY-DINERO-VIRTUAL-ESPANOL-MEJORADO](https://github.com/ryu51474/MONOPOLY-DINERO-VIRTUAL-ESPANOL-MEJORADO)
+- **Autoría y Copyright:** [www.profedaniel.cl](http://www.profedaniel.cl)
+- **Repositorio Original (Inglés):** [https://github.com/nitratine/monopoly-money](https://github.com/nitratine/monopoly-money)
 
 ---
 
-## 🌟 Diferencias y Mejoras vs. Repositorio Original
+## 🌟 ¿Qué trae el "Español Mejorado"?
 
-| Característica            | Original (nitratine) | Esta Versión Mejorada                                                                |
-| ------------------------- | -------------------- | ------------------------------------------------------------------------------------ |
-| **Idioma**                | Inglés               | ✅ Español completo                                                                  |
-| **Colores**               | Estándar, sobrios    | ✅ Colores vibrantes inspirados en el tablero clásico de Monopoly                    |
-| **Sonidos**               | ❌ No disponible     | ✅ Sistema completo de sonidos (Web Audio API)                                       |
-| **Efectos visuales**      | Básicos              | ✅ Animaciones: pulse, fade-in, shake, monedas flotando, etc.                        |
-| **Interfaz**              | Funcional            | ✅ Diseño 3D, bordes coloreados, gradientes                                          |
-| **Tarjetas de jugadores** | Simples              | ✅ Efectos hover, animaciones de rebote, estilos tipo ficha, **colores según emoji** |
-| **Botones**               | Estándar             | ✅ Efecto 3D tipo ficha de Monopoly                                                  |
-| **Loading**               | Básico               | ✅ Spinner estilo ruleta de Monopoly                                                 |
-| **Scrollbar**             | Por defecto          | ✅ Personalizada con colores del Monopoly                                            |
-| **Selección de avatar**   | Manual por jugador   | ✅ **Automático por emoji** (cada jugador tiene emoji único según su ID)             |
+Esta versión no es solo una traducción, es una reconstrucción orientada a la mejor experiencia de usuario en móviles y tablets:
 
-### 🔊 Sistema de Sonidos (NUEVO)
+| Característica | Original (Inglés) | Español Mejorado (Esta Versión) |
+| :--- | :--- | :--- |
+| **Idioma** | Inglés | ✅ Español completo |
+| **Subastas** | Funcional básico | ✅ **Subastas 2.0**: Cualquier jugador puede iniciar, precios automáticos, pujas acumulativas, saldo proyectado y notificaciones visuales. |
+| **Sonido** | ❌ No disponible | ✅ Sistema de sonidos reactivo (Ka-ching!, transacciones, errores) optimizado para móviles. |
+| **Funcionalidad GO** | Estándar ($200) | ✅ **"Cayó en GO"**: Opción de cobro doble ($400) con reset automático. |
+| **Interfaz** | Sobria | ✅ Colores vibrantes, diseño 3D, animaciones fluidas y **layout dinámico**. |
+| **Conectividad** | Localhost | ✅ Apertura automática usando la **IP de red** y QR dinámico para unión rápida. |
+| **Facilidad de Uso** | Comandos NPM | ✅ **Scripts de un solo clic**: `iniciar_WINDOWS.bat` e `iniciar_MAC_o_LINUX.sh`. |
 
-La versión mejorada incluye un sistema completo de efectos de sonido generados mediante Web Audio API:
-
-| Sonido                         | Descripción                          |
-| ------------------------------ | ------------------------------------ |
-| 💰 `playMoneySound()`          | Monedas cayendo (ka-ching!)          |
-| ✅ `playTransactionSound()`    | Transacción exitosa (melodía casino) |
-| ❌ `playErrorSound()`          | Error (buzz suave)                   |
-| 🔔 `playNotificationSound()`   | Notificación (ding!)                 |
-| 👆 `playClickSound()`          | Sonido de klik para botones          |
-| 🃏 `playShuffleSound()`        | Barajar/mover dinero                 |
-| 💎 `playBigTransactionSound()` | Transacción grande (ka-CHING!)       |
-| 🖱️ `playHoverSound()`          | Hover en tarjetas                    |
-| 🏆 `playWinSound()`            | Celebración (fanfare)                |
-
-### 🎨 Paleta de Colores Mejorada
-
-La versión española utiliza una paleta de colores inspirada directamente en el tablero de Monopoly:
-
-| Color           | Código    | Uso                       |
-| --------------- | --------- | ------------------------- |
-| Verde Monopoly  | `#2ECC71` | Principal, dinero, éxitos |
-| Verde Oscuro    | `#27AE60` | Bordes, sombras           |
-| Rojo Monopoly   | `#E74C3C` | Errores, peligro          |
-| Azul Monopoly   | `#3498DB` | Navegación, información   |
-| Amarillo Dorado | `#F1C40F` | Destacados, advertencias  |
-| Naranja         | `#E67E22` | Alertas                   |
-| Crema           | `#FFFEF7` | Fondos de tarjetas        |
-
-### 🐾 Tarjetas de Jugador con Colores de Emoji
-
-Cada jugador recibe automáticamente un emoji único basado en su ID de jugador (determinístico). La tarjeta del jugador muestra:
-
-- **Emoji del jugador** (🐶, 🐱, 🦊, 🐼, 🦁, etc.)
-- **Color de fondo** correspondiente al emoji (mapeo predefinido)
-
-**Ejemplos de colores por emoji:**
-
-| Emoji | Animal | Color                 |
-| ----- | ------ | --------------------- |
-| 🐶    | Perro  | #8B4513 (marrón)      |
-| 🐱    | Gato   | #FF6B6B (rojo)        |
-| 🦊    | Zorro  | #FF6B35 (naranja)     |
-| 🐼    | Panda  | #2C3E50 (azul oscuro) |
-| 🦁    | León   | #F39C12 (dorado)      |
-| 🐯    | Tigre  | #E74C3C (rojo oscuro) |
-
-Este sistema elimina la necesidad de selección manual de avatar, haciendo que cada jugador tenga una identificación visual única e intuitiva.
-
-### ✨ Efectos Visuales y Animaciones
-
-- **Animaciones de entrada:** `fadeInUp` para elementos emergentes
-- **Pulse:** Para elementos importantes
-- **Balance Flash:** Flash verde al actualizar saldo
-- **Shake:** Para errores
-- **Money Float:** Monedas flotando al recibir dinero
-- **Card Bounce:** Rebote de tarjetas
-- **Shimmer Gold:** Efecto brillo dorado
-- **Card Pop 3D:** Emergencia 3D de tarjetas
-- **Money Wave:** Ondas en iconos de dinero
-- **Elastic Bounce:** Rebote elástico
+---
 
 ---
 
@@ -114,7 +52,15 @@ Este sistema elimina la necesidad de selección manual de avatar, haciendo que c
   - Activar/desactivar estacionamiento libre
   - Cerrar la partida a nuevos jugadores
   - Finalizar el juego completamente
-- 📜 **Historial** - Registro completo de todos los eventos de la partida visible por todos
+- 📜 **Historial** - Registro completo de todos los eventos de la partida con renderizado de HTML corregido
+- 🔨 **Sistema de Subastas (NUEVO)** - Un sistema de subastas interactivo para propiedades:
+  - Activable/desactivable desde la configuración del banquero
+  - Cualquier jugador puede iniciar una subasta eligiendo el color de la propiedad
+  - Precios fijos según el color (reglas estándar de Monopoly)
+  - Pujas en tiempo real (+10, +50, +100, +500)
+  - El banquero finaliza la subasta y el dinero se descuenta automáticamente del ganador
+- 🚀 **Inicio Rápido** - Scripts autoejecutables para iniciar el juego sin comandos complicados
+- 🌐 **Apertura Automática** - El navegador se abre automáticamente en la dirección correcta al iniciar
 
 ---
 
@@ -130,6 +76,14 @@ Este sistema elimina la necesidad de selección manual de avatar, haciendo que c
      - `cp packages/client/.env.example packages/client/.env`
 4. Ejecuta `npm run build` para compilar el proyecto
 5. Ejecuta `npm start` para iniciar el servidor
+6. **¡Listo!** El navegador se abrirá automáticamente en `http://localhost:3000`
+
+### 🚀 Uso de Scripts de Inicio (Más Fácil)
+
+Si no quieres usar la terminal, puedes usar los scripts incluidos:
+
+- **Windows**: Haz doble clic en `iniciar_juego.bat`
+- **Linux/macOS**: Ejecuta `./iniciar_juego.sh` (asegúrate de darle permisos con `chmod +x iniciar_juego.sh`)
 
 ### 🧪 Configuración para Desarrollo
 

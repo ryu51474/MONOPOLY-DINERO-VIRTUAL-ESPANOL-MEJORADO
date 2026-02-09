@@ -108,6 +108,21 @@ export const proposeEvent: MessageHandler = (ws, { gameId, userToken }, message)
         if (event.playerId !== playerId) {
           return; // Players can only update their own connection status
         }
+        break;
+      case "useAuctionsChange":
+      case "auctionEnd":
+        if (!isPlayerBanker) {
+          return; // Only bankers can manage auctions
+        }
+        break;
+      case "auctionStart":
+        // Anyone can start an auction for a property
+        break;
+      case "auctionBid":
+        if (event.bidderId !== playerId) {
+          return; // Players can only bid for themselves
+        }
+        break;
     }
 
     game.addEvent(event, playerId);

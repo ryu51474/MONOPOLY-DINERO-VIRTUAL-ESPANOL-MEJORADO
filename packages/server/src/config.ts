@@ -5,6 +5,7 @@ export default {
   },
   server: {
     allowed_origins: process.env.SERVER_ALLOWED_ORIGINS?.split(","),
-    port: process.env.PORT || 3000
+    port: process.env.PORT || 3000,
+    open_browser: process.env.OPEN_BROWSER !== "false"
   }
 };

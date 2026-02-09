@@ -59,8 +59,8 @@ const ShareGameModalContent = ({ gameId }: ShareGameModalContentProps) => {
 
   return (
     <>
-      <p className="text-center">
-        Haz que otros escaneen el código de abajo para unirse a tu juego
+      <p className="text-center small text-muted mb-0">
+        Escanea el QR o escribe <strong>{window.location.host}</strong> en tu navegador para unirte.
       </p>
       <div className="mt-4 text-center">
         <QRCode value={shareLink} />

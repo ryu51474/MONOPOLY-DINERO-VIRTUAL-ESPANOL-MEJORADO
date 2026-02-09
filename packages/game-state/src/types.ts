@@ -17,6 +17,16 @@ export interface IGameState {
   useFreeParking: boolean;
   freeParkingBalance: number;
   open: boolean;
+  useAuctions: boolean;
+  activeAuction: IAuctionState | null;
+}
+
+export interface IAuctionState {
+  propertyColor: string;
+  propertyPrice: number;
+  highestBid: number;
+  highestBidderId: PlayerId | null;
+  endTime: string | null; // ISO string for timer, null if no limit
 }
 
 // Game events
@@ -30,6 +40,10 @@ export type GameEvent =
   | ITransactionEvent
   | IGameOpenStateChangeEvent
   | IUseFreeParkingChangeEvent
+  | IUseAuctionsChangeEvent
+  | IAuctionStartEvent
+  | IAuctionBidEvent
+  | IAuctionEndEvent
   | IPlayerConnectionChangeEvent;
 
 export interface IGameEvent {
@@ -81,6 +95,30 @@ export interface IGameOpenStateChangeEvent extends IGameEvent {
 export interface IUseFreeParkingChangeEvent extends IGameEvent {
   type: "useFreeParkingChange";
   useFreeParking: boolean;
+}
+
+export interface IUseAuctionsChangeEvent extends IGameEvent {
+  type: "useAuctionsChange";
+  useAuctions: boolean;
+}
+
+export interface IAuctionStartEvent extends IGameEvent {
+  type: "auctionStart";
+  propertyColor: string;
+  propertyPrice: number;
+}
+
+export interface IAuctionBidEvent extends IGameEvent {
+  type: "auctionBid";
+  bidderId: PlayerId;
+  amount: number;
+}
+
+export interface IAuctionEndEvent extends IGameEvent {
+  type: "auctionEnd";
+  cancelled: boolean;
+  winnerId?: PlayerId | null;
+  amount?: number;
 }
 
 export interface IPlayerConnectionChangeEvent extends IGameEvent {

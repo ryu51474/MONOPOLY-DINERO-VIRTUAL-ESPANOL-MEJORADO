@@ -1,4 +1,4 @@
-import { GameEvent, IGameStatePlayer, ITransactionEvent } from '@monopoly-money/game-state';
+import { GameEvent, IAuctionEndEvent, IGameStatePlayer, ITransactionEvent } from '@monopoly-money/game-state';
 import { useCallback, useEffect, useRef } from 'react';
 import { useTransactionNotifications } from '../components/TransactionNotification';
 import { getLastProcessedEventIndex, getProcessedSoundEvents, PLAYER_ANIMAL_EMOJIS, saveLastProcessedEventIndex, saveProcessedSoundEvents } from '../utils';
@@ -104,6 +104,19 @@ export const useTransactionDetection = ({
               shouldPlaySound: shouldPlaySound(eventTime)
             });
           }
+        }
+      } else if (event.type === 'auctionEnd') {
+        // Auction ended - if current user won, show a notification
+        const auctionEnd = event as IAuctionEndEvent;
+        if (!auctionEnd.cancelled && auctionEnd.winnerId === currentPlayerId && auctionEnd.amount) {
+          addNotification({
+            type: 'send', // Winner pays money
+            amount: auctionEnd.amount,
+            playerName: 'Banco', // Player pays to bank for the property
+            playerId: 'bank',
+            playerEmoji: '🏦',
+            shouldPlaySound: shouldPlaySound(auctionEnd.time)
+          });
         }
       }
     }

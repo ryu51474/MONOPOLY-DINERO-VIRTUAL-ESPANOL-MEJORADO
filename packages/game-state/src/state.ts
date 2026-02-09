@@ -4,7 +4,9 @@ export const defaultGameState: IGameState = {
   players: [],
   useFreeParking: true,
   freeParkingBalance: 0,
-  open: true
+  open: true,
+  useAuctions: true,
+  activeAuction: null
 };
 
 export const calculateGameState = (events: GameEvent[], currentState: IGameState): IGameState => {
@@ -141,6 +143,59 @@ export const calculateGameState = (events: GameEvent[], currentState: IGameState
         return {
           ...state,
           useFreeParking: event.useFreeParking
+        };
+
+      case "useAuctionsChange":
+        return {
+          ...state,
+          useAuctions: event.useAuctions
+        };
+
+      case "auctionStart":
+        return {
+          ...state,
+          activeAuction: {
+            propertyColor: event.propertyColor,
+            propertyPrice: event.propertyPrice,
+            highestBid: event.propertyPrice,
+            highestBidderId: null,
+            endTime: null
+          }
+        };
+
+      case "auctionBid":
+        if (!state.activeAuction) return state;
+        if (event.amount <= state.activeAuction.highestBid) return state;
+        return {
+          ...state,
+          activeAuction: {
+            ...state.activeAuction,
+            highestBid: event.amount,
+            highestBidderId: event.bidderId
+          }
+        };
+
+      case "auctionEnd":
+        if (!state.activeAuction) return state;
+        if (event.cancelled || !state.activeAuction.highestBidderId) {
+          return {
+            ...state,
+            activeAuction: null
+          };
+        }
+        // If not cancelled and has a winner, process transaction
+        const winnerId = state.activeAuction.highestBidderId;
+        const amount = state.activeAuction.highestBid;
+        const winner = state.players.find((p) => p.playerId === winnerId);
+        if (!winner) {
+          return { ...state, activeAuction: null };
+        }
+        return {
+          ...state,
+          players: state.players.map((p) =>
+            p.playerId === winnerId ? { ...p, balance: p.balance - amount } : p
+          ),
+          activeAuction: null
         };
 
       case "playerConnectionChange":

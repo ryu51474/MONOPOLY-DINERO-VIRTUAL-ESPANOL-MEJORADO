@@ -13,6 +13,11 @@ import {
   IPlayerNameChangeEvent,
   ITransactionEvent,
   IUseFreeParkingChangeEvent,
+  IUseAuctionsChangeEvent,
+  IAuctionStartEvent,
+  IAuctionBidEvent,
+  IAuctionEndEvent,
+  IAuctionState,
   PlayerId
 } from "./types";
 
@@ -32,5 +37,10 @@ export {
   IPlayerNameChangeEvent,
   ITransactionEvent,
   IUseFreeParkingChangeEvent,
+  IUseAuctionsChangeEvent,
+  IAuctionStartEvent,
+  IAuctionBidEvent,
+  IAuctionEndEvent,
+  IAuctionState,
   PlayerId
 };

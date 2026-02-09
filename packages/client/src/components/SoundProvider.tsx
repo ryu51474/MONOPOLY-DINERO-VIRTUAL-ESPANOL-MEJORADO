@@ -148,11 +148,12 @@ export const SoundProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   return (
     <SoundContext.Provider value={{ playSound, enableAudio, disableAudio, isAudioEnabled }}>
-      {/* Add global click listener to initialize audio on first interaction */}
+      {/* Global interaction listener to initialize audio context on mobile */}
       <div 
         onClick={initializeAudio} 
         onKeyDown={initializeAudio}
-        style={{ position: 'fixed', top: 0, left: 0, width: 0, height: 0, zIndex: -1 }}
+        onTouchStart={initializeAudio}
+        style={{ position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: 10000, pointerEvents: initialized ? 'none' : 'auto', opacity: 0 }}
       />
       {children}
     </SoundContext.Provider>

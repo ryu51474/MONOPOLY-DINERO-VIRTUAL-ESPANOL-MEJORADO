@@ -13,6 +13,8 @@ import GameCode from "./GameCode";
 import PlayerCard from "./PlayerCard";
 import RecentTransactions from "./RecentTransactions";
 import SendMoneyModal from "./SendMoneyModal";
+import AuctionComponent from "../../components/AuctionComponent";
+import { IAuctionState } from "@monopoly-money/game-state";
 
 interface IFundsProps {
   gameId: string;
@@ -21,7 +23,12 @@ interface IFundsProps {
   players: IGameStatePlayer[];
   useFreeParking: boolean;
   freeParkingBalance: number;
+  useAuctions: boolean;
+  activeAuction: IAuctionState | null;
   proposeTransaction: (from: GameEntity, to: GameEntity, amount: number) => void;
+  proposeAuctionStart: (color: string, price: number) => void;
+  proposeAuctionBid: (bidderId: string, amount: number) => void;
+  proposeAuctionEnd: (cancelled: boolean) => void;
   events: GameEvent[];
 }
 
@@ -32,7 +39,12 @@ const Funds: React.FC<IFundsProps> = ({
   players,
   useFreeParking,
   freeParkingBalance,
+  useAuctions,
+  activeAuction,
   proposeTransaction,
+  proposeAuctionStart,
+  proposeAuctionBid,
+  proposeAuctionEnd,
   events
 }) => {
   const [recipient, setRecipient] = useState<IGameStatePlayer | "freeParking" | "bank" | null>(
@@ -78,6 +90,19 @@ const Funds: React.FC<IFundsProps> = ({
     <div className="funds">
       {isGameOpen && <GameCode gameId={gameId} isBanker={isBanker} />}
 
+      {/* Dinámica: Si hay subasta activa, se muestra arriba */}
+      {useAuctions && activeAuction && (
+        <AuctionComponent
+          players={players}
+          playerId={playerId}
+          isBanker={isBanker}
+          activeAuction={activeAuction}
+          proposeAuctionStart={proposeAuctionStart}
+          proposeAuctionBid={proposeAuctionBid}
+          proposeAuctionEnd={proposeAuctionEnd}
+        />
+      )}
+
       <Card className="mb-1 text-center">
         {me !== undefined && (
           <Card.Body className="p-3">
@@ -122,6 +147,19 @@ const Funds: React.FC<IFundsProps> = ({
           onClick={() => setRecipient("bank")}
         />
       </div>
+
+      {/* Dinámica: Si NO hay subasta activa, se muestra penúltimo (antes de transacciones) */}
+      {useAuctions && !activeAuction && (
+        <AuctionComponent
+          players={players}
+          playerId={playerId}
+          isBanker={isBanker}
+          activeAuction={activeAuction}
+          proposeAuctionStart={proposeAuctionStart}
+          proposeAuctionBid={proposeAuctionBid}
+          proposeAuctionEnd={proposeAuctionEnd}
+        />
+      )}
 
       <div className="mt-2">
         <RecentTransactions events={events} players={players} currentPlayerId={playerId} />

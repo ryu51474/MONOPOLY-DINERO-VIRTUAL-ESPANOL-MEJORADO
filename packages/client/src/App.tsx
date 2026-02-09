@@ -114,7 +114,12 @@ const App: React.FC = () => {
                 players={game.players}
                 useFreeParking={game.useFreeParking}
                 freeParkingBalance={game.freeParkingBalance}
+                useAuctions={game.useAuctions}
+                activeAuction={game.activeAuction}
                 proposeTransaction={game.actions.proposeTransaction}
+                proposeAuctionStart={game.actions.proposeAuctionStart}
+                proposeAuctionBid={game.actions.proposeAuctionBid}
+                proposeAuctionEnd={game.actions.proposeAuctionEnd}
                 events={game.events}
               />
             )
@@ -147,12 +152,14 @@ const App: React.FC = () => {
               <Settings
                 isGameOpen={game.open}
                 useFreeParking={game.useFreeParking}
+                useAuctions={game.useAuctions}
                 players={game.players}
                 playerId={game.playerId}
                 proposePlayerNameChange={game.actions.proposePlayerNameChange}
                 proposePlayerDelete={game.actions.proposePlayerDelete}
                 proposeGameOpenStateChange={game.actions.proposeGameOpenStateChange}
                 proposeUseFreeParkingChange={game.actions.proposeUseFreeParkingChange}
+                proposeUseAuctionsChange={game.actions.proposeUseAuctionsChange}
                 proposeGameEnd={game.actions.proposeGameEnd}
               />
             )

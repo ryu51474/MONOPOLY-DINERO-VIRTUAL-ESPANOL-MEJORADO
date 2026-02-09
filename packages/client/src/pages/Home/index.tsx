@@ -129,11 +129,21 @@ const Home: React.FC<IHomeProps> = ({ onGameSetup }) => {
       <div>
         <h2><span className="emoji-bounce">🏠</span> Hospedalo Tú Mismo</h2>
         <p>Monopoly Money es código abierto, lo que significa que puedes hospedar tu propia instancia.</p>
-        <p>
-          <a href="https://github.com/brentvollebregt/monopoly-money">
+        <p className="small text-muted">
+          Este proyecto es un "Español Mejorado" por <strong>Daniel (ryu51474)</strong> basado en el código original de <strong>Brent Vollebregt</strong>.
+        </p>
+        <div className="mt-3">
+          <small className="d-block mb-1">Repositorio de esta versión (Español Mejorado):</small>
+          <a href="https://github.com/ryu51474/MONOPOLY-DINERO-VIRTUAL-ESPANOL-MEJORADO" target="_blank" rel="noopener noreferrer">
+            github.com/ryu51474/MONOPOLY-DINERO-VIRTUAL-ESPANOL-MEJORADO
+          </a>
+        </div>
+        <div className="mt-3">
+          <small className="d-block mb-1">Proyecto original (en inglés):</small>
+          <a href="https://github.com/brentvollebregt/monopoly-money" target="_blank" rel="noopener noreferrer">
             github.com/brentvollebregt/monopoly-money
           </a>
-        </p>
+        </div>
       </div>
     </div>
   );

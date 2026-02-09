@@ -19,24 +19,28 @@ import "./Settings.scss";
 interface ISettingsProps {
   isGameOpen: boolean;
   useFreeParking: boolean;
+  useAuctions: boolean;
   players: IGameStatePlayer[];
   playerId: string;
   proposePlayerNameChange: (playerId: string, name: string) => void;
   proposePlayerDelete: (playerId: string) => void;
   proposeGameOpenStateChange: (open: boolean) => void;
   proposeUseFreeParkingChange: (useFreeParking: boolean) => void;
+  proposeUseAuctionsChange: (useAuctions: boolean) => void;
   proposeGameEnd: () => void;
 }
 
 const Settings: React.FC<ISettingsProps> = ({
   isGameOpen,
   useFreeParking,
+  useAuctions,
   players,
   // playerId is used for authorization in parent component
   proposePlayerNameChange,
   proposePlayerDelete,
   proposeGameOpenStateChange,
   proposeUseFreeParkingChange,
+  proposeUseAuctionsChange,
   proposeGameEnd
 }) => {
   const [actioningPlayer, setActioningPlayer] = useState<IGameStatePlayer | null>(null);
@@ -84,6 +88,10 @@ const Settings: React.FC<ISettingsProps> = ({
       trackFreeParkingEnabled();
     }
     proposeUseFreeParkingChange(!useFreeParking);
+  };
+
+  const toggleAuctions = () => {
+    proposeUseAuctionsChange(!useAuctions);
   };
 
   const toggleNewPlayersAllowed = () => {
@@ -152,6 +160,10 @@ const Settings: React.FC<ISettingsProps> = ({
         {useFreeParking ? "Desactivar" : "Activar"} la Regla de Casa de 🚗 Parada Libre
       </Button>
 
+      <Button block variant="warning" onClick={toggleAuctions} className="mb-2">
+        {useAuctions ? "Desactivar" : "Activar"} la Regla de Casa de 🔨 Subastas
+      </Button>
+
       <Button block variant="primary" onClick={toggleNewPlayersAllowed}>
         {isGameOpen ? "Cerrar" : "Abrir"} Juego a Nuevos Jugadores
       </Button>
@@ -160,15 +172,26 @@ const Settings: React.FC<ISettingsProps> = ({
         Terminar Juego
       </Button>
 
-      <div className="mt-5 text-center">
+      <div className="mt-5 text-center px-3">
         <div>
-          <small>¿Te parece útil esta aplicación?</small>
+          <small className="text-muted d-block mb-2">
+            Esta versión en español es un proyecto altruista mantenido por <strong>Daniel</strong>.
+            No se requieren pagos ni donaciones por su uso.
+          </small>
+          <small className="d-block mb-3">
+            Si deseas agradecer al <strong>creador original</strong> del código base (en inglés):
+          </small>
         </div>
-        <a href="https://www.buymeacoffee.com/brentvollebregt" target="_blank">
-          <Button block variant="warning">
-            🍺 Compra una cerveza para dar las gracias 🍺
+        <a href="https://www.buymeacoffee.com/brentvollebregt" target="_blank" rel="noopener noreferrer">
+          <Button block variant="warning" size="sm">
+            🍺 Comprar una cerveza al creador original (Brent) 🍺
           </Button>
         </a>
+        <div className="mt-4 border-top pt-3">
+          <small className="text-muted">
+            &copy; {new Date().getFullYear()} - <a href="http://www.profedaniel.cl" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit' }}>www.profedaniel.cl</a>
+          </small>
+        </div>
       </div>
     </div>
   );

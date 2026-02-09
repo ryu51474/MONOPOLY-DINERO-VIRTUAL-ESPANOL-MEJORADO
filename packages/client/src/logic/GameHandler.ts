@@ -9,7 +9,11 @@ import {
   IPlayerDeleteEvent,
   IPlayerNameChangeEvent,
   ITransactionEvent,
-  IUseFreeParkingChangeEvent
+  IUseFreeParkingChangeEvent,
+  IUseAuctionsChangeEvent,
+  IAuctionStartEvent,
+  IAuctionBidEvent,
+  IAuctionEndEvent
 } from "@monopoly-money/game-state";
 import {
   IAuthMessage,
@@ -173,10 +177,59 @@ class GameHandler {
   // Enable / disable Free Parking house rule
   public proposeUseFreeParkingChange(useFreeParking: boolean) {
     const event: IUseFreeParkingChangeEvent = {
-      time: "", // Will be filled in by the server
-      actionedBy: "", // Will be filled in by the server
+      time: "",
+      actionedBy: "",
       type: "useFreeParkingChange",
       useFreeParking
+    };
+    this.submitEvent(event);
+  }
+
+  // Enable / disable Auctions house rule
+  public proposeUseAuctionsChange(useAuctions: boolean) {
+    const event: IUseAuctionsChangeEvent = {
+      time: "",
+      actionedBy: "",
+      type: "useAuctionsChange",
+      useAuctions
+    };
+    this.submitEvent(event);
+  }
+
+  // Start an auction
+  public proposeAuctionStart(propertyColor: string, propertyPrice: number) {
+    const event: IAuctionStartEvent = {
+      time: "",
+      actionedBy: "",
+      type: "auctionStart",
+      propertyColor,
+      propertyPrice
+    };
+    this.submitEvent(event);
+  }
+
+  // Bid in an auction
+  public proposeAuctionBid(bidderId: string, amount: number) {
+    const event: IAuctionBidEvent = {
+      time: "",
+      actionedBy: "",
+      type: "auctionBid",
+      bidderId,
+      amount
+    };
+    this.submitEvent(event);
+  }
+
+  // End an auction
+  public proposeAuctionEnd(cancelled: boolean) {
+    const activeAuction = this.gameState?.activeAuction;
+    const event: IAuctionEndEvent = {
+      time: "",
+      actionedBy: "",
+      type: "auctionEnd",
+      cancelled,
+      winnerId: activeAuction?.highestBidderId,
+      amount: activeAuction?.highestBid
     };
     this.submitEvent(event);
   }
