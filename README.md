@@ -24,16 +24,16 @@ Está basado en el excelente trabajo original de **nitratine (Brent Vollebregt)*
 
 Esta versión no es solo una traducción, es una reconstrucción orientada a la mejor experiencia de usuario en móviles y tablets:
 
-| Característica | Original (Inglés) | Español Mejorado (Esta Versión) |
-| :--- | :--- | :--- |
-| **Idioma** | Inglés | ✅ Español completo |
-| **Subastas** | Funcional básico | ✅ **Subastas 2.0**: Cualquier jugador puede iniciar, precios automáticos, pujas acumulativas, saldo proyectado y notificaciones visuales. |
-| **Sonido** | Sin sonido | ✅ Sonidos reactivos: ka-ching!, transacciones, errores, hover, notificaciones — todo funcionando y optimizado para móviles. |
-| **Inventario Final** | Sin sistema de cierre | ✅ **Dos modos**: banquero (Solo) o cada jugador desde su dispositivo (Cada Quien), mini-mapa visual con 28 propiedades por color, selección tipo billetes, ranking final con podio 🥇🥈🥉. |
-| **Funcionalidad GO** | Estándar ($200) | ✅ **"Cayó en GO"**: Opción de cobro doble ($400) con reset automático. |
-| **Interfaz** | Sobria | ✅ Colores vibrantes, diseño 3D, animaciones fluidas y **layout dinámico**. |
-| **Conectividad** | Localhost | ✅ Apertura automática usando la **IP de red** y QR dinámico para unión rápida. |
-| **Facilidad de Uso** | Comandos NPM | ✅ **Scripts de un solo clic**: `iniciar_WINDOWS.bat` e `iniciar_MAC_o_LINUX.sh`. |
+| Característica | Disponible en Español Mejorado |
+| :--- | :--- |
+| **Idioma** | ✅ Español completo |
+| **Subastas** | ✅ **Subastas 2.0**: Cualquier jugador puede iniciar, precios automáticos, pujas acumulativas, saldo proyectado y notificaciones visuales. |
+| **Sonido** | ✅ Sonidos reactivos entretenidos: ka-ching! al recibir dinero, efectos al transaccionar, error, hover, notificaciones — todo funcionando y optimizado para móviles. |
+| **Inventario Final** | ✅ **Novedoso sistema de finalizar el juego**: dos modos (banquero Solitario o Cada Jugador desde su dispositivo), mini-mapa visual con las 28 propiedades del tablero agrupadas por color, selección intuitiva tipo billetes y ranking final con podio 🥇🥈🥉. |
+| **Funcionalidad GO** | ✅ **"Cayó en GO"**: Opción de cobro doble ($400) con reset automático. |
+| **Interfaz** | ✅ Colores vibrantes, diseño moderno, animaciones fluidas y layout dinámico adaptable a móvil y escritorio. |
+| **Conectividad** | ✅ Apertura automática con la **IP de red** local y código QR dinámico para que los jugadores se unan al instante. |
+| **Facilidad de Uso** | ✅ **Scripts de un solo clic**: `iniciar_WINDOWS.bat` para Windows e `iniciar_MAC_o_LINUX.sh` para macOS/Linux — sin comandos complicados. |
 
 ---
 
