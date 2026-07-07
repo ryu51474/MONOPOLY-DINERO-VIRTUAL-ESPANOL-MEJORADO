@@ -28,8 +28,8 @@ Esta versión no es solo una traducción, es una reconstrucción orientada a la 
 | :--- | :--- | :--- |
 | **Idioma** | Inglés | ✅ Español completo |
 | **Subastas** | Funcional básico | ✅ **Subastas 2.0**: Cualquier jugador puede iniciar, precios automáticos, pujas acumulativas, saldo proyectado y notificaciones visuales. |
-| **Sonido** | ❌ No disponible | ✅ Sonidos reactivos: ka-ching!, transacciones, errores, hover, notificaciones — todo funcionando y optimizado para móviles. |
-| **Inventario Final** | ❌ No disponible | ✅ **Dos modos**: banquero (Solo) o cada jugador desde su dispositivo (Cada Quien), mini-mapa visual con 28 propiedades por color, selección tipo billetes, ranking final con podio 🥇🥈🥉. |
+| **Sonido** | Sin sonido | ✅ Sonidos reactivos: ka-ching!, transacciones, errores, hover, notificaciones — todo funcionando y optimizado para móviles. |
+| **Inventario Final** | Sin sistema de cierre | ✅ **Dos modos**: banquero (Solo) o cada jugador desde su dispositivo (Cada Quien), mini-mapa visual con 28 propiedades por color, selección tipo billetes, ranking final con podio 🥇🥈🥉. |
 | **Funcionalidad GO** | Estándar ($200) | ✅ **"Cayó en GO"**: Opción de cobro doble ($400) con reset automático. |
 | **Interfaz** | Sobria | ✅ Colores vibrantes, diseño 3D, animaciones fluidas y **layout dinámico**. |
 | **Conectividad** | Localhost | ✅ Apertura automática usando la **IP de red** y QR dinámico para unión rápida. |
