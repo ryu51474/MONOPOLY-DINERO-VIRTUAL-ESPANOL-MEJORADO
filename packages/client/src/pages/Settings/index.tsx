@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, Table } from "react-bootstrap";
 import { useModal } from "react-modal-hook";
 import ConnectedStateDot from "../../components/ConnectedStateDot";
+import GameEndFlow from "../../components/GameEndFlow";
 import {
   formatCurrency,
   sortPlayersByName,
@@ -28,6 +29,16 @@ interface ISettingsProps {
   proposeUseFreeParkingChange: (useFreeParking: boolean) => void;
   proposeUseAuctionsChange: (useAuctions: boolean) => void;
   proposeGameEnd: () => void;
+  proposeGameSettlement: (mode: "solo" | "cadaQuien") => void;
+  submitSettlementResults: (playerCash: Record<string, number>, playerProperties: Record<string, string[]>) => void;
+  proposePropertyClaim: (propertyName: string, selected: boolean) => void;
+  proposePlayerFinalize: () => void;
+  forceEndSettlement: () => void;
+  playerClaims: Record<string, string[]>;
+  finalizedPlayers: string[];
+  settlementActive: boolean;
+  settlementMode: "solo" | "cadaQuien" | null;
+  settlementResults: { playerCash: Record<string, number>; playerProperties: Record<string, string[]> } | null;
 }
 
 const Settings: React.FC<ISettingsProps> = ({
@@ -35,15 +46,26 @@ const Settings: React.FC<ISettingsProps> = ({
   useFreeParking,
   useAuctions,
   players,
-  // playerId is used for authorization in parent component
+  playerId,
   proposePlayerNameChange,
   proposePlayerDelete,
   proposeGameOpenStateChange,
   proposeUseFreeParkingChange,
   proposeUseAuctionsChange,
-  proposeGameEnd
+  proposeGameEnd: _proposeGameEnd,
+  proposeGameSettlement,
+  submitSettlementResults,
+  proposePropertyClaim: _proposePropertyClaim,
+  proposePlayerFinalize: _proposePlayerFinalize,
+  forceEndSettlement: _forceEndSettlement,
+  playerClaims: _playerClaims,
+  finalizedPlayers: _finalizedPlayers,
+  settlementActive: _settlementActive,
+  settlementMode: _settlementMode,
+  settlementResults: _settlementResults
 }) => {
   const [actioningPlayer, setActioningPlayer] = useState<IGameStatePlayer | null>(null);
+  const [showSoloFlow, setShowSoloFlow] = useState(false);
   const [showNameChangeModal, hideNameChangeModal] = useModal(
     () => (
       <>
@@ -75,10 +97,14 @@ const Settings: React.FC<ISettingsProps> = ({
   const [showEndGameConfirmModal, hideEndGameConfirmModal] = useModal(
     () => (
       <>
-        <EndGameConfirmDialog proposeGameEnd={proposeGameEnd} onClose={hideEndGameConfirmModal} />
+        <EndGameConfirmDialog
+          onStartSolo={() => { setShowSoloFlow(true); }}
+          onStartEachPlayer={() => { proposeGameSettlement("cadaQuien"); }}
+          onClose={hideEndGameConfirmModal}
+        />
       </>
     ),
-    [actioningPlayer]
+    []
   );
 
   const toggleFreeParking = () => {
@@ -102,6 +128,29 @@ const Settings: React.FC<ISettingsProps> = ({
     }
     proposeGameOpenStateChange(!isGameOpen);
   };
+
+  // Render GameEndFlow for Solo mode (banker does it right here)
+  if (showSoloFlow) {
+    return (
+      <>
+        <GameEndFlow
+          mode="solo"
+          players={players}
+          playerId={playerId}
+          isBanker={true}
+          playerClaims={{}}
+          finalizedPlayers={[]}
+          settlementResults={null}
+          onClaimProperty={() => {}}
+          onFinalize={() => {}}
+          onSubmitResults={submitSettlementResults}
+        />
+        <div className="settings">
+          <p className="text-center text-muted">Inventario en curso...</p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <div className="settings">
@@ -198,4 +247,3 @@ const Settings: React.FC<ISettingsProps> = ({
 };
 
 export default Settings;
-

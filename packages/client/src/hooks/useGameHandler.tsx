@@ -16,6 +16,11 @@ export interface IGameHandlerState extends IGameState {
   playerId: string;
   isBanker: boolean;
   events: GameEvent[];
+  settlementActive: boolean;
+  settlementMode: "solo" | "cadaQuien" | null;
+  playerClaims: Record<string, string[]>;
+  finalizedPlayers: string[];
+  settlementResults: { playerCash: Record<string, number>; playerProperties: Record<string, string[]> } | null;
   actions: {
     proposeTransaction: (from: GameEntity, to: GameEntity, amount: number) => void;
     proposePlayerNameChange: (playerId: string, name: string) => void;
@@ -28,6 +33,11 @@ export interface IGameHandlerState extends IGameState {
     proposeAuctionBid: (bidderId: string, amount: number) => void;
     proposeAuctionEnd: (cancelled: boolean) => void;
     proposeGameEnd: () => void;
+    proposeGameSettlement: (mode: "solo" | "cadaQuien") => void;
+    proposePropertyClaim: (propertyName: string, selected: boolean) => void;
+    proposePlayerFinalize: () => void;
+    submitSettlementResults: (playerCash: Record<string, number>, playerProperties: Record<string, string[]>) => void;
+    forceEndSettlement: () => void;
   };
 }
 
@@ -107,6 +117,11 @@ const useGameHandler = (): {
             playerId: gameHandler.playerId,
             isBanker: gameHandler.amIABanker(),
             events: gameHandler.getEvents(),
+            settlementActive: gameHandler.settlementActive,
+            settlementMode: gameHandler.settlementMode,
+            playerClaims: gameHandler.playerClaims,
+            finalizedPlayers: gameHandler.finalizedPlayers,
+            settlementResults: gameHandler.settlementResults,
             actions: {
               proposeTransaction: gameHandler.proposeTransaction.bind(gameHandler),
               proposePlayerNameChange: gameHandler.proposePlayerNameChange.bind(gameHandler),
@@ -119,7 +134,12 @@ const useGameHandler = (): {
               proposeAuctionStart: gameHandler.proposeAuctionStart.bind(gameHandler),
               proposeAuctionBid: gameHandler.proposeAuctionBid.bind(gameHandler),
               proposeAuctionEnd: gameHandler.proposeAuctionEnd.bind(gameHandler),
-              proposeGameEnd: gameHandler.proposeGameEnd.bind(gameHandler)
+              proposeGameEnd: gameHandler.proposeGameEnd.bind(gameHandler),
+              proposeGameSettlement: gameHandler.proposeGameSettlement.bind(gameHandler),
+              proposePropertyClaim: gameHandler.proposePropertyClaim.bind(gameHandler),
+              proposePlayerFinalize: gameHandler.proposePlayerFinalize.bind(gameHandler),
+              submitSettlementResults: gameHandler.submitSettlementResults.bind(gameHandler),
+              forceEndSettlement: gameHandler.forceEndSettlement.bind(gameHandler)
             }
           }
   };

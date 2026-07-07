@@ -121,6 +121,16 @@ const App: React.FC = () => {
                 proposeAuctionBid={game.actions.proposeAuctionBid}
                 proposeAuctionEnd={game.actions.proposeAuctionEnd}
                 events={game.events}
+                settlementActive={game.settlementActive}
+                settlementMode={game.settlementMode}
+                playerClaims={game.playerClaims}
+                finalizedPlayers={game.finalizedPlayers}
+                settlementResults={game.settlementResults}
+                proposeGameSettlement={game.actions.proposeGameSettlement}
+                proposePropertyClaim={game.actions.proposePropertyClaim}
+                proposePlayerFinalize={game.actions.proposePlayerFinalize}
+                submitSettlementResults={game.actions.submitSettlementResults}
+                forceEndSettlement={game.actions.forceEndSettlement}
               />
             )
         : () => <NotFound />,
@@ -144,7 +154,7 @@ const App: React.FC = () => {
       game !== null
         ? () => wrapRoute(routePaths.history, <History events={game.events} />)
         : () => <NotFound />,
-[routePaths.settings]:
+    [routePaths.settings]:
       game !== null
         ? () =>
             wrapRoute(
@@ -161,6 +171,16 @@ const App: React.FC = () => {
                 proposeUseFreeParkingChange={game.actions.proposeUseFreeParkingChange}
                 proposeUseAuctionsChange={game.actions.proposeUseAuctionsChange}
                 proposeGameEnd={game.actions.proposeGameEnd}
+                proposeGameSettlement={game.actions.proposeGameSettlement}
+                submitSettlementResults={game.actions.submitSettlementResults}
+                proposePropertyClaim={game.actions.proposePropertyClaim}
+                proposePlayerFinalize={game.actions.proposePlayerFinalize}
+                forceEndSettlement={game.actions.forceEndSettlement}
+                playerClaims={game.playerClaims}
+                finalizedPlayers={game.finalizedPlayers}
+                settlementActive={game.settlementActive}
+                settlementMode={game.settlementMode}
+                settlementResults={game.settlementResults}
               />
             )
         : () => <NotFound />,

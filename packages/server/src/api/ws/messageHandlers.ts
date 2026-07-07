@@ -1,3 +1,4 @@
+import { PlayerId } from "@monopoly-money/game-state";
 import * as websocket from "ws";
 import gameStore from "../../gameStore";
 import { IncomingMessage } from "../dto";
@@ -150,5 +151,56 @@ export const heartBeat: MessageHandler = (ws, { gameId, userToken }, message) =>
   if (message.type === "heartBeat") {
     // No operations required
     return;
+  }
+};
+
+export const gameSettlement: MessageHandler = (ws, { gameId, userToken }, message) => {
+  if (message.type === "proposeGameSettlement") {
+    if (!isAuthenticated(ws, { gameId, userToken }) || gameId === null || userToken === null) return;
+    const game = gameStore.getGame(gameId);
+    const isPlayerBanker = game.isUserABanker(userToken);
+    if (isPlayerBanker) {
+      game.initSettlement(message.mode);
+    }
+  }
+};
+
+export const propertyClaim: MessageHandler = (ws, { gameId, userToken }, message) => {
+  if (message.type === "propertyClaim") {
+    if (!isAuthenticated(ws, { gameId, userToken }) || gameId === null || userToken === null) return;
+    const game = gameStore.getGame(gameId);
+    const playerId = game.getPlayerId(userToken) as PlayerId;
+    game.processPropertyClaim(playerId, message.propertyName, message.selected);
+  }
+};
+
+export const playerFinalize: MessageHandler = (ws, { gameId, userToken }, message) => {
+  if (message.type === "playerFinalize") {
+    if (!isAuthenticated(ws, { gameId, userToken }) || gameId === null || userToken === null) return;
+    const game = gameStore.getGame(gameId);
+    const playerId = game.getPlayerId(userToken) as PlayerId;
+    game.processPlayerFinalize(playerId);
+  }
+};
+
+export const settlementResults: MessageHandler = (ws, { gameId, userToken }, message) => {
+  if (message.type === "submitSettlementResults") {
+    if (!isAuthenticated(ws, { gameId, userToken }) || gameId === null || userToken === null) return;
+    const game = gameStore.getGame(gameId);
+    const isPlayerBanker = game.isUserABanker(userToken);
+    if (isPlayerBanker) {
+      game.submitResults(message.playerCash, message.playerProperties);
+    }
+  }
+};
+
+export const forceEndSettlement: MessageHandler = (ws, { gameId, userToken }, message) => {
+  if (message.type === "forceEndSettlement") {
+    if (!isAuthenticated(ws, { gameId, userToken }) || gameId === null || userToken === null) return;
+    const game = gameStore.getGame(gameId);
+    const isPlayerBanker = game.isUserABanker(userToken);
+    if (isPlayerBanker) {
+      game.forceEndSettlement();
+    }
   }
 };

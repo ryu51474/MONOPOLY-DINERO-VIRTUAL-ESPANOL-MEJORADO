@@ -18,6 +18,8 @@ import {
   IAuctionBidEvent,
   IAuctionEndEvent,
   IAuctionState,
+  IPlayerFinalResult,
+  IPlayerFinalProperty,
   PlayerId
 } from "./types";
 
@@ -42,5 +44,7 @@ export {
   IAuctionBidEvent,
   IAuctionEndEvent,
   IAuctionState,
+  IPlayerFinalResult,
+  IPlayerFinalProperty,
   PlayerId
 };

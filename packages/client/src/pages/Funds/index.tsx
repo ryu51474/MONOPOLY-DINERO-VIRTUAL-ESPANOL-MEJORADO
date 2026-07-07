@@ -14,6 +14,7 @@ import PlayerCard from "./PlayerCard";
 import RecentTransactions from "./RecentTransactions";
 import SendMoneyModal from "./SendMoneyModal";
 import AuctionComponent from "../../components/AuctionComponent";
+import GameEndFlow from "../../components/GameEndFlow";
 import { IAuctionState } from "@monopoly-money/game-state";
 
 interface IFundsProps {
@@ -30,6 +31,16 @@ interface IFundsProps {
   proposeAuctionBid: (bidderId: string, amount: number) => void;
   proposeAuctionEnd: (cancelled: boolean) => void;
   events: GameEvent[];
+  settlementActive: boolean;
+  settlementMode: "solo" | "cadaQuien" | null;
+  playerClaims: Record<string, string[]>;
+  finalizedPlayers: string[];
+  settlementResults: { playerCash: Record<string, number>; playerProperties: Record<string, string[]> } | null;
+  proposeGameSettlement: (mode: "solo" | "cadaQuien") => void;
+  proposePropertyClaim: (propertyName: string, selected: boolean) => void;
+  proposePlayerFinalize: () => void;
+  submitSettlementResults: (playerCash: Record<string, number>, playerProperties: Record<string, string[]>) => void;
+  forceEndSettlement: () => void;
 }
 
 const Funds: React.FC<IFundsProps> = ({
@@ -45,7 +56,17 @@ const Funds: React.FC<IFundsProps> = ({
   proposeAuctionStart,
   proposeAuctionBid,
   proposeAuctionEnd,
-  events
+  events,
+  settlementActive,
+  settlementMode,
+  playerClaims,
+  finalizedPlayers,
+  settlementResults,
+  proposeGameSettlement: _proposeGameSettlement,
+  proposePropertyClaim,
+  proposePlayerFinalize,
+  submitSettlementResults,
+  forceEndSettlement
 }) => {
   const [recipient, setRecipient] = useState<IGameStatePlayer | "freeParking" | "bank" | null>(
     null
@@ -79,12 +100,46 @@ const Funds: React.FC<IFundsProps> = ({
   const me = players.find((p) => p.playerId === playerId);
   const isBanker = me?.banker ?? false;
 
-  // Note: We now use the deterministic getPlayerEmoji function directly
-  // This ensures all devices see the same emoji for each playerId
-  // No localStorage state needed for emojis anymore
-
   // Detectar transacciones y mostrar notificaciones
   useTransactionDetection({ events, players, currentPlayerId: playerId, gameId });
+
+  // Show GameEndFlow results when received (covers solo non-banker players)
+  if (settlementResults) {
+    return (
+      <GameEndFlow
+        mode={settlementMode === "cadaQuien" ? "cadaQuien" : "solo"}
+        players={players}
+        playerId={playerId}
+        isBanker={isBanker}
+        playerClaims={playerClaims}
+        finalizedPlayers={finalizedPlayers}
+        settlementResults={settlementResults}
+        onClaimProperty={proposePropertyClaim}
+        onFinalize={proposePlayerFinalize}
+        onSubmitResults={submitSettlementResults}
+        onForceEnd={forceEndSettlement}
+      />
+    );
+  }
+
+  // If settlement is active in cadaQuien mode (no results yet), show GameEndFlow
+  if (settlementActive && settlementMode === "cadaQuien") {
+    return (
+      <GameEndFlow
+        mode="cadaQuien"
+        players={players}
+        playerId={playerId}
+        isBanker={isBanker}
+        playerClaims={playerClaims}
+        finalizedPlayers={finalizedPlayers}
+        settlementResults={null}
+        onClaimProperty={proposePropertyClaim}
+        onFinalize={proposePlayerFinalize}
+        onSubmitResults={submitSettlementResults}
+        onForceEnd={forceEndSettlement}
+      />
+    );
+  }
 
   return (
     <div className="funds">

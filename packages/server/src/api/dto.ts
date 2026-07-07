@@ -22,7 +22,12 @@ export type IncomingMessage =
   | IAuthMessage
   | IProposeEventMessage
   | IProposeEndGameMessage
-  | IHeartBeatMessage;
+  | IHeartBeatMessage
+  | IProposeGameSettlementMessage
+  | IPropertyClaimMessage
+  | IPlayerFinalizeMessage
+  | ISubmitSettlementResultsMessage
+  | IForceEndSettlementMessage;
 
 export interface IAuthMessage {
   type: "auth";
@@ -43,9 +48,43 @@ export interface IHeartBeatMessage {
   type: "heartBeat";
 }
 
+// Settlement messages
+
+export interface IProposeGameSettlementMessage {
+  type: "proposeGameSettlement";
+  mode: "solo" | "cadaQuien";
+}
+
+export interface IPropertyClaimMessage {
+  type: "propertyClaim";
+  propertyName: string;
+  selected: boolean;
+}
+
+export interface IPlayerFinalizeMessage {
+  type: "playerFinalize";
+}
+
+export interface ISubmitSettlementResultsMessage {
+  type: "submitSettlementResults";
+  playerCash: Record<string, number>;
+  playerProperties: Record<string, string[]>;
+}
+
+export interface IForceEndSettlementMessage {
+  type: "forceEndSettlement";
+}
+
 // Websocket Outgoing Message Types (server => client)
 
-export type OutgoingMessage = IInitialEventArrayMessage | INewEventMessage | IGameEndMessage;
+export type OutgoingMessage =
+  | IInitialEventArrayMessage
+  | INewEventMessage
+  | IGameEndMessage
+  | IGameSettlementStartMessage
+  | IPropertyClaimUpdateMessage
+  | IPlayerFinalizedMessage
+  | IGameEndResultsMessage;
 
 export interface IInitialEventArrayMessage {
   type: "initialEventArray";
@@ -59,4 +98,27 @@ export interface INewEventMessage {
 
 export interface IGameEndMessage {
   type: "gameEnd";
+}
+
+export interface IGameSettlementStartMessage {
+  type: "gameSettlementStart";
+  mode: "solo" | "cadaQuien";
+}
+
+export interface IPropertyClaimUpdateMessage {
+  type: "propertyClaimUpdate";
+  playerId: string;
+  propertyName: string;
+  selected: boolean;
+}
+
+export interface IPlayerFinalizedMessage {
+  type: "playerFinalized";
+  playerId: string;
+}
+
+export interface IGameEndResultsMessage {
+  type: "gameEndResults";
+  playerCash: Record<string, number>;
+  playerProperties: Record<string, string[]>;
 }

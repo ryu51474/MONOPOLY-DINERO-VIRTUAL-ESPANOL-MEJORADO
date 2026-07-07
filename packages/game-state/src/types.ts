@@ -126,3 +126,22 @@ export interface IPlayerConnectionChangeEvent extends IGameEvent {
   playerId: PlayerId;
   connected: boolean;
 }
+
+// Game end settlement types
+
+export interface IPlayerFinalProperty {
+  name: string;
+  value: number;
+  color: string;
+  hex: string;
+}
+
+export interface IPlayerFinalResult {
+  playerId: PlayerId;
+  name: string;
+  cash: number;
+  properties: IPlayerFinalProperty[];
+  propertyTotal: number;
+  grandTotal: number;
+  rank: number;
+}

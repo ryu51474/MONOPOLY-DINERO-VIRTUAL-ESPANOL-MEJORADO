@@ -59,6 +59,13 @@ Esta versión no es solo una traducción, es una reconstrucción orientada a la 
   - Precios fijos según el color (reglas estándar de Monopoly)
   - Pujas en tiempo real (+10, +50, +100, +500)
   - El banquero finaliza la subasta y el dinero se descuenta automáticamente del ganador
+- 🏆 **Inventario de Propiedades al Finalizar** - Sistema completo para cerrar la partida:
+  - **Dos modos**: el banquero hace el inventario manualmente (Solo) o cada jugador desde su dispositivo (Cada Quien)
+  - **Mini-mapa visual**: 28 propiedades individuales organizadas en una cuadrícula por color, como el tablero real
+  - **Selección tipo billetes**: un clic selecciona la propiedad (se vuelve gris) y suma su valor al total
+  - **Sincronización en vivo**: en modo Cada Quien, todos ven quién seleccionó cada propiedad con su emoji identificador
+  - **Ranking final**: tabla comparativa con dinero, propiedades, total general y podio (🥇, 🥈, 🥉)
+  - **Propiedades no seleccionadas**: se muestran al final como "No seleccionadas"
 - 🚀 **Inicio Rápido** - Scripts autoejecutables para iniciar el juego sin comandos complicados
 - 🌐 **Apertura Automática** - El navegador se abre automáticamente en la dirección correcta al iniciar
 

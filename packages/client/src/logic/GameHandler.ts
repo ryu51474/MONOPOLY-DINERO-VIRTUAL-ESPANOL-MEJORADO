@@ -41,6 +41,14 @@ class GameHandler {
   private gameState: IGameState = defaultGameState;
   private heartBeatTimeout: NodeJS.Timeout | null = null;
 
+  // Settlement state
+  public settlementActive: boolean = false;
+  public settlementMode: "solo" | "cadaQuien" | null = null;
+  public playerClaims: Record<string, string[]> = {};
+  public finalizedPlayers: string[] = [];
+  public settlementResults: { playerCash: Record<string, number>; playerProperties: Record<string, string[]> } | null = null;
+  public receivedEndResults: boolean = false;
+
   constructor(
     gameId: string,
     userToken: string,
@@ -75,7 +83,7 @@ class GameHandler {
 
     // Handle websocket close
     this.webSocket.addEventListener("close", (event) => {
-      if (!event.wasClean) {
+      if (!event.wasClean && !this.receivedEndResults) {
         this.gameEnd("unexpectedWebSocketClosure");
         this.onGameStateChange(true);
       }
@@ -242,6 +250,30 @@ class GameHandler {
     this.webSocket.send(JSON.stringify(message));
   }
 
+  // Settlement phase methods
+  public proposeGameSettlement(mode: "solo" | "cadaQuien") {
+    this.webSocket.send(JSON.stringify({ type: "proposeGameSettlement", mode }));
+  }
+
+  public proposePropertyClaim(propertyName: string, selected: boolean) {
+    this.webSocket.send(JSON.stringify({ type: "propertyClaim", propertyName, selected }));
+  }
+
+  public proposePlayerFinalize() {
+    this.webSocket.send(JSON.stringify({ type: "playerFinalize" }));
+  }
+
+  public submitSettlementResults(
+    playerCash: Record<string, number>,
+    playerProperties: Record<string, string[]>
+  ) {
+    this.webSocket.send(JSON.stringify({ type: "submitSettlementResults", playerCash, playerProperties }));
+  }
+
+  public forceEndSettlement() {
+    this.webSocket.send(JSON.stringify({ type: "forceEndSettlement" }));
+  }
+
   // When the game ends or player was kicked
   public gameEnd = (reason: "end" | "removed" | "unexpectedWebSocketClosure" | null) => {
     this.webSocket.close();
@@ -285,6 +317,31 @@ class GameHandler {
       this.gameState = calculateGameState([incomingMessage.event], this.gameState);
     } else if (incomingMessage.type === "gameEnd") {
       this.gameEnd("end");
+    } else if (incomingMessage.type === "gameSettlementStart") {
+      this.settlementActive = true;
+      this.settlementMode = incomingMessage.mode;
+      this.playerClaims = {};
+      this.finalizedPlayers = [];
+      this.settlementResults = null;
+      this.receivedEndResults = false;
+    } else if (incomingMessage.type === "propertyClaimUpdate") {
+      const playerId = incomingMessage.playerId;
+      const propName = incomingMessage.propertyName;
+      if (incomingMessage.selected) {
+        const current = this.playerClaims[playerId] || [];
+        if (!current.includes(propName)) {
+          this.playerClaims[playerId] = [...current, propName];
+        }
+      } else {
+        this.playerClaims[playerId] = (this.playerClaims[playerId] || []).filter(p => p !== propName);
+      }
+    } else if (incomingMessage.type === "playerFinalized") {
+      if (!this.finalizedPlayers.includes(incomingMessage.playerId)) {
+        this.finalizedPlayers.push(incomingMessage.playerId);
+      }
+    } else if (incomingMessage.type === "gameEndResults") {
+      this.settlementResults = { playerCash: incomingMessage.playerCash, playerProperties: incomingMessage.playerProperties };
+      this.receivedEndResults = true;
     }
 
     // Check if this player has been kicked

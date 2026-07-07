@@ -11,8 +11,12 @@ import {
 import * as websocket from "ws";
 import {
   IGameEndMessage,
+  IGameEndResultsMessage,
+  IGameSettlementStartMessage,
   IInitialEventArrayMessage,
   INewEventMessage,
+  IPlayerFinalizedMessage,
+  IPropertyClaimUpdateMessage,
   OutgoingMessage
 } from "../api/dto";
 import { generateRandomId, generateTimeBasedId, getCurrentTime } from "./utils";
@@ -22,6 +26,12 @@ export default class Game {
   private subscribedWebSockets: Record<string, websocket> = {}; // playerId: event websocket
   private userTokenToPlayers: Record<string, PlayerId> = {}; // A mapping of ids only known by a user to match to a player
   private gameState: IGameState = defaultGameState;
+
+  private settlementState: {
+    mode: "solo" | "cadaQuien";
+    playerClaims: Record<string, string[]>;
+    finalizedPlayers: string[];
+  } | null = null;
 
   private deleteInstance: () => void;
 
@@ -143,6 +153,79 @@ export default class Game {
     if (bankerPlayers.length === 0) {
       this.endGame();
     }
+  };
+
+  // Settlement phase methods
+  public initSettlement = (mode: "solo" | "cadaQuien") => {
+    this.settlementState = { mode, playerClaims: {}, finalizedPlayers: [] };
+    const message: IGameSettlementStartMessage = { type: "gameSettlementStart", mode };
+    this.sendMessageToAllInGame(message);
+  };
+
+  public processPropertyClaim = (playerId: string, propertyName: string, selected: boolean) => {
+    if (!this.settlementState || this.settlementState.mode !== "cadaQuien") return;
+    if (selected) {
+      const current = this.settlementState.playerClaims[playerId] || [];
+      if (!current.includes(propertyName)) {
+        this.settlementState.playerClaims[playerId] = [...current, propertyName];
+      }
+    } else {
+      this.settlementState.playerClaims[playerId] = (
+        this.settlementState.playerClaims[playerId] || []
+      ).filter(p => p !== propertyName);
+    }
+    const message: IPropertyClaimUpdateMessage = {
+      type: "propertyClaimUpdate", playerId, propertyName, selected
+    };
+    this.sendMessageToAllInGame(message);
+  };
+
+  public processPlayerFinalize = (playerId: string) => {
+    if (!this.settlementState || this.settlementState.mode !== "cadaQuien") return;
+    if (!this.settlementState.finalizedPlayers.includes(playerId)) {
+      this.settlementState.finalizedPlayers.push(playerId);
+    }
+    const message: IPlayerFinalizedMessage = { type: "playerFinalized", playerId };
+    this.sendMessageToAllInGame(message);
+    if (this.settlementState.finalizedPlayers.length >= this.gameState.players.length) {
+      this.computeAndSendResults();
+    }
+  };
+
+  public submitResults = (
+    playerCash: Record<string, number>,
+    playerProperties: Record<string, string[]>
+  ) => {
+    const message: IGameEndResultsMessage = {
+      type: "gameEndResults",
+      playerCash,
+      playerProperties
+    };
+    this.sendMessageToAllInGame(message);
+    this.endGameAfterResults();
+  };
+
+  public forceEndSettlement = () => {
+    if (!this.settlementState) return;
+    this.computeAndSendResults();
+  };
+
+  private computeAndSendResults = () => {
+    if (!this.settlementState) return;
+    const playerCash: Record<string, number> = {};
+    this.gameState.players.forEach(p => { playerCash[p.playerId] = p.balance; });
+    const message: IGameEndResultsMessage = {
+      type: "gameEndResults",
+      playerCash,
+      playerProperties: this.settlementState.playerClaims
+    };
+    this.sendMessageToAllInGame(message);
+    this.endGameAfterResults();
+  };
+
+  private endGameAfterResults = () => {
+    Object.values(this.subscribedWebSockets).forEach(ws => ws.close());
+    this.deleteInstance();
   };
 
   // Remove a player

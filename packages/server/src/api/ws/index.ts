@@ -6,14 +6,29 @@ import { IUserData } from "../types";
 import {
   MessageHandler,
   authMessage,
+  forceEndSettlement,
+  gameSettlement,
   heartBeat,
   onMessageStreamClosed,
+  playerFinalize,
+  propertyClaim,
   proposeEndGame,
-  proposeEvent
+  proposeEvent,
+  settlementResults
 } from "./messageHandlers";
 
 // Functions that take a message and decide whether to act on it
-const messageHandlers: MessageHandler[] = [authMessage, proposeEvent, proposeEndGame, heartBeat];
+const messageHandlers: MessageHandler[] = [
+  authMessage,
+  proposeEvent,
+  proposeEndGame,
+  heartBeat,
+  gameSettlement,
+  propertyClaim,
+  playerFinalize,
+  settlementResults,
+  forceEndSettlement
+];
 
 // Setup the websocket API
 const setupWebsocketAPI = (server: http.Server | https.Server) => {
